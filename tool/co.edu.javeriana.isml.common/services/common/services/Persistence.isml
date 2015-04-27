@@ -1,0 +1,80 @@
+package common.services
+
+/**
+ * This service provides the basic methods to access a persistent object storage.
+ * In this context, entities are referred as 'objects'.
+ */
+service Persistence < T > {
+/** 
+	 * Deletes an object from the database.
+	 * @param obj The object to delete
+	 */
+	native Void remove(T obj)
+	/** 
+	 * Deletes an object from the database.
+	 * @param id The id of the object to delete
+	 */
+	native Void remove(Integer id)
+	/** 
+	 * Creates a new object in the database.
+	 * @param obj The object to create
+	 */
+	native Void create(T obj)
+	/**
+	 * Returns all the objects of type T in the database.
+	 */
+	native Array < T > findAll()
+	/**
+	 * Returns all the objects of type T in the database, except the given collection.
+	 * @param elementsToExclude The instances to not retrieve from the database
+	 */
+	native Array < T > findAllExcept(Collection < T > elementsToExclude)
+
+	/**
+	 * Determines if an object has already been saved in the database or not.
+	 */
+	native Boolean isPersistent(T obj)
+
+	/** Finds an object by its id.
+	 * @param id The id of the object to find
+	 */
+	native T find(Integer id)
+
+	/** 
+	 * Saves an already persistent object in the database.
+	 * @param obj The object to save
+	 */
+	native Void edit(T obj)
+
+	// TODO Document
+	native Array < T > findRange(Integer rangeSize, Integer from)
+
+	/**
+	 * Returns the number of objects of type T in the database.
+	 */
+	native Integer count()
+
+	/**
+	 * Adds an object to a collection that belongs to another object and saves the result in the database.
+	 * @param container The object that contains the collection
+	 * @param collection The collection that is owned by container
+	 * @param obj The object to add to collection
+	 */
+	native Void addToCollection(Any container, Collection < T > collection, T obj)
+
+	/**
+	 * Removes an object from a collection that belongs to another object and saves the result in the database.
+	 * @param container The object that contains the collection
+	 * @param collection The collection that is owned by container
+	 * @param obj The object to add to collection
+	 */
+	native Void removeFromCollection(Any container, Collection < T > collection, T obj)
+	
+	/** 
+	 * Assigns an object to an attribute of another object
+	 * @param container The object that has the attribute
+	 * @param attribute The name of the attribute to assign
+	 * @param obj The object to assign to the attribute
+	 */
+	native Void assignToAttribute(Any container, String attribute, T obj)
+}

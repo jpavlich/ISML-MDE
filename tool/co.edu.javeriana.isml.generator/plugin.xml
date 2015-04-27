@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="co.edu.javeriana.isml.generator" name="GeneratorSuiteExtension" schema="schema/co.edu.javeriana.isml.generator.exsd"/>
+
+</plugin>

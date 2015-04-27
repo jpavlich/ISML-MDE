@@ -1,0 +1,25 @@
+<project name="isml" default="default">
+	<description>
+
+	</description>
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" depends="depends" description="">
+		<mkdir dir="src-gen" />
+		<mkdir dir="xtend-gen" />
+		<mkdir dir="../co.edu.javeriana.isml.tests/src-gen" />
+		<mkdir dir="../co.edu.javeriana.isml.tests/xtend-gen" />
+		<mkdir dir="../co.edu.javeriana.isml.generator.crud/xtend-gen" />
+		<mkdir dir="../co.edu.javeriana.isml.generator.ui/xtend-gen" />
+		<mkdir dir="../co.edu.javeriana.isml.ui/src-gen" />
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+	</target>
+
+</project>

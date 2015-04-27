@@ -1,0 +1,34 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: co.edu.javeriana.isml.generator.ui
+Bundle-SymbolicName: co.edu.javeriana.isml.generator.ui;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: co.edu.javeriana.isml.generator.ui.Activator
+Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types,
+ org.eclipse.core.runtime,
+ co.edu.javeriana.isml;bundle-version="1.0.0",
+ co.edu.javeriana.isml.ui,
+ org.eclipse.xtext.ui,
+ co.edu.javeriana.isml.generator
+Import-Package: 
+ org.apache.log4j,
+ org.eclipse.jface.dialogs,
+ org.eclipse.ui.plugin,
+ org.eclipse.xtext.builder,
+ org.eclipse.xtext.ui.shared,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.xtext.ecoreInference
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+

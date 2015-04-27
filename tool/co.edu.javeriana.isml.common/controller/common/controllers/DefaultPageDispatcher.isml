@@ -1,0 +1,20 @@
+package common.controllers
+
+/**
+ * Decides the default pages to redirect to in order to
+ * perform specific actions (edit, view, list, etc.)
+ */
+controller DefaultPageDispatcher {
+	/**
+	 * Redirects to the default page to edit an entity
+	 */
+	native edit(Any ent)
+	/**
+	 * Redirects to the default view to edit an entity
+	 */
+	native view(Any ent)
+	/**
+	 * Redirects to the default list to a collection of entity
+	 */
+	native list(Collection<Any> list)
+}

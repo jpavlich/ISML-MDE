@@ -1,0 +1,24 @@
+  ISML Generator
+  Copyright 2015 Pontificia Universidad Javeriana
+
+  This product includes software developed at
+  The Apache Software Foundation (http://www.apache.org/).
+
+  This product includes software developed at
+  The Eclipse Foundation (http://eclipse.org/)
+  
+  This product includes software developed at
+  Google (http://google.com/)  
+  
+  This product includes software developed at
+  IBM (http://ibm.com/)  
+  
+  This product includes software developed at
+  INRIA (http://www.inria.fr/)  
+  
+  This product includes software developed by
+  Terence Parr (http://parrt.cs.usfca.edu/)  
+
+  This product includes software developed at
+  Oracle (http://oracle.com/)  
+  

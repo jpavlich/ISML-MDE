@@ -1,0 +1,42 @@
+package common.primitives
+
+primitive Any
+primitive Null
+primitive Void
+
+ 
+primitive String
+primitive Integer
+primitive Float
+primitive Boolean
+primitive Long extends Integer
+primitive BytesArray
+
+abstract primitive Collection<T>
+primitive Array<T> extends Collection<T>
+primitive Set<T> extends Collection<T>
+primitive Queue<T> extends Collection<T>
+primitive Stack<T> extends Collection<T>
+
+abstract primitive Map<K, V>
+primitive OrderedMap<K,V> extends Map<K,V>
+primitive UnorderedMap<K,V> extends Map<K,V>
+primitive LinkedMap<K,V> extends Map<K,V>
+
+
+primitive Email
+primitive Date
+primitive Time
+primitive DateTime
+
+primitive Type<T>
+
+primitive Block
+
+page AnyPage controlledBy AnyController
+controller AnyController {}
+
+widget AnyWidget
+
+
+primitive Actor
