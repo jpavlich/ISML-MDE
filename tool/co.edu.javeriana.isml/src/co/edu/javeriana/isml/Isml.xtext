@@ -1,15 +1,14 @@
 grammar co.edu.javeriana.isml.Isml with org.eclipse.xtext.common.Terminals
 
 import "http://www.javeriana.edu.co/isml/Isml"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 InformationSystem:
 	components+=Package+;
 
 Package:
 	'package' name=QualifiedName
-	imports+=Import*
-	('resources' '{' components+=Resource* '}')?
-	components+=(Entity | DTO | View | Controller | Primitive | Constraint | ResourceBundle | Actor | Service | Enum)*;
+	imports+=Import* ('resources' '{' components+=Resource* '}')? components+=(Entity | DTO | View | Controller | Primitive | Constraint | ResourceBundle | Actor | Service | Enum)*;
 
 Import:
 	'import' importedPackage=[Package|QualifiedName] '.*';
@@ -30,13 +29,10 @@ ResourceAssignment:
 
 	// Types
 Entity:
-	(abstract?='abstract')? 'entity' name=UPPER_CASE_ID
-	('extends' superTypes+=Type (',' superTypes+=Type)*)?
-	('{' parameters+=Attribute* '}')?;
+	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=Attribute* '}')?;
 
 DTO:
-	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
-	('{' parameters+=DTOAttribute* '}')?;
+	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=DTOAttribute* '}')?;
 
 DTOAttribute returns Attribute:
 	type=Type name=LOWER_CASE_ID;
@@ -51,7 +47,7 @@ Parameter:
 	type=Type name=LOWER_CASE_ID;
 
 Type:
-	=> ParameterizedType | SimpleType;
+	ParameterizedType | SimpleType;
 
 ParameterizedType:
 	typeSpecification=[TypeSpecification|UPPER_CASE_ID] => '<' typeParameters+=Type (',' typeParameters+=Type)* '>';
@@ -74,25 +70,19 @@ ConstraintType returns Type:
 
 Primitive:
 	abstract?='abstract'? 'primitive'
-	name=UPPER_CASE_ID
-	('<' (genericTypeParameters+=GenericTypeSpecification (',' genericTypeParameters+=GenericTypeSpecification)*)? '>')?
-	('extends' superTypes+=Type)?;
+	name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (',' genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?;
 
 GenericTypeSpecification:
 	name=UPPER_CASE_ID ('extends' superType=Type)?;
 
 Service:
-	'service' name=UPPER_CASE_ID
-	('<' (genericTypeParameters+=GenericTypeSpecification (',' genericTypeParameters+=GenericTypeSpecification)*)? '>')?
-	('extends' superTypes+=Type /* (',' superTypes+=Type)* */)?
-	'{'
-	(('before' before=Block)? &
-	('after' after=Block)?)
-	parameters+=Feature*
+	'service' name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (',' genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?
+	/* (',' superTypes+=Type)* */
+	'{' (('before' before=Block)? & ('after' after=Block)?) parameters+=Feature*
 	'}';
 
 Feature:
-	=> Method | Attribute;
+	Method | Attribute;
 
 	//Interface:
 //	'interface' name=UPPER_CASE_ID
@@ -114,8 +104,7 @@ Constraint:
 	'constraint' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?;
 
 Actor:
-	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
-	('{' parameters+=Attribute* '}')?;
+	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=Attribute* '}')?;
 
 Action:
 	default?='default'? name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' body=Block
@@ -138,14 +127,10 @@ View:
 	Page | Widget;
 
 Page:
-	'page' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?
-	'controlledBy' controller=[Controller|QualifiedName]
-	(body=ViewBlock)?;
+	'page' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? 'controlledBy' controller=[Controller|QualifiedName] body=ViewBlock?;
 
 Widget:
-	'widget' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?
-	('controlledBy' controller=[Controller|QualifiedName])?
-	(body=ViewBlock)?;
+	'widget' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ('controlledBy' controller=[Controller|QualifiedName])? body=ViewBlock?;
 
 ViewStatement:
 	IfView | ForView | ViewInstance;
@@ -172,8 +157,7 @@ ViewInstanceNoAction returns ViewInstance:
 	(name=LOWER_CASE_ID '=')? type=WidgetType ('(' parameters+=Expression (',' parameters+=Expression)* ')')?;
 
 ViewInstance:
-	ViewInstanceNoAction (actionCall=ActionCall)?
-	(parameters+=ViewBlockWithBrackets | '{' parameters+=NamedViewBlock+ '}')?;
+	ViewInstanceNoAction actionCall=ActionCall? (parameters+=ViewBlockWithBrackets | '{' parameters+=NamedViewBlock+ '}')?;
 
 NamedViewBlock returns ViewBlock:
 	name=LOWER_CASE_ID ':' ('{' statements+=ViewStatement* '}' | statements+=ViewStatement);
@@ -190,8 +174,7 @@ Statement:
 	Variable | If | While | Show | For | ActionCall | OperatorStatement;
 
 OperatorStatement returns Statement:
-	Reference (({Assignment.left=current})
-	(symbol='=' |
+	Reference ({Assignment.left=current} (symbol='=' |
 	symbol='+=' |
 	symbol='-=' |
 	symbol='*=' |
@@ -199,8 +182,7 @@ OperatorStatement returns Statement:
 
 If:
 	{If} 'if' '(' condition=Expression ')'
-	body=Block
-	(=> 'else' elseBody=Block)?;
+	body=Block ("else" elseBody=Block)?;
 
 While:
 	{While} 'while' '(' condition=Expression ')'
@@ -226,8 +208,7 @@ Negation returns Expression:
 	Comparison | {UnaryOperator} symbol='not' expression=Negation;
 
 Comparison returns Expression:
-	ArithmeticExpression
-	({BinaryOperator.left=current}
+	ArithmeticExpression ({BinaryOperator.left=current}
 	(symbol='<=' |
 	symbol='>=' |
 	symbol='>' |
@@ -242,8 +223,7 @@ ArithmeticExpression returns Expression:
 	Term ({BinaryOperator.left=current} (symbol='+' | symbol='-') right=Term)*;
 
 Term returns Expression:
-	Negative
-	({BinaryOperator.left=current} (symbol='*' | symbol='/' | symbol='%') right=Negative)*;
+	Negative ({BinaryOperator.left=current} (symbol='*' | symbol='/' | symbol='%') right=Negative)*;
 
 Negative returns Expression:
 	Factor | {UnaryOperator} '-' expression=Negative;
@@ -314,12 +294,11 @@ ResourceName:
 QualifiedName:
 	(LOWER_CASE_ID | UPPER_CASE_ID) ('.' (LOWER_CASE_ID | UPPER_CASE_ID))*;
 
-terminal UPPER_CASE_ID:
-	('A'..'Z') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
+terminal UPPER_CASE_ID returns ecore::EString:
+	'A'..'Z' ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
-terminal LOWER_CASE_ID:
+terminal LOWER_CASE_ID returns ecore::EString:
 	('a'..'z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
-terminal LINE:
+terminal LINE returns ecore::EString:
 	'--' '-'*;
-	

@@ -11,7 +11,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//InformationSystem/packages"/>
     </genClasses>
     <genClasses ecoreClass="Isml.ecore#//Package">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//Package/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//NamedElement/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Package/imports"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Package/resources"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Package/elements"/>
@@ -23,7 +23,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//Element/name"/>
     </genClasses>
     <genClasses ecoreClass="Isml.ecore#//Resource">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//Resource/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//NamedElement/name"/>
     </genClasses>
     <genClasses ecoreClass="Isml.ecore#//ResourceBundle">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//ResourceBundle/itemInstances"/>
@@ -39,7 +39,7 @@
     </genClasses>
     <genClasses ecoreClass="Isml.ecore#//TypedElement">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Isml.ecore#//TypedElement/type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//TypedElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//NamedElement/name"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//TypedElement/cardinality"/>
     </genClasses>
     <genClasses ecoreClass="Isml.ecore#//Parameter"/>
@@ -78,7 +78,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Isml.ecore#//Association/dst"/>
     </genClasses>
     <genClasses ecoreClass="Isml.ecore#//View">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//View/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Function/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Isml.ecore#//View/controller"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//View/parts"/>
     </genClasses>

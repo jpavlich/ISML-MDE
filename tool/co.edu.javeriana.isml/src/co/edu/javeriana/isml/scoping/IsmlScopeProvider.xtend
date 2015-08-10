@@ -161,7 +161,7 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def is(IEObjectDescription desc, Class<? extends EObject> c) {
-		c.isInstance(desc.EObjectOrProxy)
+		c.isInstance(desc.getEObjectOrProxy)
 	}
 
 //	def IScope scope_Type_typeSpecification(Type t, EReference ref) {

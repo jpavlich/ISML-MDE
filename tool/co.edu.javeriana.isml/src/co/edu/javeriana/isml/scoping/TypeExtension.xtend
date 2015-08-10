@@ -306,7 +306,7 @@ class TypeExtension {
 		val resourceDescriptions = resourceDescriptionsProvider.getResourceDescriptions(resourceSet);
 		val instances = new LinkedHashSet<T>
 		for (resourceDescription : resourceDescriptions.allResourceDescriptions) {
-			val r = resourceSet.getResource(resourceDescription.URI, true)
+			val r = resourceSet.getResource(resourceDescription.getURI, true)
 			for (o : r.allContents.filter(obj.class).toIterable) {
 				if (o.eIsProxy) {
 					val resolved = EcoreUtil2.resolve(o, obj.eResource.resourceSet) as T
@@ -334,7 +334,7 @@ class TypeExtension {
 		val instances = new LinkedHashSet<T>
 
 		for (resourceDescription : resourceDescriptions.allResourceDescriptions) {
-			val res = resourceSet.getResource(resourceDescription.URI, true)
+			val res = resourceSet.getResource(resourceDescription.getURI, true)
 			for (o : res.allContents.filter(c).toIterable) {
 				if (o.eIsProxy) {
 					val resolved = EcoreUtil2.resolve(o, resourceSet)
@@ -351,7 +351,7 @@ class TypeExtension {
 
 	def Iterable<IEObjectDescription> filterByClass(Iterable<IEObjectDescription> descriptions, Class<?> c) {
 		return descriptions.filter [ _ |
-			c.isInstance(_.EObjectOrProxy)
+			c.isInstance(_.getEObjectOrProxy)
 		]
 	}
 
