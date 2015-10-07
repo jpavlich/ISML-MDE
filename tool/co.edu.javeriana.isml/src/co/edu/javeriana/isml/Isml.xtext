@@ -16,7 +16,7 @@ Import:
 Resource:
 	name=ResourceName;
 
-ResourceBundle:
+ResourceBundle: 
 	'resourceBundle' name=UPPER_CASE_ID '{'
 	body=ResourceBundleBlock
 	'}';
@@ -47,7 +47,7 @@ Parameter:
 	type=Type name=LOWER_CASE_ID;
 
 Type:
-	ParameterizedType | SimpleType;
+	=> ParameterizedType | SimpleType;
 
 ParameterizedType:
 	typeSpecification=[TypeSpecification|UPPER_CASE_ID] => '<' typeParameters+=Type (',' typeParameters+=Type)* '>';
@@ -82,7 +82,7 @@ Service:
 	'}';
 
 Feature:
-	Method | Attribute;
+	=> Method | Attribute;
 
 	//Interface:
 //	'interface' name=UPPER_CASE_ID

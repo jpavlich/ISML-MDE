@@ -1282,7 +1282,6 @@
   <semanticResources>java:/Objects/org.eclipse.xtext.preferences.MapBasedPreferenceValues</semanticResources>
   <semanticResources>java:/Objects/org.eclipse.xtext.preferences.ITypedPreferenceValues</semanticResources>
   <semanticResources>java:/Objects/org.eclipse.xtext.preferences.TypedPreferenceKey</semanticResources>
-  <semanticResources>src-gen/co/edu/javeriana/isml/Isml.xtextbin</semanticResources>
   <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ArrayLiterals</semanticResources>
   <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.InputOutput</semanticResources>
   <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.BigDecimalExtensions</semanticResources>
@@ -1301,6 +1300,7 @@
   <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ProcedureExtensions</semanticResources>
   <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ShortExtensions</semanticResources>
   <semanticResources>java:/Objects/java.lang.Short</semanticResources>
+  <semanticResources>src-gen/co/edu/javeriana/isml/Isml.xtextbin</semanticResources>
   <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_dtWroD-gEeWi8PyAKFYRbA">
     <ownedRepresentations xmi:type="diagram:DSemanticDiagram" xmi:id="_9II94D-oEeWmJZDPLOQssQ" name="isml core">
       <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_9II94T-oEeWmJZDPLOQssQ" source="DANNOTATION_CUSTOMIZATION_KEY">
@@ -3270,7 +3270,7 @@
             </children>
             <styles xmi:type="notation:ConnectorStyle" xmi:id="_CeVUlz-rEeWmJZDPLOQssQ" routing="Tree"/>
             <styles xmi:type="notation:FontStyle" xmi:id="_CeVUmD-rEeWmJZDPLOQssQ" fontName="Droid Sans" fontHeight="8"/>
-            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_CeVUmT-rEeWmJZDPLOQssQ" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_CeVUmT-rEeWmJZDPLOQssQ" points="[0, 49, 340, 46]$[0, 71, 340, 68]$[-339, 71, 1, 68]$[-339, 52, 1, 49]"/>
             <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CeV7pj-rEeWmJZDPLOQssQ" id="(0.5,0.5)"/>
             <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CeV7pz-rEeWmJZDPLOQssQ" id="(0.5,0.5)"/>
           </edges>

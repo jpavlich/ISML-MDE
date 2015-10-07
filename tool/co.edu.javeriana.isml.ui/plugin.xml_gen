@@ -361,5 +361,11 @@
             extensions="isml">
     </provider>
   </extension>
+  <extension point="org.eclipse.team.core.fileTypes">
+    <fileTypes
+            extension="isml"
+            type="text">
+    </fileTypes>
+  </extension>
 
 </plugin>
