@@ -1,19 +1,22 @@
 package co.edu.javeriana.isml.tests
 
 import co.edu.javeriana.isml.IsmlInjectorProvider
+import co.edu.javeriana.isml.isml.Action
+import co.edu.javeriana.isml.isml.Block
+import co.edu.javeriana.isml.isml.Controller
 import co.edu.javeriana.isml.isml.InformationSystem
-import co.edu.javeriana.isml.isml.IsmlPackage
+import co.edu.javeriana.isml.isml.Package
+import co.edu.javeriana.isml.isml.Type
+import co.edu.javeriana.isml.isml.TypeSpecification
+import co.edu.javeriana.isml.isml.Variable
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.eclipse.xtext.xbase.lib.util.ReflectExtensions
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -21,12 +24,12 @@ class ControllerTest extends CommonTests {
 	@Inject extension ParseHelper<InformationSystem>
 	@Inject extension ValidationTestHelper
 	@Inject extension TestHelper
-	@Inject extension ReflectExtensions
+	@Inject extension IsmlModelNavigation
 
 	@Test
 	def void uniqueInIfElse() {
 
-		val result = '''
+		val is = '''
 			package test
 			
 			controller Test {
@@ -46,25 +49,56 @@ class ControllerTest extends CommonTests {
 			}
 			
 		'''.parse(rs)
-		
-		result.assertNoErrors
+
+		is.assertNoErrors
+		is.assertEqualsElement(
+			InformationSystem -> #[
+				"components" -> #[
+					Package -> #[
+						"name" -> "test",
+						"components" -> #[
+							Controller -> #[
+								"name" -> "Test",
+								"parameters" -> #[
+									Action -> #[],
+									Action -> #[
+										"body" -> (Block -> #[
+											"statements" -> #[
+												Variable -> #[
+													"name" -> "s",
+													"type" -> (Type -> #[
+														"typeSpecification" -> (TypeSpecification -> #[
+															"name" -> "String"			
+														])
+													]) 
+												]
+											]
+										])
+									]
+								]
+							]
+						]
+					]
+				]
+			]
+		)
 	}
 
 	@Test
 	def void correctVariableDeclaration1() {
 
 		val result = '''
-					package test
-					
-					controller Test {
-						action2() {
-								String x
-								
-								x = "a"
-						}
-					}
-					
-				'''.parse(rs)
+			package test
+			
+			controller Test {
+				action2() {
+						String x
+						
+						x = "a"
+				}
+			}
+			
+		'''.parse(rs)
 		println(result.validate)
 		result.assertNoErrors
 	}
@@ -98,7 +132,7 @@ class ControllerTest extends CommonTests {
 		val result = '''
 			package test
 			
-
+			
 			
 			controller Test {
 				action2() {
@@ -179,7 +213,7 @@ class ControllerTest extends CommonTests {
 		'''
 			package test
 			
-
+			
 			
 			controller Test {
 				action(String a, String b) {
@@ -219,8 +253,8 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs).assertNoErrors
 	}
-	
-		@Test
+
+	@Test
 	def void otherControllerActionCallMultipleResources() {
 		'''
 			package test
@@ -247,9 +281,9 @@ class ControllerTest extends CommonTests {
 			}
 			
 		'''.parse(rs)
-		rs.resources.forEach[_ | _.contents.get(0).assertNoErrors]
+		rs.resources.forEach[_|_.contents.get(0).assertNoErrors]
 	}
-	
+
 	@Test
 	def void nullParameterCall() {
 
@@ -270,10 +304,8 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs).assertNoErrors
 	}
-	
-	
+
 	@Test
 	def void callWithinCall() {
-		
 	}
 }

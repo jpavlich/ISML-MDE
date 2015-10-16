@@ -19,6 +19,7 @@ import co.edu.javeriana.isml.isml.If
 import co.edu.javeriana.isml.isml.InformationSystem
 import co.edu.javeriana.isml.isml.Instance
 import co.edu.javeriana.isml.isml.Interface
+import co.edu.javeriana.isml.isml.IsmlPackage
 import co.edu.javeriana.isml.isml.LiteralValue
 import co.edu.javeriana.isml.isml.Method
 import co.edu.javeriana.isml.isml.MethodCall
@@ -54,21 +55,23 @@ import java.util.Map
 import java.util.Set
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.mwe2.language.scoping.QualifiedNameProvider
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.QualifiedName
+import org.eclipse.xtext.resource.IContainer
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 
 /**
- * @deprecated Use {@link IsmlModelNavigation} instead
+ * Helper to navigate Isml models
  */
-@Deprecated
-class TypeExtension {
+class IsmlModelNavigation {
 	@Inject
 	ResourceDescriptionsProvider resourceDescriptionsProvider;
 
@@ -1239,6 +1242,8 @@ class TypeExtension {
 		}
 		return type
 	}
-	
-	
+		
+	def <S extends EObject, T extends S> cast(S obj, Class<T> c) {
+		return obj as T
+	}
 }

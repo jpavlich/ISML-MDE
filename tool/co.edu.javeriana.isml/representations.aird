@@ -1301,6 +1301,7 @@
   <semanticResources>java:/Objects/org.eclipse.xtext.xbase.lib.ShortExtensions</semanticResources>
   <semanticResources>java:/Objects/java.lang.Short</semanticResources>
   <semanticResources>src-gen/co/edu/javeriana/isml/Isml.xtextbin</semanticResources>
+  <semanticResources>src/co/edu/javeriana/isml/scoping/IsmlModelNavigation.xtend</semanticResources>
   <ownedViews xmi:type="viewpoint:DRepresentationContainer" xmi:id="_dtWroD-gEeWi8PyAKFYRbA">
     <ownedRepresentations xmi:type="diagram:DSemanticDiagram" xmi:id="_9II94D-oEeWmJZDPLOQssQ" name="isml core">
       <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_9II94T-oEeWmJZDPLOQssQ" source="DANNOTATION_CUSTOMIZATION_KEY">
