@@ -29,7 +29,8 @@ ResourceAssignment:
 
 	// Types
 Entity:
-	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=Attribute* '}')?;
+	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? 
+	('{' parameters+=Attribute* '}')?;
 
 DTO:
 	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=DTOAttribute* '}')?;
