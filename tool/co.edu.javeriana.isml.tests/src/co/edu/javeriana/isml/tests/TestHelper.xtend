@@ -23,28 +23,16 @@ class TestHelper {
 		return real;
 	}
 
-//	def elem(Procedure1<Element> block) {
-//		val e = new Element
-//		block.apply(e)
-//		return e
-//	}
 
 	def operator_mappedTo(Class<?> type, List<Pair<String, Object>> attributes) {
 		return new Element(type, attributes)
 	}
 
-//	def assertEquals(EObject obj, Class<?> type, List<Pair<String, Object>> attributes) {
-//		val e = elem(block)
-//		assertEqualsElement(obj, e)
-//	}
-
 	def void assertEqualsElement(EObject obj, Element e) {
 		assertTrue("Type " + e.type.name + " is not congruent with " + obj.class.simpleName, e.type.isAssignableFrom(obj.class))
-//		println(e.type.name + " -> " + obj.class.simpleName)
 		for (attr : e.attributes) {
 			val feature = obj.eClass.getEStructuralFeature(attr.key)
 			val value = obj.eGet(feature)
-//			println(attr.key + "->" + attr.value)
 			switch (feature) {
 				EAttribute:
 					assertEquals("Feature " + obj.eClass.name + "." + feature.name + " is not equal to " + attr.value, value, attr.value)

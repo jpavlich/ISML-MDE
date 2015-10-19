@@ -23,7 +23,7 @@ class DTOTest extends CommonTests {
 	@Test
 	def void accessDTOAttrs() {
 
-		'''
+		val is = '''
 			package test
 			
 			controller Cont {
@@ -39,7 +39,10 @@ class DTOTest extends CommonTests {
 				Button(myDto.name, true)
 			}
 			
-		'''.parse(rs).assertNoErrors
+		'''.parse(rs)
+		is.assertNoErrors
+		
+		
 	}
 
 

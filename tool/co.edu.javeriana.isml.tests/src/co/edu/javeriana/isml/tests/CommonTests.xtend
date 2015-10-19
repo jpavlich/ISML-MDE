@@ -8,6 +8,9 @@ import org.junit.Before
 class CommonTests {
 	protected var ResourceSet rs
 
+	/**
+	 * Loads primitive data types, constraints, widgets, and services
+	 */
 	@Before
 	def void initCommon() {
 		rs = new ResourceSetImpl
