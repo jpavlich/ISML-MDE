@@ -10,8 +10,11 @@ import co.edu.javeriana.isml.isml.Type
 import java.util.LinkedList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.QualifiedName
+import com.google.inject.Inject
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 
 class SignatureExtension {
+	@Inject extension IsmlModelNavigation
 
 	def String getSignature(EObject obj) {
 

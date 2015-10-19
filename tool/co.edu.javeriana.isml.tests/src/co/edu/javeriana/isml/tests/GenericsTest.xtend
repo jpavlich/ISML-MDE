@@ -14,6 +14,7 @@ import co.edu.javeriana.isml.isml.Service
 import co.edu.javeriana.isml.isml.Method
 import co.edu.javeriana.isml.validation.SignatureExtension
 import org.junit.Assert
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -22,6 +23,7 @@ class GenericsTest extends CommonTests {
 	@Inject extension ValidationTestHelper
 	@Inject extension TestHelper
 	@Inject extension SignatureExtension
+	@Inject extension IsmlModelNavigation
 
 	@Test def void overloadedMethodSignatureTest() {
 		val is = '''package test

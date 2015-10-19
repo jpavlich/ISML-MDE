@@ -2,9 +2,10 @@ package co.edu.javeriana.isml.tests
 
 import co.edu.javeriana.isml.IsmlInjectorProvider
 import co.edu.javeriana.isml.isml.Action
+import co.edu.javeriana.isml.isml.ActionCall
 import co.edu.javeriana.isml.isml.Assignment
-import co.edu.javeriana.isml.isml.Block
 import co.edu.javeriana.isml.isml.Controller
+import co.edu.javeriana.isml.isml.If
 import co.edu.javeriana.isml.isml.InformationSystem
 import co.edu.javeriana.isml.isml.Package
 import co.edu.javeriana.isml.isml.Reference
@@ -21,8 +22,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
-import co.edu.javeriana.isml.isml.If
-import co.edu.javeriana.isml.isml.ActionCall
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -65,21 +64,19 @@ class ControllerTest extends CommonTests {
 						"components" -> #[
 							Controller -> #[
 								"name" -> "Test",
-								"parameters" -> #[
+								"body" -> #[
 									Action -> #[],
 									Action -> #[
-										"body" -> (Block -> #[
-											"statements" -> #[
-												Variable -> #[
-													"name" -> "s",
-													"type" -> (Type -> #[
-														"typeSpecification" -> (TypeSpecification -> #[
-															"name" -> "String"
-														])
+										"body" -> #[
+											Variable -> #[
+												"name" -> "s",
+												"type" -> (Type -> #[
+													"typeSpecification" -> (TypeSpecification -> #[
+														"name" -> "String"
 													])
-												]
+												])
 											]
-										])
+										]
 									]
 								]
 							]
@@ -108,9 +105,9 @@ class ControllerTest extends CommonTests {
 		println(is.validate)
 		is.assertNoErrors
 
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val v = action2.body.statements.head.cast(Variable)
-		val assignment = action2.body.statements.get(1).cast(Assignment)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val v = action2.body.head.cast(Variable)
+		val assignment = action2.body.get(1).cast(Assignment)
 		val assignedVar = assignment.left.cast(Reference).referencedElement
 		assertSame(v, assignedVar);
 	}
@@ -137,11 +134,11 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		is.assertNoErrors
 
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val x = action2.body.statements.head.cast(Variable)
-		val y = action2.body.statements.get(1).cast(If).body.statements.head.cast(Variable)
-		val xAssignment = action2.body.statements.get(1).cast(If).elseBody.statements.head.cast(Assignment)
-		val yAssignment = action2.body.statements.get(1).cast(If).body.statements.get(1).cast(Assignment)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val x = action2.body.head.cast(Variable)
+		val y = action2.body.get(1).cast(If).body.head.cast(Variable)
+		val xAssignment = action2.body.get(1).cast(If).elseBody.head.cast(Assignment)
+		val yAssignment = action2.body.get(1).cast(If).body.get(1).cast(Assignment)
 
 		// Verifies that the assignment x="bggg" corresponds to the variable x
 		assertSame(x, xAssignment.left.cast(Reference).referencedElement)
@@ -173,11 +170,11 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		is.assertNoErrors
 
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val x = action2.body.statements.head.cast(If).body.statements.head.cast(Variable)
-		val x2 = action2.body.statements.head.cast(If).elseBody.statements.head.cast(Variable)
-		val xAssignment = action2.body.statements.head.cast(If).body.statements.get(1).cast(Assignment)
-		val x2Assignment = action2.body.statements.head.cast(If).elseBody.statements.get(1).cast(Assignment)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val x = action2.body.head.cast(If).body.head.cast(Variable)
+		val x2 = action2.body.head.cast(If).elseBody.head.cast(Variable)
+		val xAssignment = action2.body.head.cast(If).body.get(1).cast(Assignment)
+		val x2Assignment = action2.body.head.cast(If).elseBody.get(1).cast(Assignment)
 
 		assertSame(x, xAssignment.left.cast(Reference).referencedElement)
 		assertSame(x2, x2Assignment.left.cast(Reference).referencedElement)
@@ -263,12 +260,12 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs)
 		is.assertNoErrors
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.get(1).cast(Action)
-		val action2Call1 = action.body.statements.head.cast(ActionCall)
-		val action1Call1 = action.body.statements.get(1).cast(ActionCall)
-		val action2Call2 = action.body.statements.get(2).cast(ActionCall)
-		val action1Call2 = action.body.statements.get(3).cast(ActionCall)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.get(1).cast(Action)
+		val action2Call1 = action.body.head.cast(ActionCall)
+		val action1Call1 = action.body.get(1).cast(ActionCall)
+		val action2Call2 = action.body.get(2).cast(ActionCall)
+		val action1Call2 = action.body.get(3).cast(ActionCall)
 
 		assertSame(action, action1Call1.referencedElement)
 		assertSame(action, action1Call2.referencedElement)
@@ -302,10 +299,10 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		is.assertNoErrors
 
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action3 = is.components.head.cast(Package).components.get(1).cast(Controller).parameters.head.cast(Action)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action3 = is.components.head.cast(Package).components.get(1).cast(Controller).body.head.cast(Action)
 
-		val action3Call = action.body.statements.head.cast(ActionCall)
+		val action3Call = action.body.head.cast(ActionCall)
 
 		assertSame(action3, action3Call.referencedElement)
 	}
@@ -339,10 +336,10 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		rs.resources.forEach[_|_.contents.get(0).assertNoErrors]
 
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action3 = is2.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action3 = is2.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
 
-		val action3Call = action.body.statements.head.cast(ActionCall)
+		val action3Call = action.body.head.cast(ActionCall)
 
 		assertSame(action3, action3Call.referencedElement)
 	}
@@ -367,10 +364,10 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs)
 		is.assertNoErrors
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.get(1).cast(Action)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.get(1).cast(Action)
 
-		val action2Call = action.body.statements.head.cast(ActionCall)
+		val action2Call = action.body.head.cast(ActionCall)
 		assertSame(action2, action2Call.referencedElement)
 
 	}

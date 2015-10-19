@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="isml" nsURI="http://www.javeriana.edu.co/isml/Isml" nsPrefix="Isml">
-  <eClassifiers xsi:type="ecore:EClass" name="Container" abstract="true" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
-        eType="#//NamedElement" containment="true" resolveProxies="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Package" eSuperTypes="#//Container">
+  <eClassifiers xsi:type="ecore:EClass" name="Package">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true" resolveProxies="false"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//NamedElement"/>
+    </eGenericSuperTypes>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InformationSystem" eSuperTypes="#//Container"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InformationSystem">
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//NamedElement"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import">
     <eStructuralFeatures xsi:type="ecore:EReference" name="importedPackage" eType="#//Package"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="NamedElement" abstract="true" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Type" eSuperTypes="#//Expression #//Reference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="typeSpecification" eType="#//TypeSpecification"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Type">
+    <eGenericSuperTypes eClassifier="#//Expression"/>
+    <eGenericSuperTypes eClassifier="#//Reference">
+      <eTypeArguments eClassifier="#//TypeSpecification"/>
+    </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypedElement" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="#//Type" containment="true"
@@ -28,7 +34,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Expression"
         containment="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//TypedElement #//Parameter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//TypedElement #//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Attribute" eSuperTypes="#//VariableTypeElement #//Feature">
     <eStructuralFeatures xsi:type="ecore:EReference" name="opposite" eType="#//Attribute"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" upperBound="-1"
@@ -47,63 +53,94 @@
   <eClassifiers xsi:type="ecore:EClass" name="Function" abstract="true" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Block"
-        containment="true" resolveProxies="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="native" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="genericTypeParameters"
         upperBound="-1" eType="#//GenericTypeSpecification" containment="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Method" eSuperTypes="#//Feature #//Function"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Method">
+    <eGenericSuperTypes eClassifier="#//Feature"/>
+    <eGenericSuperTypes eClassifier="#//Function"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//MethodStatement"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Entity" eSuperTypes="#//Struct"/>
   <eClassifiers xsi:type="ecore:EClass" name="Actor" eSuperTypes="#//Entity"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Controller" eSuperTypes="#//TypeSpecification"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Controller">
+    <eGenericSuperTypes eClassifier="#//TypeSpecification"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//Feature"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="View" abstract="true" eSuperTypes="#//TypeSpecification">
     <eStructuralFeatures xsi:type="ecore:EReference" name="controller" eType="#//Controller"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Block">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
-        eType="#//Statement" containment="true" resolveProxies="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" abstract="true" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="MethodStatement" abstract="true" eSuperTypes="#//Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ViewStatement" abstract="true" eSuperTypes="#//Statement #//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="For" eSuperTypes="#//Iteration #//MethodStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeViewStatement" abstract="true">
+    <eGenericSuperTypes eClassifier="#//NamedElement"/>
+    <eGenericSuperTypes eClassifier="#//ViewStatement"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//ViewStatement"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="For" eSuperTypes="#//MethodStatement #//CompositeMethodStatement #//Iteration"/>
   <eClassifiers xsi:type="ecore:EClass" name="Iteration" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//Variable"
         containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="collection" eType="#//Reference"
-        containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Block"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="collection" eType="#//VariableReference"
         containment="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ForView" eSuperTypes="#//ViewStatement #//Iteration"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ForView" eSuperTypes="#//CompositeViewStatement #//Iteration"/>
   <eClassifiers xsi:type="ecore:EClass" name="Reference" abstract="true" eSuperTypes="#//Expression #//MethodStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" eType="#//Reference"
-        containment="true" resolveProxies="false"/>
+    <eTypeParameters name="T">
+      <eBounds eClassifier="#//NamedElement"/>
+    </eTypeParameters>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tail" containment="true"
+        resolveProxies="false">
+      <eGenericType eClassifier="#//Reference">
+        <eTypeArguments eTypeParameter="#//Reference/T"/>
+      </eGenericType>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedElement">
+      <eGenericType eTypeParameter="#//Reference/T"/>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParameterizedReference" abstract="true"
-      eSuperTypes="#//Reference #//Caller"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MethodCall" eSuperTypes="#//ParameterizedReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedElement" eType="#//Method"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterizedReference" abstract="true">
+    <eTypeParameters name="T">
+      <eBounds eClassifier="#//NamedElement"/>
+    </eTypeParameters>
+    <eGenericSuperTypes eClassifier="#//Caller"/>
+    <eGenericSuperTypes eClassifier="#//Reference">
+      <eTypeArguments eTypeParameter="#//ParameterizedReference/T"/>
+    </eGenericSuperTypes>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ActionCall" eSuperTypes="#//ParameterizedReference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedElement" eType="#//Action"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MethodCall">
+    <eGenericSuperTypes eClassifier="#//ParameterizedReference">
+      <eTypeArguments eClassifier="#//Method"/>
+    </eGenericSuperTypes>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VariableReference" eSuperTypes="#//Reference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedElement" eType="#//VariableTypeElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionCall">
+    <eGenericSuperTypes eClassifier="#//ParameterizedReference">
+      <eTypeArguments eClassifier="#//Action"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableReference">
+    <eGenericSuperTypes eClassifier="#//Reference">
+      <eTypeArguments eClassifier="#//VariableTypeElement"/>
+    </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Expression" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="If" eSuperTypes="#//Conditional #//MethodStatement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IfView" eSuperTypes="#//Conditional #//ViewStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="If" eSuperTypes="#//Conditional #//CompositeMethodStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elseBody" upperBound="-1"
+        eType="#//MethodStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IfView" eSuperTypes="#//Conditional #//CompositeViewStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Conditional" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Expression"
         containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="body" eType="#//Block"
-        containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elseBody" eType="#//Block"
-        containment="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="While" eSuperTypes="#//Conditional #//MethodStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="While" eSuperTypes="#//Conditional #//CompositeMethodStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Return" eSuperTypes="#//MethodStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
         containment="true" resolveProxies="false"/>
@@ -116,7 +153,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Expression" containment="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ViewInstance" eSuperTypes="#//Instance #//ViewStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="ViewInstance" eSuperTypes="#//Instance #//CompositeViewStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="actionCall" eType="#//ActionCall"
         containment="true" resolveProxies="false"/>
   </eClassifiers>
@@ -138,20 +175,40 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expression" eType="#//Expression"
         containment="true" resolveProxies="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="#//MethodStatement #//BinaryOperator"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Widget" eSuperTypes="#//View"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Page" eSuperTypes="#//View"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ResourceBundle" eSuperTypes="#//TypeSpecification"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="#//BinaryOperator #//MethodStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Widget">
+    <eGenericSuperTypes eClassifier="#//View"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//ViewStatement"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Page">
+    <eGenericSuperTypes eClassifier="#//View"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//ViewStatement"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceBundle">
+    <eGenericSuperTypes eClassifier="#//TypeSpecification"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//ResourceAssignment"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstraintInstance" eSuperTypes="#//Instance"/>
   <eClassifiers xsi:type="ecore:EClass" name="Interface" eSuperTypes="#//TypeSpecification"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Service" eSuperTypes="#//Interface">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="before" eType="#//Block"
-        containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="after" eType="#//Block"
-        containment="true" resolveProxies="false"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Service">
+    <eGenericSuperTypes eClassifier="#//Interface"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//Feature"/>
+    </eGenericSuperTypes>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//Feature #//Function">
+  <eClassifiers xsi:type="ecore:EClass" name="Action">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eGenericSuperTypes eClassifier="#//Feature"/>
+    <eGenericSuperTypes eClassifier="#//Function"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//MethodStatement"/>
+    </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LiteralValue" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="literal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
@@ -161,9 +218,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="BoolValue" eSuperTypes="#//LiteralValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="StringValue" eSuperTypes="#//LiteralValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="NullValue" eSuperTypes="#//LiteralValue"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ViewBlock" eSuperTypes="#//ViewStatement #//Block #//Expression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ResourceReference" eSuperTypes="#//Reference">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedElement" eType="#//Resource"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ResourceReference">
+    <eGenericSuperTypes eClassifier="#//Reference">
+      <eTypeArguments eClassifier="#//Resource"/>
+    </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenericTypeSpecification" eSuperTypes="#//TypeSpecification">
     <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//Type"
@@ -177,5 +235,27 @@
   <eClassifiers xsi:type="ecore:EClass" name="EnumItem" eSuperTypes="#//Feature"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResourceAssignment" eSuperTypes="#//Assignment"/>
   <eClassifiers xsi:type="ecore:EClass" name="DTO" eSuperTypes="#//Struct"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Struct" abstract="true" eSuperTypes="#//TypeSpecification"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Struct" abstract="true">
+    <eGenericSuperTypes eClassifier="#//TypeSpecification"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//Attribute"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedViewBlock" eSuperTypes="#//CompositeViewStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeMethodStatement" abstract="true">
+    <eGenericSuperTypes eClassifier="#//MethodStatement"/>
+    <eGenericSuperTypes eClassifier="#//CompositeElement">
+      <eTypeArguments eClassifier="#//MethodStatement"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompositeElement" abstract="true" eSuperTypes="#//NamedElement">
+    <eTypeParameters name="S">
+      <eBounds eClassifier="#//Element"/>
+    </eTypeParameters>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="body" upperBound="-1" containment="true">
+      <eGenericType eTypeParameter="#//CompositeElement/S"/>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ViewStatement" abstract="true" eSuperTypes="#//Statement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true"/>
 </ecore:EPackage>

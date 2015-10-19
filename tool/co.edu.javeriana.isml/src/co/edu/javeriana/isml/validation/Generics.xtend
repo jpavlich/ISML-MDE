@@ -5,13 +5,9 @@ import co.edu.javeriana.isml.isml.Expression
 import co.edu.javeriana.isml.isml.Feature
 import co.edu.javeriana.isml.isml.Function
 import co.edu.javeriana.isml.isml.GenericTypeSpecification
-import co.edu.javeriana.isml.isml.IsmlFactory
-import co.edu.javeriana.isml.isml.IsmlPackage
 import co.edu.javeriana.isml.isml.Parameter
 import co.edu.javeriana.isml.isml.ParameterizedType
 import co.edu.javeriana.isml.isml.Type
-import co.edu.javeriana.isml.isml.TypeSpecification
-import co.edu.javeriana.isml.scoping.TypeExtension
 import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.Comparator
@@ -19,10 +15,11 @@ import java.util.List
 import java.util.Map
 import java.util.TreeMap
 import org.eclipse.emf.ecore.util.EcoreUtil
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 
 class Generics {
 	@Inject extension TypeChecker
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 	@Inject extension TypeFactory
 
 	def Map<Type, Type> getTypeSubstitutions(Function callee, Caller caller) {

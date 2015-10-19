@@ -4,11 +4,12 @@ import "http://www.javeriana.edu.co/isml/Isml"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 InformationSystem:
-	components+=Package+;
+	body+=Package+;
 
 Package:
 	'package' name=QualifiedName
-	imports+=Import* ('resources' '{' components+=Resource* '}')? components+=(Entity | DTO | View | Controller | Primitive | Constraint | ResourceBundle | Actor | Service | Enum)*;
+	imports+=Import* ('resources' '{' body+=Resource* '}')? body+=(Entity | DTO | View | Controller |
+	Primitive | Constraint | ResourceBundle | Actor | Service | Enum)*;
 
 Import:
 	'import' importedPackage=[Package|QualifiedName] '.*';
@@ -16,30 +17,27 @@ Import:
 Resource:
 	name=ResourceName;
 
-ResourceBundle: 
+ResourceBundle:
 	'resourceBundle' name=UPPER_CASE_ID '{'
-	body=ResourceBundleBlock
+	body+=ResourceAssignment*
 	'}';
-
-ResourceBundleBlock returns Block:
-	{Block} statements+=ResourceAssignment*;
 
 ResourceAssignment:
 	left=ResourceReference '=' right=StringValue;
 
 	// Types
 Entity:
-	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? 
-	('{' parameters+=Attribute* '}')?;
+	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
+	('{' body+=Attribute* '}')?;
 
 DTO:
-	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=DTOAttribute* '}')?;
+	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' body+=DTOAttribute* '}')?;
 
 DTOAttribute returns Attribute:
 	type=Type name=LOWER_CASE_ID;
 
 Enum:
-	'enum' name=UPPER_CASE_ID '{' parameters+=EnumItem (',' parameters+=EnumItem)* '}';
+	'enum' name=UPPER_CASE_ID '{' body+=EnumItem (',' body+=EnumItem)* '}';
 
 EnumItem:
 	name=LOWER_CASE_ID;
@@ -51,10 +49,10 @@ Type:
 	=> ParameterizedType | SimpleType;
 
 ParameterizedType:
-	typeSpecification=[TypeSpecification|UPPER_CASE_ID] => '<' typeParameters+=Type (',' typeParameters+=Type)* '>';
+	referencedElement=[TypeSpecification|UPPER_CASE_ID] => '<' typeParameters+=Type (',' typeParameters+=Type)* '>';
 
 SimpleType returns Type:
-	typeSpecification=[TypeSpecification|UPPER_CASE_ID];
+	referencedElement=[TypeSpecification|UPPER_CASE_ID];
 
 TypeSpecification:
 	Primitive | Entity | Actor | Controller | View | ResourceBundle;
@@ -67,19 +65,21 @@ ConstraintInstance:
 	type=ConstraintType ('(' parameters+=Expression (',' parameters+=Expression)* ')')?;
 
 ConstraintType returns Type:
-	typeSpecification=[Constraint|UPPER_CASE_ID];
+	referencedElement=[Constraint|UPPER_CASE_ID];
 
 Primitive:
 	abstract?='abstract'? 'primitive'
-	name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (',' genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?;
+	name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (','
+	genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?;
 
 GenericTypeSpecification:
 	name=UPPER_CASE_ID ('extends' superType=Type)?;
 
 Service:
-	'service' name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (',' genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?
+	'service' name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (','
+	genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?
 	/* (',' superTypes+=Type)* */
-	'{' (('before' before=Block)? & ('after' after=Block)?) parameters+=Feature*
+	'{' body+=Feature*
 	'}';
 
 Feature:
@@ -94,8 +94,7 @@ Feature:
 Controller:
 	'controller' name=UPPER_CASE_ID
 	'{'
-	parameters+=ServiceAttribute*
-	parameters+=Action*
+	body+=(ServiceAttribute | Action)*
 	'}';
 
 ServiceAttribute returns Attribute:
@@ -105,18 +104,22 @@ Constraint:
 	'constraint' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?;
 
 Actor:
-	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' parameters+=Attribute* '}')?;
+	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' body+=Attribute* '}')?;
 
 Action:
-	default?='default'? name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' body=Block
-	| native?='native' default?='default'? name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)?
+	default?='default'? name=LOWER_CASE_ID
+	'(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
+	('{' body+=MethodStatement* '}' | body+=MethodStatement)
+	| native?='native' default?='default'? name=LOWER_CASE_ID
+	'(' (parameters+=Parameter (',' parameters+=Parameter)*)?
 	')';
 
 Function:
 	Action | Method;
 
 Method:
-	type=Type name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' body=Block |
+	type=Type name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
+	('{' body+=MethodStatement* '}' | body+=MethodStatement) |
 	native?='native' ('<' (genericTypeParameters+=GenericTypeSpecification (','
 	genericTypeParameters+=GenericTypeSpecification)*)? '>')? type=Type name=LOWER_CASE_ID '(' (parameters+=Parameter (','
 	parameters+=Parameter)*)? ')';
@@ -128,70 +131,64 @@ View:
 	Page | Widget;
 
 Page:
-	'page' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? 'controlledBy' controller=[Controller|QualifiedName] body=ViewBlock?;
+	'page' name=UPPER_CASE_ID
+	('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?
+	'controlledBy' controller=[Controller|QualifiedName]
+	('{' body+=ViewStatement* '}' | body+=ViewStatement)?;
 
 Widget:
-	'widget' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ('controlledBy' controller=[Controller|QualifiedName])? body=ViewBlock?;
+	'widget' name=UPPER_CASE_ID
+	('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?
+	('controlledBy' controller=[Controller|QualifiedName])?
+	('{' body+=ViewStatement* '}' | body+=ViewStatement)?;
 
 ViewStatement:
-	IfView | ForView | ViewInstance;
+	IfView | ForView | ViewInstance | NamedViewBlock;
 
 IfView:
-	'if' {IfView} '(' condition=Expression ')' body=ViewBlock;
+	'if' {IfView} '(' condition=Expression ')' ('{' body+=ViewStatement* '}' | body+=ViewStatement);
 
 ForView:
-	'for' {ForView} '(' variable=ForVariable 'in' collection=Reference ')' body=ViewBlock;
+	'for' {ForView} '(' variable=ForVariable 'in' collection=VariableReference ')' ('{' body+=ViewStatement* '}' |
+	body+=ViewStatement);
 
 ForVariable returns Variable:
 	type=Type name=LOWER_CASE_ID;
-
-ViewBlock:
-	ViewBlockWithBrackets | ViewBlockNoBrackets;
-
-ViewBlockWithBrackets returns ViewBlock:
-	{ViewBlock} '{' statements+=ViewStatement* '}';
-
-ViewBlockNoBrackets returns ViewBlock:
-	{ViewBlock} statements+=ViewStatement;
 
 ViewInstanceNoAction returns ViewInstance:
 	(name=LOWER_CASE_ID '=')? type=WidgetType ('(' parameters+=Expression (',' parameters+=Expression)* ')')?;
 
 ViewInstance:
-	ViewInstanceNoAction actionCall=ActionCall? (parameters+=ViewBlockWithBrackets | '{' parameters+=NamedViewBlock+ '}')?;
+	ViewInstanceNoAction actionCall=ActionCall? ('{' body+=ViewStatement* '}' | body+=ViewStatement);
 
-NamedViewBlock returns ViewBlock:
-	name=LOWER_CASE_ID ':' ('{' statements+=ViewStatement* '}' | statements+=ViewStatement);
+NamedViewBlock:
+	name=LOWER_CASE_ID ':' ('{' body+=ViewStatement* '}' | body+=ViewStatement);
 
 WidgetType returns Type:
-	typeSpecification=[Widget|UPPER_CASE_ID];
+	referencedElement=[Widget|UPPER_CASE_ID];
 
-Block:
-	{Block} '{'
-	statements+=Statement*
-	'}' | statements+=Statement;
+MethodStatement:
+	Variable | If | While | Show| For | ActionCall | Assignment;
 
-Statement:
-	Variable | If | While | Show | For | ActionCall | OperatorStatement;
-
-OperatorStatement returns Statement:
-	Reference ({Assignment.left=current} (symbol='=' |
+Assignment:
+	left=Reference (symbol='=' |
 	symbol='+=' |
 	symbol='-=' |
 	symbol='*=' |
-	symbol='/=') right=Expression)?;
+	symbol='/=') right=Expression;
 
 If:
 	{If} 'if' '(' condition=Expression ')'
-	body=Block ("else" elseBody=Block)?;
+	('{' body+=MethodStatement* '}' | body+=MethodStatement)
+	 (=> "else" ('{' elseBody+=MethodStatement* '}' | elseBody+=MethodStatement))?;
 
 While:
 	{While} 'while' '(' condition=Expression ')'
-	body=Block;
+	('{' body+=MethodStatement* '}' | body+=MethodStatement);
 
 For:
-	{For} 'for' '(' variable=Variable 'in' collection=Reference ')'
-	body=Block;
+	{For} 'for' '(' variable=Variable 'in' collection=VariableReference ')'
+	('{' body+=MethodStatement* '}' | body+=MethodStatement);
 
 Variable:
 	type=Type name=LOWER_CASE_ID ('=' value=Expression)?;

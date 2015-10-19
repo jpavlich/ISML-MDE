@@ -5,45 +5,39 @@ import co.edu.javeriana.isml.isml.ActionCall
 import co.edu.javeriana.isml.isml.Actor
 import co.edu.javeriana.isml.isml.Assignment
 import co.edu.javeriana.isml.isml.Attribute
-import co.edu.javeriana.isml.isml.Block
 import co.edu.javeriana.isml.isml.Caller
+import co.edu.javeriana.isml.isml.CompositeMethodStatement
 import co.edu.javeriana.isml.isml.Controller
 import co.edu.javeriana.isml.isml.Entity
 import co.edu.javeriana.isml.isml.Expression
 import co.edu.javeriana.isml.isml.Feature
-import co.edu.javeriana.isml.isml.For
 import co.edu.javeriana.isml.isml.ForView
 import co.edu.javeriana.isml.isml.Function
 import co.edu.javeriana.isml.isml.GenericTypeSpecification
-import co.edu.javeriana.isml.isml.If
 import co.edu.javeriana.isml.isml.InformationSystem
 import co.edu.javeriana.isml.isml.Instance
 import co.edu.javeriana.isml.isml.Interface
-import co.edu.javeriana.isml.isml.IsmlPackage
 import co.edu.javeriana.isml.isml.LiteralValue
 import co.edu.javeriana.isml.isml.Method
 import co.edu.javeriana.isml.isml.MethodCall
 import co.edu.javeriana.isml.isml.NamedElement
+import co.edu.javeriana.isml.isml.NamedViewBlock
 import co.edu.javeriana.isml.isml.Package
 import co.edu.javeriana.isml.isml.Page
 import co.edu.javeriana.isml.isml.Parameter
 import co.edu.javeriana.isml.isml.ParameterizedType
 import co.edu.javeriana.isml.isml.Primitive
 import co.edu.javeriana.isml.isml.Reference
-import co.edu.javeriana.isml.isml.ResourceReference
 import co.edu.javeriana.isml.isml.Service
 import co.edu.javeriana.isml.isml.Show
-import co.edu.javeriana.isml.isml.Statement
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.TypeSpecification
 import co.edu.javeriana.isml.isml.TypedElement
 import co.edu.javeriana.isml.isml.Variable
 import co.edu.javeriana.isml.isml.VariableReference
 import co.edu.javeriana.isml.isml.View
-import co.edu.javeriana.isml.isml.ViewBlock
 import co.edu.javeriana.isml.isml.ViewInstance
 import co.edu.javeriana.isml.isml.ViewStatement
-import co.edu.javeriana.isml.isml.While
 import co.edu.javeriana.isml.validation.TypeChecker
 import com.google.inject.Inject
 import java.util.ArrayList
@@ -55,18 +49,17 @@ import java.util.Map
 import java.util.Set
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.mwe2.language.scoping.QualifiedNameProvider
 import org.eclipse.xtext.EcoreUtil2
 import org.eclipse.xtext.naming.QualifiedName
-import org.eclipse.xtext.resource.IContainer
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
+import co.edu.javeriana.isml.isml.CompositeElement
+import co.edu.javeriana.isml.isml.Struct
 
 /**
  * Helper to navigate Isml models
@@ -100,19 +93,19 @@ class IsmlModelNavigation {
 		}
 	}
 
-	def Iterable<Feature> getFeatures(TypeSpecification ts) {
-		return ts.parameters.filter(Feature)
+	def Iterable<Feature> getFeatures(CompositeElement ts) {
+		return ts.body.filter(Feature)
 	}
 
-	def Iterable<Attribute> getAttributes(TypeSpecification c) {
+	def Iterable<Attribute> getAttributes(Struct c) {
 		return c.features.filter(Attribute)
 	}
 
-	def Iterable<Method> getMethods(TypeSpecification c) {
+	def Iterable<Method> getMethods(Service c) {
 		return c.features.filter(Method)
 	}
 
-	def Iterable<Action> getActions(TypeSpecification c) {
+	def Iterable<Action> getActions(Controller c) {
 		return c.features.filter(Action)
 	}
 
@@ -133,15 +126,14 @@ class IsmlModelNavigation {
 		return attribute.eContainer as Entity
 	}
 
-	def referencedElement(Reference r) {
-		switch (r) {
-			ResourceReference: r.referencedElement
-			VariableReference: r.referencedElement
-			Type: r.typeSpecification
-			ActionCall: r.referencedElement
-			MethodCall: r.referencedElement
-		}
+	def getTypeSpecification(Type type) {
+		return type.referencedElement
 	}
+	
+	def setTypeSpecification(Type type, TypeSpecification ts) {
+		type.referencedElement = ts
+	}
+	
 
 	def <T extends EObject> T findByName(Iterable<T> elements, String name) {
 		for (e : elements) {
@@ -163,8 +155,15 @@ class IsmlModelNavigation {
 		return ac.referencedElement as Action
 	}
 
-	def Iterable<ViewStatement> parts(Block viewBlock) {
-		return viewBlock.statements.filter(ViewStatement)
+	/**
+	 * The "body" attribute of a view statement is no longer of type Block, but
+	 * of type EList.
+	 * Now the elements contained in a view statement must be accessed directly through the 
+	 * "body" attribute.
+	 */
+	@Deprecated
+	def Iterable<ViewStatement> parts(Object viewBlock) {
+		throw new UnsupportedOperationException
 	}
 
 	// def dispatch Type getType(TypeSpecification c) {
@@ -300,10 +299,6 @@ class IsmlModelNavigation {
 		return null
 	}
 
-	def getBody(ForView forView) {
-		return forView.body as ViewBlock
-	}
-
 	def <T extends EObject> Collection<T> getAllInstancesOfSameClass(T obj) {
 		val resourceSet = obj.eResource().resourceSet
 		val resourceDescriptions = resourceDescriptionsProvider.getResourceDescriptions(resourceSet);
@@ -370,7 +365,7 @@ class IsmlModelNavigation {
 	}
 
 	def Iterable<Feature> getServices(Reference r) {
-		var EObject current = r.findAncestor(Controller, View)
+		var EObject current = r.findAnyAncestor(Controller, View)
 
 		if(current instanceof View) {
 			if(current.controller != null) {
@@ -404,7 +399,7 @@ class IsmlModelNavigation {
 	 * @param classes the classes of the ancestors that are going to be found
 	 * @return the first ancestors that is instance of any class in classes
 	 */
-	def EObject findAncestor(EObject obj, Class<? extends EObject>... classes) {
+	def EObject findAnyAncestor(EObject obj, Class<? extends EObject>... classes) {
 		var current = obj
 		while(current != null) {
 			for (c : classes) {
@@ -416,6 +411,10 @@ class IsmlModelNavigation {
 		}
 		return null
 
+	}
+	
+	def <S extends EObject, T extends S> findAncestor(S obj, Class<T> c) {
+		return obj.findAnyAncestor(c).cast(c)
 	}
 
 	/** Finds the ancestor whose parent is of certain types. 
@@ -511,21 +510,20 @@ class IsmlModelNavigation {
 		}
 	}
 
-	def Block getBody(ViewInstance i) {
-		return i.getParameter("body") as Block
+	def NamedViewBlock getTableBody(ViewInstance i) {
+		return i.body.findByName("body") as NamedViewBlock
 	}
 
-	def Block getHeader(ViewInstance i) {
-		return i.getParameter("header") as Block
+	def NamedViewBlock getTableHeader(ViewInstance i) {
+		return i.body.findByName("header") as NamedViewBlock
+	}
+
+	def <T extends NamedElement> findByName(EList<T> elements, String name) {
+		elements.findFirst[_|_.name.equals(name)]
 	}
 
 	def ForView getForViewInBody(ViewInstance i) {
-		val body = i.body
-		val f = body.statements.get(0)
-		if(f instanceof ForView) {
-			return f
-		}
-		return null
+		return i.body.filter(ForView).head
 	}
 
 	def Expression getParameter(Instance i, String paramName) {
@@ -738,12 +736,8 @@ class IsmlModelNavigation {
 	/**
 	 * Este método obtiene los statements de tipo Show de un Block
 	 */
-	def EList<Show> getShowStatements(Block body) {
-		var EList<Show> showStatements = new BasicEList<Show>
-		for (statement : body.statements) {
-			validateStatement(statement, showStatements)
-		}
-		return showStatements
+	def Iterable<Show> getShowStatements(CompositeMethodStatement statement) {
+		return statement.eAllContents.filter(Show).toIterable
 	}
 
 	/**
@@ -762,35 +756,6 @@ class IsmlModelNavigation {
 		}
 
 		return showActions
-	}
-
-	/**
-	 * Este método  agrega los statements de tipo show a una lista
-	 */
-	def void validateStatement(
-		Statement s,
-		EList<Show> showStatements
-	) {
-		if(s instanceof Show) {
-			showStatements.add(s);
-		} else if(s instanceof While) {
-			for (statement : s.body.statements) {
-				validateStatement(statement, showStatements)
-			}
-		} else if(s instanceof For) {
-			for (statement : s.body.statements) {
-				validateStatement(statement, showStatements)
-			}
-		} else if(s instanceof If) {
-			for (statement : s.body.statements) {
-				validateStatement(statement, showStatements)
-			}
-			if(s.elseBody != null) {
-				for (statement : s.elseBody.statements) {
-					validateStatement(statement, showStatements)
-				}
-			}
-		}
 	}
 
 	def EList<Page> getControlledPages(Controller controller) {
@@ -890,7 +855,7 @@ class IsmlModelNavigation {
 					typeString += "<" + (type as ParameterizedType).typeParameters.get(0).writeType(complete) + ">"
 					if((type as ParameterizedType).typeParameters.get(0).typeSpecification instanceof GenericTypeSpecification) {
 						if(type.eContainer instanceof Function) {
-							var ser = type.eContainer.findAncestor(TypeSpecification) as TypeSpecification
+							var ser = type.eContainer.findAnyAncestor(TypeSpecification) as TypeSpecification
 							if(ser.genericTypeParameters.isEmpty) {
 								typeString = "<" + (type as ParameterizedType).typeParameters.get(0).typeSpecification + ">" + typeString
 							}
@@ -922,7 +887,7 @@ class IsmlModelNavigation {
 			var str = ""
 			if(t.eContainer instanceof Function) {
 				str = ""
-				var ser = t.eContainer.findAncestor(TypeSpecification) as TypeSpecification
+				var ser = t.eContainer.findAnyAncestor(TypeSpecification) as TypeSpecification
 				if(ser.genericTypeParameters.isEmpty) {
 					str = "<" + t.typeSpecification.name + ">" + t.typeSpecification.name
 				} else {
@@ -1028,11 +993,8 @@ class IsmlModelNavigation {
 					}
 				}
 			}
-			if(action.body?.statements != null) {
-				for (stmnt : action.body.statements) {
-					isNeededImportInBody(stmnt.eAllContents.toList, imports, controller)
-				}
-
+			for (stmnt : action.body) {
+				isNeededImportInBody(stmnt.eAllContents.toList, imports, controller)
 			}
 		}
 		return imports
@@ -1105,7 +1067,7 @@ class IsmlModelNavigation {
 		while(tmp.tail != null) {
 			tmp = tmp.tail
 		}
-		return tmp.referencedElement.type
+		return tmp.referencedElement.cast(TypedElement).type
 	}
 
 	def dispatch List<Object> evaluateToCast(Variable assignment) {
@@ -1242,8 +1204,17 @@ class IsmlModelNavigation {
 		}
 		return type
 	}
-		
+
 	def <S extends EObject, T extends S> cast(S obj, Class<T> c) {
 		return obj as T
 	}
+	
+	def getComponents(InformationSystem is) {
+		return is.body
+	}
+
+	def getComponents(Package p) {
+		return p.body
+	}
+	
 }

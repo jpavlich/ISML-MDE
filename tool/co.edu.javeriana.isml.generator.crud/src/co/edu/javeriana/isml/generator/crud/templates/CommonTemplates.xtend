@@ -5,14 +5,14 @@ import co.edu.javeriana.isml.isml.Entity
 import co.edu.javeriana.isml.isml.ParameterizedType
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.TypeSpecification
-import co.edu.javeriana.isml.scoping.TypeExtension
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import co.edu.javeriana.isml.validation.TypeChecker
 import com.google.inject.Inject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
 
 class CommonTemplates {
 	@Inject extension IQualifiedNameProvider
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 	@Inject extension TypeChecker
 
 	// Misc

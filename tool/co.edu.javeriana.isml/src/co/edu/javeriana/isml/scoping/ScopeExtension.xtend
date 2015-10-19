@@ -1,30 +1,19 @@
 package co.edu.javeriana.isml.scoping
 
-import co.edu.javeriana.isml.isml.Block
+import co.edu.javeriana.isml.isml.CompositeElement
+import co.edu.javeriana.isml.isml.CompositeMethodStatement
 import co.edu.javeriana.isml.isml.Function
 import co.edu.javeriana.isml.isml.Iteration
+import co.edu.javeriana.isml.isml.Statement
+import co.edu.javeriana.isml.isml.ViewStatement
 import com.google.inject.Inject
 import java.util.ArrayList
 import org.eclipse.emf.ecore.EObject
-import co.edu.javeriana.isml.isml.NamedElement
-import co.edu.javeriana.isml.isml.InformationSystem
-import co.edu.javeriana.isml.isml.Variable
-import co.edu.javeriana.isml.isml.Parameter
 
 class ScopeExtension {
 
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 
-//	def Iterable<Parameter> getAllParametersInScope(EObject start) {
-//		var parameters = new ArrayList<Parameter>
-//		var current = start.findAncestor(Function) as Function
-//		while(current != null) {
-//			parameters.addAll(current.parameters)
-//			current = current.eContainer?.findAncestor(Function) as Function
-//		}
-//
-//		return parameters
-//	}
 
 	def Iterable<EObject> getAllElementsInScope(EObject obj) {
 		var vars = new ArrayList<EObject>
@@ -39,7 +28,7 @@ class ScopeExtension {
 	
 	def addAllStatementsInScope(EObject current, EObject parent, ArrayList<EObject> vars) {
 		switch (parent) {
-			Block: vars.addAll(current.findAllPreviousOfType(Object))
+			CompositeElement: if (parent instanceof Statement) vars.addAll(current.findAllPreviousOfType(Object))
 			Iteration: vars.add(parent.variable)
 			Function: vars.addAll(parent.parameters)
 		}
@@ -47,25 +36,6 @@ class ScopeExtension {
 
 	
 	
-	
-	
-//	def <T extends EObject> getAllStatementsInIterations(EObject obj, Class<T> type, ArrayList<T> vars) {
-//		var current = obj.eContainer?.findAncestorWithParentOfType(Iteration)
-//		while(current != null) {
-//			val iteration = current as Iteration
-//			vars.add(iteration.variable as T)
-//			current = current.eContainer?.findAncestorWithParentOfType(Block)
-//		}
-//	}
-//	
-//	def <T extends EObject> getAllStatementsInBlocks(EObject obj, Class<T> type, ArrayList<T> vars) {
-//		var current = obj.eContainer?.findAncestorWithParentOfType(Block)
-//		while(current != null) {
-//			vars.addAll(current.findAllPreviousOfType(type))
-//			current = current.eContainer?.findAncestorWithParentOfType(Block)
-//		}
-//	}
-
 
 
 	/**
@@ -74,9 +44,9 @@ class ScopeExtension {
 	 */
 	def Iterable<EObject> findAllPreviousOfType(EObject obj, Class<?> type) {
 		val previousList = new ArrayList<EObject>
-		val block = obj.findAncestor(Block) as Block
-		if(block != null) {
-			for (child : block.statements) {
+		val CompositeElement<Statement> compStatement = obj.findAncestor(CompositeElement)
+		if(compStatement != null) {
+			for (child : compStatement.body) {
 				if(child == obj) {
 					return previousList
 				}

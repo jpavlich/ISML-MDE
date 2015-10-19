@@ -2,7 +2,7 @@ package co.edu.javeriana.isml.generator.crud.templates
 
 import co.edu.javeriana.isml.generator.common.SimpleTemplate
 import co.edu.javeriana.isml.isml.Entity
-import co.edu.javeriana.isml.scoping.TypeExtension
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import co.edu.javeriana.isml.validation.TypeChecker
 import co.edu.javeriana.isml.validation.TypeFactory
 import com.google.inject.Inject
@@ -13,7 +13,7 @@ class AddPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension CommonTemplates
 	@Inject extension TypeChecker
 	@Inject extension TypeFactory
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
 		package «e.eContainer?.fullyQualifiedName»

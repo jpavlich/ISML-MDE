@@ -1,20 +1,18 @@
 package co.edu.javeriana.isml.validation
 
 import co.edu.javeriana.isml.isml.IsmlFactory
-import co.edu.javeriana.isml.isml.IsmlPackage
 import co.edu.javeriana.isml.isml.ParameterizedType
-
+import co.edu.javeriana.isml.isml.Primitive
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.TypeSpecification
-import co.edu.javeriana.isml.scoping.TypeExtension
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.emf.ecore.resource.Resource
-import co.edu.javeriana.isml.isml.Primitive
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 class TypeFactory {
 
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 
 	def Type getPrimitiveType(Resource r, String name) {
 		val primitive = getPrimitiveTypeSpecification(r, name)

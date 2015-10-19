@@ -15,6 +15,7 @@ import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -23,6 +24,7 @@ class TypeCheckerTest extends CommonTests {
 	@Inject extension ValidationTestHelper
 	@Inject extension TestHelper
 	@Inject extension TypeChecker
+	@Inject extension IsmlModelNavigation
 
 	private val code = '''
 		package test
@@ -41,7 +43,7 @@ class TypeCheckerTest extends CommonTests {
 		val pkg = is.components.get(0) as Package
 		val controller = pkg.components.get(0) as Controller
 		val action = controller.parameters.get(0) as Action
-		val variable = action.body.statements.get(0) as Variable
+		val variable = action.body.get(0) as Variable
 
 		val varType = variable.type.typeSpecification.name
 		Assert.assertEquals("Integer", varType)
@@ -53,7 +55,7 @@ class TypeCheckerTest extends CommonTests {
 		val pkg = is.components.get(0) as Package
 		val controller = pkg.components.get(0) as Controller
 		val action = controller.parameters.get(0) as Action
-		val variable = action.body.statements.get(0) as Variable
+		val variable = action.body.get(0) as Variable
 		val value = variable.value
 		val valueType = value.type.typeSpecification.name
 		Assert.assertEquals("Integer", valueType)

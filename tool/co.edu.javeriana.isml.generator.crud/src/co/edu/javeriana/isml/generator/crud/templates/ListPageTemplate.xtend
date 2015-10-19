@@ -2,15 +2,14 @@ package co.edu.javeriana.isml.generator.crud.templates
 
 import co.edu.javeriana.isml.generator.common.SimpleTemplate
 import co.edu.javeriana.isml.isml.Entity
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
 import org.eclipse.xtext.naming.IQualifiedNameProvider
-import co.edu.javeriana.isml.scoping.TypeExtension
-import co.edu.javeriana.isml.isml.Attribute
 
 class ListPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension IQualifiedNameProvider
 	@Inject extension CommonTemplates
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
 		package «e.eContainer?.fullyQualifiedName»

@@ -14,6 +14,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
+import co.edu.javeriana.isml.isml.Attribute
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -46,8 +47,8 @@ class EntityTest extends CommonTests {
 		assertEquals("test", pkg.name);
 		assertArrayEquals(#["Parent", "Parent2", "MyEntity"], pkg.components.map[_|_.name])
 		val entity = pkg.components.get(2).cast(Entity)
-		assertArrayEquals(#["name", "num"], entity.parameters.map[_|_.name])
-		assertArrayEquals(#["String", "Integer"], entity.parameters.map[_|_.type.typeSpecification.name])
+		assertArrayEquals(#["name", "num"], entity.body.filter(Attribute).map[_|_.name])
+		assertArrayEquals(#["String", "Integer"], entity.body.filter(Attribute).map[_|_.type.typeSpecification.name])
 		assertArrayEquals(#["Parent", "Parent2"], entity.superTypes.map[_|_.typeSpecification.name])
 	}
 

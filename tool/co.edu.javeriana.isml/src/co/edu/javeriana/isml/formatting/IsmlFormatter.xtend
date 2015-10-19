@@ -40,7 +40,7 @@ class IsmlFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1, 2, 3).around(grammar.ifRule)
 		c.setLinewrap(1, 2, 3).around(grammar.whileRule)
 		c.setLinewrap(1, 2, 3).around(grammar.methodCallRule)
-		c.setLinewrap(1, 2, 3).around(grammar.operatorStatementRule)
+		c.setLinewrap(1, 2, 3).around(grammar.assignmentRule)
 		c.setLinewrap(1, 2, 3).around(grammar.importRule)
 		c.setLinewrap(1, 2, 3).around(grammar.entityRule)
 		c.setLinewrap(1, 2, 3).around(grammar.controllerRule)
@@ -65,7 +65,7 @@ class IsmlFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(0, 1, 2).before(grammar.getML_COMMENTRule());
 		c.setLinewrap(0, 1, 1).after(grammar.getML_COMMENTRule());
 
-		c.setSpace(" ").before(grammar.viewBlockNoBracketsRule)
+
 
 		grammar.findKeywords('else').forEach[_|c.setSpace(" ").before(_)]
 		grammar.findKeywords('before').forEach[_|c.setLinewrap(1, 2, 3).before(_)]

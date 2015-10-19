@@ -1,11 +1,8 @@
 package co.edu.javeriana.isml.validation
 
-import co.edu.javeriana.isml.isml.GenericTypeSpecification
 import co.edu.javeriana.isml.isml.InformationSystem
 import co.edu.javeriana.isml.isml.NamedElement
-import co.edu.javeriana.isml.isml.Package
-import co.edu.javeriana.isml.isml.Type
-import co.edu.javeriana.isml.scoping.TypeExtension
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
 import java.util.ArrayList
 import java.util.HashMap
@@ -23,7 +20,7 @@ class NamesAreUniqueValidator extends AbstractDeclarativeValidator {
 	@Inject
 	var resourceServiceProviderRegistry = IResourceServiceProvider.Registry.INSTANCE;
 
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 	@Inject extension IQualifiedNameProvider
 	@Inject extension SignatureExtension
 

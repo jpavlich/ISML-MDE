@@ -9,14 +9,13 @@ import co.edu.javeriana.isml.isml.IsmlPackage
 import co.edu.javeriana.isml.isml.ParameterizedReference
 import co.edu.javeriana.isml.isml.ParameterizedType
 import co.edu.javeriana.isml.isml.Reference
-import co.edu.javeriana.isml.isml.TypeSpecification
+import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.Variable
-import co.edu.javeriana.isml.scoping.TypeExtension
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
-import co.edu.javeriana.isml.isml.Type
 
 /**
  * Custom validation rules. 
@@ -27,7 +26,7 @@ import co.edu.javeriana.isml.isml.Type
 class IsmlValidator extends AbstractIsmlValidator {
 
 	@Inject extension TypeChecker typeChecker
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 	@Inject extension Generics
 
 	@Check
@@ -127,7 +126,7 @@ class IsmlValidator extends AbstractIsmlValidator {
 			error(
 				"Wrong number of parameters. Type " + type.typeSpecification.name + " must be extended with" + genericTypeParamSize + " parameters",
 				type,
-				IsmlPackage.Literals.TYPE__TYPE_SPECIFICATION
+				IsmlPackage.Literals.REFERENCE__REFERENCED_ELEMENT
 			)
 		}
 	}
