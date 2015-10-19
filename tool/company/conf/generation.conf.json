@@ -1,0 +1,65 @@
+{
+	generatorSuiteConfigurations: [
+	
+
+	{
+		generatorClass: "co.edu.javeriana.zoe.generator.persistence.ZoePersistenceGenerator",
+		active: true,
+		outputConfigurations: 
+		[
+			{
+				name: "entities",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "dto",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "enum",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "resource.bundle",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			}			
+		]
+	}
+	]
+}

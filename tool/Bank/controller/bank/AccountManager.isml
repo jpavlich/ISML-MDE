@@ -1,0 +1,23 @@
+package bank
+
+controller AccountManager {
+	has Persistence<Account> p
+	
+	default start() {
+		show AccountPage(new Account,0)
+	}
+	
+	deposit(Account a, Integer amount) {
+		a.balance = a.balance + amount
+		p.edit(a)
+		show AccountPage(a,0)
+	}
+	
+	withdraw(Account a, Integer amount) {
+		a.balance = a.balance - amount
+		p.edit(a)
+		show AccountPage(a,0)
+		
+	}
+	
+}

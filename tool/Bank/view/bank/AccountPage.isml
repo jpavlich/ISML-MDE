@@ -1,0 +1,14 @@
+package bank
+
+page AccountPage(Account a, Integer amount) controlledBy AccountManager {
+	Label("Account name")
+	Label(a.name )
+	
+	Label ("Balance")
+	Label(a.balance)
+	
+	Text("Amount", amount, 10, 1)
+	
+	Button("Deposit", false) -> deposit(a, amount)
+	Button("Withdraw", false) -> withdraw(a, amount)
+}
