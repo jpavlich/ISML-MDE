@@ -1,0 +1,34 @@
+package test
+
+page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
+	Form {
+	       Panel("Collection<Dieta>") {
+	           DataTable("Collection<Dieta>", null) {
+	               header : {                    
+	                   Label("Desayuno")
+	                   Label("Almuerzo")
+	                   Label("Cena")
+	                   Label("Merienda")
+	                   Label("Patologia")
+	                   Label("View")
+	                   Label("Edit")
+	                   Label("Delete")
+	               }
+	               body : 
+	               for(Dieta dieta in dietaList) {
+	               		Label(dieta.desayuno)
+	               		Label(dieta.almuerzo)
+	               		Label(dieta.cena)
+	               		Label(dieta.merienda)
+	               		Label(dieta.patologia)
+	                   	Button("View",false)-> viewDieta(dieta)
+	                   	Button("Edit",false) -> editDieta(dieta)
+	                   	Button("Delete",false) -> deleteDieta(dieta)
+	               }
+
+	           }
+	        	
+		}
+	} 
+	
+}

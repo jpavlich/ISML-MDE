@@ -1,0 +1,14 @@
+package test
+
+page CreateDietaToAdd(Any container, Collection<Dieta> collection, Dieta dieta) controlledBy DietaManager  {
+	Form {
+		Text("Desayuno", dieta.desayuno, 25, 1)
+		Text("Almuerzo", dieta.almuerzo, 25, 1)
+		Text("Cena", dieta.cena, 25, 1)
+		Text("Merienda", dieta.merienda, 25, 1)
+		Text("Patologia", dieta.patologia, 10, 1)
+		
+		Button("Save", true) -> addDieta(container, collection, dieta)
+		Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+	}
+}
