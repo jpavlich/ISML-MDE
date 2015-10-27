@@ -23,7 +23,6 @@ class TestHelper {
 		return real;
 	}
 
-
 	def operator_mappedTo(Class<?> type, List<Pair<String, Object>> attributes) {
 		return new Element(type, attributes)
 	}
@@ -63,6 +62,17 @@ class TestHelper {
 		public new(Class<?> type, List<Pair<String, Object>> attributes) {
 			this.type = type
 			this.attributes = attributes
+			validateAttributes();
+		}
+
+		private def validateAttributes() {
+			for (attr : attributes) {
+				try {
+					type.getMethod("get" + attr.key.toFirstUpper);
+				} catch(NoSuchMethodException e) {
+					fail("Class " + type.name + " does not have attribute " + attr.key);
+				}
+			}
 		}
 
 	}

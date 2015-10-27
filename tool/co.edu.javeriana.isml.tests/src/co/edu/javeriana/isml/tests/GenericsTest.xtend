@@ -36,8 +36,8 @@ class GenericsTest extends CommonTests {
 				'''.parse(rs)
 		val pkg = is.components.get(0) as Package
 		val serv = pkg.components.get(0) as Service
-		val met1 = serv.parameters.get(0) as Method
-		val met2 = serv.parameters.get(1) as Method
+		val met1 = serv.body.get(0) as Method
+		val met2 = serv.body.get(1) as Method
 		
 		println(met1.signature)
 		Assert.assertEquals("test.Persistence.delete(common.primitives.Type<T>,common.primitives.Integer)", met1.signature)
@@ -56,7 +56,7 @@ class GenericsTest extends CommonTests {
 		}
 		'''.parse(rs)
 		'''
-		package test
+		package test;
 		
 		page TeamList(Array <Team> teams, Team selectedTeam, String queryCountry) controlledBy TeamListManager {
 			
@@ -64,7 +64,7 @@ class GenericsTest extends CommonTests {
 		'''.parse(rs)
 		
 		'''
-		package test
+		package test;
 		
 		controller TeamListManager {
 			has TeamPersistence teamPersistence;
@@ -75,7 +75,7 @@ class GenericsTest extends CommonTests {
 		'''.parse(rs)
 		
 		'''
-		package test
+		package test;
 		
 		service TeamPersistence extends Persistence<Team> {
 			
@@ -88,14 +88,14 @@ class GenericsTest extends CommonTests {
 	@Test def void genericsInstantiation() {
 		
 		'''
-		package test
+		package test;
 		
 		entity Team {
 			
 		}
 		'''.parse(rs)
 		'''
-		package test
+		package test;
 		
 		page TeamList(Array <Team> teams, Team selectedTeam, String queryCountry) controlledBy TeamListManager {
 			
@@ -103,10 +103,10 @@ class GenericsTest extends CommonTests {
 		'''.parse(rs)
 		
 		'''
-		package test
+		package test;
 		
 		controller TeamListManager {
-			has Persistence<Team> teamPersistence
+			has Persistence<Team> teamPersistence;
 			action() {
 				show TeamList(teamPersistence.findAll(),null,null);
 			}
@@ -120,7 +120,7 @@ class GenericsTest extends CommonTests {
 	@Test def void wrongNumOfTypeParameters() {
 		
 		'''
-		package test
+		package test;
 		
 		service Test<T> {
 			
@@ -128,7 +128,7 @@ class GenericsTest extends CommonTests {
 		'''.parse(rs)
 		
 		'''
-		package test
+		package test;
 		
 		service Test2 extends Test<Integer,Integer> {
 			

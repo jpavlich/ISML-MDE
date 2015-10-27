@@ -42,7 +42,7 @@ class TypeCheckerTest extends CommonTests {
 		val is = code.parse(rs)
 		val pkg = is.components.get(0) as Package
 		val controller = pkg.components.get(0) as Controller
-		val action = controller.parameters.get(0) as Action
+		val action = controller.body.get(0) as Action
 		val variable = action.body.get(0) as Variable
 
 		val varType = variable.type.typeSpecification.name
@@ -54,7 +54,7 @@ class TypeCheckerTest extends CommonTests {
 		val is = code.parse(rs)
 		val pkg = is.components.get(0) as Package
 		val controller = pkg.components.get(0) as Controller
-		val action = controller.parameters.get(0) as Action
+		val action = controller.body.get(0) as Action
 		val variable = action.body.get(0) as Variable
 		val value = variable.value
 		val valueType = value.type.typeSpecification.name

@@ -58,10 +58,10 @@ class ControllerTest extends CommonTests {
 		is.assertNoErrors
 		is.assertEqualsElement(
 			InformationSystem -> #[
-				"components" -> #[
+				"body" -> #[
 					Package -> #[
 						"name" -> "test",
-						"components" -> #[
+						"body" -> #[
 							Controller -> #[
 								"name" -> "Test",
 								"body" -> #[
@@ -71,7 +71,7 @@ class ControllerTest extends CommonTests {
 											Variable -> #[
 												"name" -> "s",
 												"type" -> (Type -> #[
-													"typeSpecification" -> (TypeSpecification -> #[
+													"referencedElement" -> (TypeSpecification -> #[
 														"name" -> "String"
 													])
 												])
@@ -397,7 +397,23 @@ class ControllerTest extends CommonTests {
 
 	@Test
 	def void callWithinCall() {
-		fail("Test not yet implemented");
+		val is = '''
+			package test;
+			
+			
+			controller Test {
+				action() {
+					-> action();
+				}
+				
+				action2(String c) {
+					
+				}
+			}
+			
+			
+		'''.parse(rs)
+		is.assertNoErrors
 	}
 
 }
