@@ -1,0 +1,25 @@
+package test
+
+page CompanySubList(Any container, Collection<Company> collection) controlledBy CompanyManager  {
+	Form {
+	       Panel("Collection<Company>") {
+	           DataTable("Collection<Company>", null) {
+	               header : {                    
+	                   Label("Name")
+	                   Label("Nit")
+	                   Label("Creation Date")
+	                   
+	               }
+	               body : 
+	               for(Company company in collection) {
+	               		Label(company.name)
+	               		Label(company.nit)
+	               		Label(company.creationDate)
+	               		
+	               }
+	           }
+			Button("Back", false) -> DefaultPageDispatcher.view(container)
+		}
+	} 
+	
+}

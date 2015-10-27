@@ -48,16 +48,20 @@ class ScopeExtension {
 		var container = obj.eContainer
 		val containingFeature = obj.eContainingFeature
 		if(container != null) {
-			val body = container.eGet(containingFeature) as EList<Element>
-			for (child : body) {
-				if(child == obj) {
-					return previousInstances
-				}
-				for (type : types) {
-					if(type.isAssignableFrom(child.class)) {
-						previousInstances.add(child)
+			val body = container.eGet(containingFeature)
+			if(body instanceof EList<?>) {
+				for (ch : body) {
+					val child = ch as EObject
+					if(child == obj) {
+						return previousInstances
+					}
+					for (type : types) {
+						if(type.isAssignableFrom(child.class)) {
+							previousInstances.add(child)
+						}
 					}
 				}
+
 			}
 		}
 

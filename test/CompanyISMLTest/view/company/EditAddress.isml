@@ -1,0 +1,20 @@
+package test
+
+page EditAddress(Address address) controlledBy AddressManager  {
+	Form {
+		Text("Street", address.street, 25, 1)
+		Text("City", address.city, 25, 1)
+		Text("Country", address.country, 25, 1)
+		Panel("Employer") {
+			Label("Street") Label(address.street)
+			Label("City") Label(address.city)
+			Label("Country") Label(address.country)
+			Label("Employer") Label(address.employer)
+			Button("Change", false) -> PersonManager.selectPersonToAssign(address, "employer")
+			Button("Remove", false) -> PersonManager.assignPerson(address, "employer", null)
+		}
+		
+		Button("Save", true) -> saveAddress(address)
+		Button("Cancel", false) -> listAll()
+	}
+}

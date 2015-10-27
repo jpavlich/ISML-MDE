@@ -1,0 +1,11 @@
+package test
+
+page EditCompany(Company company) controlledBy CompanyManager  {
+	Form {
+		Text("Name", company.name, 25, 1)
+		Text("Nit", company.nit, 25, 1)
+		Calendar("Creation Date", company.creationDate, null, "dd/MM/yyyy", true, "inline")
+		Button("Save", true) -> saveCompany(company)
+		Button("Cancel", false) -> listAll()
+	}
+}

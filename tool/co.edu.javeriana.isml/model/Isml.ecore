@@ -244,6 +244,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" upperBound="-1" containment="true">
       <eGenericType eTypeParameter="#//CompositeElement/T"/>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasBody" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ViewStatement" abstract="true" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true"/>

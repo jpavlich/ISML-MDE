@@ -1,0 +1,32 @@
+package test
+
+page CompanyList(Collection<Company> companyList) controlledBy CompanyManager  {
+	Form {
+	       Panel("Collection<Company>") {
+	           DataTable("Collection<Company>", null) {
+	               header : {                    
+	                   Label("Name")
+	                   Label("Nit")
+	                   Label("Creation Date")
+	                   
+	                   Label("View")
+	                   Label("Edit")
+	                   Label("Delete")
+	               }
+	               body : 
+	               for(Company company in companyList) {
+	               		Label(company.name)
+	               		Label(company.nit)
+	               		Label(company.creationDate)
+	               		
+	                   	Button("View",false)-> viewCompany(company)
+	                   	Button("Edit",false) -> editCompany(company)
+	                   	Button("Delete",false) -> deleteCompany(company)
+	               }
+
+	           }
+	        	
+		}
+	} 
+	
+}

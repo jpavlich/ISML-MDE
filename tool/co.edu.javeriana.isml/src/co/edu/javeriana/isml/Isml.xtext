@@ -8,7 +8,7 @@ InformationSystem:
 
 Package:
 	'package' name=QualifiedName ';'
-	(imports+=Import)* ('resources' '{' (body+=Resource)* '}')?
+	(imports+=Import)* ('resources' hasBody?='{' (body+=Resource)* '}')?
 	(body+=(Entity | DTO | View | Controller |
 	Primitive | Constraint | ResourceBundle | Actor | Service | Enum))*;
 
@@ -29,7 +29,7 @@ ResourceAssignment:
 	// Types
 Entity:
 	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
-	('{' (body+=Attribute)* '}' | ';');
+	(hasBody?='{' (body+=Attribute)* '}' | ';');
 
 Attribute:
 	type=Type name=LOWER_CASE_ID
@@ -38,7 +38,7 @@ Attribute:
 
 DTO:
 	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
-	('{' (body+=DTOAttribute)* '}' | ';');
+	(hasBody?='{' (body+=DTOAttribute)* '}' | ';');
 
 DTOAttribute returns Attribute:
 	type=Type name=LOWER_CASE_ID ';';
@@ -82,7 +82,7 @@ GenericTypeSpecification:
 Service:
 	'service' name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (','
 	genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?
-	'{' (body+=Feature)* '}';
+	hasBody?='{' (body+=Feature)* '}';
 
 Feature:
 	=> Method | ServiceAttribute;
@@ -102,13 +102,13 @@ RegularMethod returns Method:
 	genericTypeParameters+=GenericTypeSpecification)*)? '>')?
 	type=Type name=LOWER_CASE_ID
 	'(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
-	('{' (body+=MethodStatement)* '}' | ';');
+	(hasBody?='{' (body+=MethodStatement)* '}' | ';');
 
 ServiceAttribute returns Attribute:
 	'has' type=Type name=LOWER_CASE_ID? ';';
 
 Controller:
-	'controller' name=UPPER_CASE_ID '{' (body+=(ServiceAttribute | Action))* '}';
+	'controller' name=UPPER_CASE_ID hasBody?='{' (body+=(ServiceAttribute | Action))* '}';
 
 Action:
 	default?='default'? name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' '{'
@@ -119,7 +119,7 @@ Constraint:
 	'constraint' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ';';
 
 Actor:
-	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' (body+=Attribute)* '}' | ';');
+	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? (hasBody?='{' (body+=Attribute)* '}' | ';');
 
 Function:
 	Action | Method;
@@ -128,28 +128,27 @@ ActionCall: // FIXME REmove ';'
 	'->' referencedElement=[Action|QualifiedName] '(' (parameters+=Expression (',' parameters+=Expression)*)? ')';
 
 ActionCallStatement returns ActionCall:
-	ActionCall ';'
-;
+	ActionCall ';';
 
 View:
 	Page | Widget;
 
 Page:
-	'page' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? 'controlledBy'
-	controller=[Controller|QualifiedName] ('{' (body+=ViewStatement)* '}' | ';');
+	'page' name=UPPER_CASE_ID ('(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')')? 'controlledBy'
+	controller=[Controller|QualifiedName] (hasBody?='{' (body+=ViewStatement)* '}' | ';');
 
 Widget:
 	'widget' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ('controlledBy'
-	controller=[Controller|QualifiedName])? ('{' (body+=ViewStatement)* '}' | ';');
+	controller=[Controller|QualifiedName])? (hasBody?='{' (body+=ViewStatement)* '}' | ';');
 
 ViewStatement:
 	(IfView | ForView | ViewInstance | NamedViewBlock);
 
 IfView:
-	'if' {IfView} '(' condition=Expression ')' ('{' (body+=ViewStatement)* '}' | body+=ViewStatement);
+	'if' {IfView} '(' condition=Expression ')' (hasBody?='{' (body+=ViewStatement)* '}' | body+=ViewStatement);
 
 ForView:
-	'for' {ForView} '(' variable=ForVariable 'in' collection=VariableReference ')' ('{' (body+=ViewStatement)* '}' |
+	'for' {ForView} '(' variable=ForVariable 'in' collection=VariableReference ')' (hasBody?='{' (body+=ViewStatement)* '}' |
 	body+=ViewStatement);
 
 ForVariable returns Variable:
@@ -159,10 +158,10 @@ ViewInstanceNoAction returns ViewInstance:
 	(name=LOWER_CASE_ID '=')? type=WidgetType ('(' parameters+=Expression (',' parameters+=Expression)* ')')?;
 
 ViewInstance:
-	ViewInstanceNoAction actionCall=ActionCall? ('{' (body+=ViewStatement)* '}' | ';');
+	ViewInstanceNoAction actionCall=ActionCall? (hasBody?='{' (body+=ViewStatement)* '}' | ';');
 
 NamedViewBlock:
-	name=LOWER_CASE_ID ':' ('{' (body+=ViewStatement)* '}' | body+=ViewStatement);
+	name=LOWER_CASE_ID ':' (hasBody?='{' (body+=ViewStatement)* '}' | body+=ViewStatement);
 
 WidgetType returns Type:
 	referencedElement=[Widget|UPPER_CASE_ID];
@@ -175,14 +174,14 @@ ReferenceStatement returns MethodStatement:
 	right=Expression)? ';';
 
 If:
-	{If} 'if' '(' condition=Expression ')' ('{' (body+=MethodStatement)* '}' | body+=MethodStatement) (=> "else" ('{'
+	{If} 'if' '(' condition=Expression ')' (hasBody?='{' (body+=MethodStatement)* '}' | body+=MethodStatement) (=> "else" ('{'
 	(elseBody+=MethodStatement)* '}' | elseBody+=MethodStatement))?;
 
 While:
-	{While} 'while' '(' condition=Expression ')' ('{' (body+=MethodStatement)* '}' | body+=MethodStatement);
+	{While} 'while' '(' condition=Expression ')' (hasBody?='{' (body+=MethodStatement)* '}' | body+=MethodStatement);
 
 For:
-	{For} 'for' '(' variable=Variable 'in' collection=VariableReference ')' ('{' (body+=MethodStatement)* '}' |
+	{For} 'for' '(' variable=Variable 'in' collection=VariableReference ')' (hasBody?='{' (body+=MethodStatement)* '}' |
 	body+=MethodStatement);
 
 Variable:

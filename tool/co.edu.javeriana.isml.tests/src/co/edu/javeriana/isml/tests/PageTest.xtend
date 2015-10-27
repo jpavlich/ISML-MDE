@@ -116,7 +116,7 @@ class PageTest extends CommonTests {
 		'''
 			package test;
 			
-
+			
 			
 			controller Controller {
 				action1() {
@@ -200,6 +200,98 @@ class PageTest extends CommonTests {
 			}
 			
 		'''.parse(rs).assertNoErrors
+	}
+
+	@Test
+	def void testCorrectBlock() {
+		'''
+			package test;
+			widget TestText;
+			widget TestForm {
+				
+			}
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			
+			page Page controlledBy Controller{
+				TestForm {
+					TestText;
+				}
+			}
+			
+		'''.parse(rs).assertNoErrors
+	}
+	
+	@Test
+	def void testIncorrectBlock() {
+		'''
+			package test;
+			
+			widget TestForm;
+			
+			widget TestText;
+			
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			
+			page Page controlledBy Controller{
+				TestForm {
+					TestText;
+				}
+			}
+			
+		'''.parse(rs).assertErrors
+	}
+	
+		@Test
+	def void testIncorrectBlock2() {
+		'''
+			package test;
+			
+			widget TestDataTable {
+				header: {
+				}
+				body: {
+				}
+				
+			}
+			
+			widget TestText;
+			
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			
+			page Page controlledBy Controller{
+				TestDataTable {
+					TestText;
+				}
+			}
+			
+		'''.parse(rs).assertErrors
 	}
 
 }

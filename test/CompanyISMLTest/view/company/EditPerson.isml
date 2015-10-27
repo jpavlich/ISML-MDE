@@ -1,0 +1,44 @@
+package test
+
+page EditPerson(Person person) controlledBy PersonManager  {
+	Form {
+		Text("Name", person.name, 25, 1)
+		Text("Last Name", person.lastName, 25, 1)
+		Text("Ssn", person.ssn, 25, 1)
+		Calendar("Dob", person.dob, null, "dd/MM/yyyy", true, "inline")
+		Panel("Employer") {
+			Label("Name") Label(person.name)
+			Label("Last Name") Label(person.lastName)
+			Label("Ssn") Label(person.ssn)
+			Label("Dob") Label(person.dob)
+			Label("Employer") Label(person.employer)
+			Button("Addresses", false) -> AddressManager.subListAddress(person, person.addresses)
+			Button("Change", false) -> CompanyManager.selectCompanyToAssign(person, "employer")
+			Button("Remove", false) -> CompanyManager.assignCompany(person, "employer", null)
+		}
+		Panel("Addresses") {
+			DataTable("Addresses", null) {
+				header : {                    
+				          Label("Street")
+				          Label("City")
+				          Label("Country")
+				          Label("Employer")
+				          Label("Delete")
+				}
+				body : 
+				for(Address aAddress in person.addresses) {
+				      		Label(aAddress.street)
+				      		Label(aAddress.city)
+				      		Label(aAddress.country)
+				      		Label(aAddress.employer)
+				      		Button("Remove",false) -> AddressManager.removeAddress(person, person.addresses, aAddress)
+				}
+			}
+			Button("Add New Address", false) -> AddressManager.createAddressToAdd(person, person.addresses)
+			Button("Add Existing Address", false) -> AddressManager.selectAddressToAdd(person, person.addresses)
+		}
+		
+		Button("Save", true) -> savePerson(person)
+		Button("Cancel", false) -> listAll()
+	}
+}

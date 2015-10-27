@@ -1,0 +1,26 @@
+package test
+
+page SelectAddressToAdd(Collection<Address> addressList, Any container, Collection<Address> collection) controlledBy AddressManager  {
+	Form {
+	       Panel("Collection<Address>") {
+	           DataTable("Collection<Address>", null) {
+	               header: {                    
+	                   Label("Street")
+	                   Label("City")
+	                   Label("Country")
+	                   Label("Employer")
+	                   Label("Select Address to Add")
+	               }
+	               body:
+	               for(Address address in addressList) {
+	               		Label(address.street)
+	               		Label(address.city)
+	               		Label(address.country)
+	               		Label(address.employer)
+	               		Button("Select",false)-> addAddress(container, collection, address)
+	               }
+	           }
+               Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+		}
+	}
+}

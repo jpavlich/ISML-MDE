@@ -16,10 +16,12 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
+import co.edu.javeriana.isml.isml.Widget
+import co.edu.javeriana.isml.isml.ViewInstance
 
 /**
  * Custom validation rules. 
- *
+ * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
 @ComposedChecks(validators=#[NamesAreUniqueValidator])
@@ -31,20 +33,33 @@ class IsmlValidator extends AbstractIsmlValidator {
 
 	@Check
 	def instanceParametersMustMatchTypeArguments(Instance instance) {
-		checkParameters(instance, instance.type.typeSpecification, IsmlPackage.Literals.INSTANCE__TYPE)
+		val typeSpecification = instance.type.typeSpecification
+		checkParameters(instance, typeSpecification, IsmlPackage.Literals.INSTANCE__TYPE)
+		if(typeSpecification instanceof Widget) {
+			checkBlockParameters(instance as ViewInstance, typeSpecification);
+		}
+
 	}
 
 	@Check
-	def functionCallParametersMustMatchFunctionArguments(Reference call) {
-		val callee = call.referencedElement
-		if(call instanceof ParameterizedReference && callee instanceof Function) {
-			checkParameters(call as Caller, callee as Function, call.eClass.getEStructuralFeature("referencedElement"))
+	def functionCallParametersMustMatchFunctionArguments(Reference<?> caller) {
+		val callee = caller.referencedElement
+		if(caller instanceof ParameterizedReference<?> && callee instanceof Function) {
+			checkParameters(caller as Caller, callee as Function, caller.eClass.getEStructuralFeature("referencedElement"))
+
+		}
+
+	}
+
+	def checkBlockParameters(ViewInstance instance, Widget widget) {
+		if(widget.hasBody != instance.hasBody) {
+			error("This widget must have a body", instance, IsmlPackage.Literals.TYPED_ELEMENT__TYPE)
+			return
 		}
 	}
 
 	def checkParameters(Caller caller, Function callee, EStructuralFeature f) {
 		if(callee instanceof Entity && caller.parameters.empty) {
-
 			// Entity instantiation without parameters is allowed
 			return
 		}
@@ -69,66 +84,67 @@ class IsmlValidator extends AbstractIsmlValidator {
 				val realType = realParam.type
 				val formalType = formalParam.type
 				if(!formalType.isAssignableFrom(realType) && realType != null) {
-					errorString += "Parameter " + (i + 1) + " of type " + realType?.typeSpecification?.name + " must be of type " +
-						formalType.typeSpecification.name + "\n"
+					errorString +=
+						"Parameter " + (i + 1) + " of type " + realType?.typeSpecification?.name + " must be of type " +
+							formalType.typeSpecification.name + "\n"
 					hasErrors = true
+						}
+
+					} catch(Throwable t2) {
+						t2.printStackTrace
+					}
 				}
 
-			} catch(Throwable t2) {
-				t2.printStackTrace
+				if(hasErrors) {
+					error("Incorrect parameters: \n" + errorString, caller, f)
+				}
 			}
-		}
 
-		if(hasErrors) {
-			error("Incorrect parameters: \n" + errorString, caller, f)
-		}
-	}
-
-	@Check
-	def validAssignment(Assignment a) {
-		val leftType = a.left.type
-		val rightType = a.right.type
-		if(!leftType.isAssignableFrom(rightType)) {
-			error(
-				"Cannot assign value of type " + rightType.fullName + " to variable " + (a.left as Reference).referencedElement.name + " of type " +
-					leftType.fullName, a, IsmlPackage.Literals.BINARY_OPERATOR__RIGHT)
-		}
-	}
-
-	@Check
-	def validVarDecl(Variable v) {
-		val leftType = v.type
-		val value = v.value
-		if(value != null) {
-			val rightType = value.type
-
-			if(!leftType.isAssignableFrom(rightType)) {
-				error("Cannot assign value of type " + rightType.fullName + " to variable " + v.name + " of type " + leftType.fullName, v,
-					IsmlPackage.Literals.VARIABLE_TYPE_ELEMENT__VALUE)
+			@Check
+			def validAssignment(Assignment a) {
+				val leftType = a.left.type
+				val rightType = a.right.type
+				if(!leftType.isAssignableFrom(rightType)) {
+					error(
+						"Cannot assign value of type " + rightType.fullName + " to variable " + (a.left as Reference<?>).referencedElement.name + " of type " +
+							leftType.fullName, a, IsmlPackage.Literals.BINARY_OPERATOR__RIGHT)
+				}
 			}
-		}
-	}
 
-	@Check
-	def validGenericTypeInstantiation(Type type) {
-		var error = false
-		val genericTypeParamSize = type.typeSpecification.genericTypeParameters.size
-		if(type instanceof ParameterizedType) {
-			if(type.typeParameters.size != genericTypeParamSize) {
-				error = true
-			}
-		} else {
-			if (genericTypeParamSize > 0) {
-				error = true
-			}
-		}
-		if(error) {
-			error(
-				"Wrong number of parameters. Type " + type.typeSpecification.name + " must be extended with" + genericTypeParamSize + " parameters",
-				type,
-				IsmlPackage.Literals.REFERENCE__REFERENCED_ELEMENT
-			)
-		}
-	}
+			@Check
+			def validVarDecl(Variable v) {
+				val leftType = v.type
+				val value = v.value
+				if(value != null) {
+					val rightType = value.type
 
-}
+					if(!leftType.isAssignableFrom(rightType)) {
+						error("Cannot assign value of type " + rightType.fullName + " to variable " + v.name + " of type " + leftType.fullName, v,
+							IsmlPackage.Literals.VARIABLE_TYPE_ELEMENT__VALUE)
+					}
+				}
+			}
+
+			@Check
+			def validGenericTypeInstantiation(Type type) {
+				var error = false
+				val genericTypeParamSize = type.typeSpecification.genericTypeParameters.size
+				if(type instanceof ParameterizedType) {
+					if(type.typeParameters.size != genericTypeParamSize) {
+						error = true
+					}
+				} else {
+					if(genericTypeParamSize > 0) {
+						error = true
+					}
+				}
+				if(error) {
+					error(
+						"Wrong number of parameters. Type " + type.typeSpecification.name + " must be extended with" + genericTypeParamSize + " parameters",
+						type,
+						IsmlPackage.Literals.REFERENCE__REFERENCED_ELEMENT
+					)
+				}
+			}
+
+		}

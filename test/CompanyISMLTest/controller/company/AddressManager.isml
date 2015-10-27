@@ -1,0 +1,152 @@
+package test
+
+controller AddressManager {
+	has Persistence<Address> persistence
+	
+	/**
+	* Lists all instances of Address.
+	*/
+	default listAll() {
+		show AddressList(persistence.findAll())
+	}
+
+	/**
+	* Lists instances of Address.
+	* @param addressList The list of instances of Address to show.
+	*/
+	listAddress(Collection<Address> addressList) {
+	show AddressList(addressList)
+	}
+	
+	/**
+	* Lists instances of Address that are in a collection.
+	* @param addressList The list of instances of Address to show.
+	*/
+	subListAddress(Any container, Collection<Address> collection) {
+		show AddressSubList(container, collection)
+	}
+
+	/** Creates a new instance of Address and opens a form to 
+	* edit that instance and add it to collection.
+	* @param container The entity that contains collection
+	* @param collection The collection to which the new instance will be added
+	*/
+	createAddressToAdd(Any container, Collection<Address> collection) {
+		show CreateAddressToAdd(container, collection, new Address)
+	}
+
+	/** Opens a page to select an instance to add it to collection.
+	* @param container The entity that contains collection
+	* @param collection The collection to which the selected instance will be added
+	*/
+	selectAddressToAdd(Any container, Collection<Address> collection) {
+	Collection<Address> selectableElements = persistence.findAllExcept(collection)
+	show SelectAddressToAdd(selectableElements, container, collection)
+	}
+
+	/** Adds an instance of Address to a collection
+	* @param container The entity that contains collection
+	* @param collection The collection to which the new instance will be added
+	* @param address The instance that will be added to collection
+	*/
+	addAddress(Any container, Collection<Address> collection, Address instance) {
+	persistence.addToCollection(container, collection, instance)
+	-> DefaultPageDispatcher.edit(container)
+	}
+	
+	
+	
+	/** Removes an instance of Address from a collection
+	* @param container The entity that contains collection
+	* @param collection The collection to which the new instance will be added
+	* @param address The instance that will be removed from collection
+	*/
+	removeAddress(Any container, Collection<Address> collection, Address instance) {
+		persistence.removeFromCollection(container, collection, instance)
+		-> DefaultPageDispatcher.edit(container)
+	}
+	
+	/** Opens a page to select an instance to assign it to an entity's attribute.
+	* @param container The entity that has the attribute
+	* @param attribute The attribute name to which the selected instance will be assigned
+	*/
+	selectAddressToAssign(Any container, String attribute) {
+		Collection<Address> elements = persistence.findAll()
+		show SelectAddressToAssign(elements, container, attribute)
+	}
+	
+	/** Assigns an object to an entity's attribute.
+	* @param container The entity that has the attribute
+	* @param attribute The attribute name that will be assigned
+	* @param instance The object that will be assigned to attribute
+	*/
+	assignAddress(Any container, String attribute, Address instance) {
+		persistence.assignToAttribute(container, attribute, instance)
+		-> DefaultPageDispatcher.edit(container)
+	}
+	
+	/**
+	* Views an instance of Address.
+	* @param id the ID of the Address.
+	*/
+	viewAddress(Integer id) {
+		show ViewAddress(persistence.find(id))
+	}
+
+	/**
+	* Views an instance of Address.
+	* @param address the Address to open.
+	*/		
+	viewAddress(Address address) {
+	show ViewAddress(address)
+	}
+
+
+	/**
+	* Edits an existing instance of Address.
+	* @param address the Address to open.
+	*/			
+	editAddress(Address address) {
+	show EditAddress(address)
+	}
+
+	/**
+	* Creates a a new instance of Address.
+	*/			
+	createAddress() {
+		show EditAddress(new Address)
+	}
+
+
+	/**
+	* Saves an instance of Address.
+	* @param address the Address to save.
+	*/			
+	saveAddress(Address address) {
+	if(persistence.isPersistent(address)){
+		persistence.edit(address)
+	} else {
+		persistence.create(address)
+	}
+	-> listAll()
+	}
+
+
+	/**
+	* Deletes an instance of Address.
+	* @param address the Address to delete.
+	*/		
+	deleteAddress(Address address) {
+	persistence.remove(address)
+	-> listAll()
+	}
+
+	/**
+	* Deletes an instance of Address.
+	* @param id the ID of the Address to delete.
+	*/		
+	deleteAddress(Integer id) {
+	persistence.remove(id)
+	-> listAll()
+	}
+}

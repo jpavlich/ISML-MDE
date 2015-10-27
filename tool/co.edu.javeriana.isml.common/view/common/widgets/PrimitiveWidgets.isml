@@ -12,7 +12,9 @@ widget Image(String imageURL);
 widget Link(String label, String url);
 
 // Form primitives
-widget Form(Block body);
+widget Form {
+	
+}
 widget Text(String label, Any value, Integer columns, Integer rows);
 widget OutputText(String label, Any value);
 widget Password(String label, Any value, Integer length);
@@ -28,4 +30,11 @@ widget PickList(String title, Any value);
 // Composite primitives
 widget Panel(String title, Block block); 
 widget PanelButton(String title, Block block);  
-widget DataTable(String title, Any selectionObject, Block header, Block body); 
+widget DataTable(String title, Any selectionObject) {
+	header: {
+		
+	}
+	body: {
+		
+	}
+}
