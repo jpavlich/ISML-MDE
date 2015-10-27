@@ -6,7 +6,9 @@ import co.edu.javeriana.isml.isml.Actor
 import co.edu.javeriana.isml.isml.Assignment
 import co.edu.javeriana.isml.isml.Attribute
 import co.edu.javeriana.isml.isml.Caller
+import co.edu.javeriana.isml.isml.CompositeElement
 import co.edu.javeriana.isml.isml.CompositeMethodStatement
+import co.edu.javeriana.isml.isml.CompositeTypeSpecification
 import co.edu.javeriana.isml.isml.Controller
 import co.edu.javeriana.isml.isml.Entity
 import co.edu.javeriana.isml.isml.Expression
@@ -30,6 +32,8 @@ import co.edu.javeriana.isml.isml.Primitive
 import co.edu.javeriana.isml.isml.Reference
 import co.edu.javeriana.isml.isml.Service
 import co.edu.javeriana.isml.isml.Show
+import co.edu.javeriana.isml.isml.Statement
+import co.edu.javeriana.isml.isml.Struct
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.TypeSpecification
 import co.edu.javeriana.isml.isml.TypedElement
@@ -58,9 +62,7 @@ import org.eclipse.xtext.naming.QualifiedName
 import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
-import co.edu.javeriana.isml.isml.CompositeElement
-import co.edu.javeriana.isml.isml.Struct
-import co.edu.javeriana.isml.isml.CompositeTypeSpecification
+import org.eclipse.emf.ecore.EStructuralFeature
 
 /**
  * Helper to navigate Isml models
@@ -426,6 +428,18 @@ class IsmlModelNavigation {
 	def <S extends EObject, T extends EObject> findAncestor(S obj, Class<T> c) {
 		return obj.findAnyAncestor(c).cast(c)
 	}
+	
+	
+	def findContainingFeature(EObject object, EObject ancestor) {
+		var current = object
+		var EStructuralFeature currentFeature = null
+		while (current != null && current != ancestor) {
+			currentFeature = current.eContainingFeature
+			current = current.eContainer
+		}
+		return currentFeature
+	}
+	
 
 	/** Finds the ancestor whose parent is of certain types. 
 	 * @param obj the object from which ancestors' child are searched
