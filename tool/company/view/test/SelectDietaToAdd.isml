@@ -1,0 +1,28 @@
+package test
+
+page SelectDietaToAdd(Collection<Dieta> dietaList, Any container, Collection<Dieta> collection) controlledBy DietaManager  {
+	Form {
+	       Panel("Collection<Dieta>") {
+	           DataTable("Collection<Dieta>", null) {
+	               header: {                    
+	                   Label("Desayuno")
+	                   Label("Almuerzo")
+	                   Label("Cena")
+	                   Label("Merienda")
+	                   Label("Patologia")
+	                   Label("Select Dieta to Add")
+	               }
+	               body:
+	               for(Dieta dieta in dietaList) {
+	               		Label(dieta.desayuno)
+	               		Label(dieta.almuerzo)
+	               		Label(dieta.cena)
+	               		Label(dieta.merienda)
+	               		Label(dieta.patologia)
+	               		Button("Select",false)-> addDieta(container, collection, dieta)
+	               }
+	           }
+               Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+		}
+	}
+}

@@ -23,6 +23,7 @@ widget RadioChooser(String label, Array<Any> list, Any value, Any defaultValue)
 widget Spinner(String label, Float value, Float stepFactor, Float min, Float max, String prefix)
 widget PickList(String title, Any value)
 widget Calendar(String label, Date value, Array<Date> markedDates, String dateFormat, Boolean navigator, String mode)
+widget Map(String center, String zoom, String type)
 
 
 // Composite primitives
