@@ -35,7 +35,7 @@ class ControllerTest extends CommonTests {
 	def void uniqueInIfElse() {
 
 		val is = '''
-			package test
+			package test;
 			
 			controller Test {
 				action1() {
@@ -43,11 +43,11 @@ class ControllerTest extends CommonTests {
 				}
 				
 				action2() {
-					String s
+					String s;
 					if (true) {
-						String s	
+						String s;
 					} else {
-						String s
+						String s;
 					}
 					
 				}
@@ -91,13 +91,13 @@ class ControllerTest extends CommonTests {
 	def void correctVariableDeclaration1() {
 
 		val is = '''
-			package test
+			package test;
 			
 			controller Test {
 				action2() {
-						String x
+						String x;
 						
-						x = "a"
+						x = "a";
 				}
 			}
 			
@@ -116,17 +116,17 @@ class ControllerTest extends CommonTests {
 	def void correctVariableDeclaration2() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action2() {
-					String x
+					String x;
 					if (true) {
-						String y
-						y = "a"
+						String y;
+						y = "a";
 					} else {
-						x = "bggg"
+						x = "bggg";
 					}
 				}
 			}
@@ -151,18 +151,18 @@ class ControllerTest extends CommonTests {
 	def void correctVariableDeclaration3() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			
 			controller Test {
 				action2() {
 					if (true) {
-						String x
-						x = "aa"
+						String x;
+						x = "aa";
 					} else {
-						String x
-						x = "bb"
+						String x;
+						x = "bb";
 					}
 				}
 			}
@@ -184,13 +184,13 @@ class ControllerTest extends CommonTests {
 	def void incorrectVariableDeclaration1() {
 
 		'''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action2() {
-						x = 1
-						String x
+						x = 1;
+						String x;
 				}
 			}
 			
@@ -201,15 +201,15 @@ class ControllerTest extends CommonTests {
 	def void incorrectVariableDeclaration2() {
 
 		'''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action2() {
 					if (true) {
-						String x
+						String x;
 					} else {
-						x = 1
+						x = 1;
 					}
 				}
 			}
@@ -221,16 +221,16 @@ class ControllerTest extends CommonTests {
 	def void incorrectVariableDeclaration3() {
 
 		'''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action2() {
 					if (true) {
 					} else {
-						x = 1
+						x = 1;
 					}
-					String x
+					String x;
 				}
 			}
 			
@@ -241,16 +241,16 @@ class ControllerTest extends CommonTests {
 	def void parameterReference() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			
 			controller Test {
 				action(String a, String b) {
-					-> action2(a)
-					-> action(a,b)
-					-> action2(b)
-					-> action(b,a)
+					-> action2(a);
+					-> action(a,b);
+					-> action2(b);
+					-> action(b,a);
 				}
 				
 				action2(String c) {
@@ -275,15 +275,38 @@ class ControllerTest extends CommonTests {
 	}
 
 	@Test
-	def void otherControllerActionCall() {
+	def void parameterReference2() {
 
 		val is = '''
-			package test
+			package test;
+			
 			
 			
 			controller Test {
 				action(String a, String b) {
-					-> Test2.action3()
+					a = "aa";
+				}
+				
+				action2(String c) {
+					
+				}
+			}
+			
+		'''.parse(rs)
+		is.assertNoErrors
+
+	}
+
+	@Test
+	def void otherControllerActionCall() {
+
+		val is = '''
+			package test;
+			
+			
+			controller Test {
+				action(String a, String b) {
+					-> Test2.action3();
 				}
 				
 				action2(String c) {
@@ -310,12 +333,12 @@ class ControllerTest extends CommonTests {
 	@Test
 	def void otherControllerActionCallMultipleResources() {
 		val is = '''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action(String a, String b) {
-					-> Test2.action3()
+					-> Test2.action3();
 				}
 				
 				action2(String c) {
@@ -325,7 +348,7 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs)
 		val is2 = '''
-			package test
+			package test;
 			
 			
 			controller Test2 {
@@ -348,12 +371,12 @@ class ControllerTest extends CommonTests {
 	def void nullParameterCall() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action() {
-					-> action2(null)
+					-> action2(null);
 				}
 				
 				action2(String c) {
@@ -374,6 +397,7 @@ class ControllerTest extends CommonTests {
 
 	@Test
 	def void callWithinCall() {
+		fail("Test not yet implemented");
 	}
 
 }

@@ -30,11 +30,11 @@ class CRUDGeneratorTest extends CommonTests {
 	@Test
 	def void test() {
 		'''
-			package test
+			package test;
 			
 			entity Ent {
-				String name
-				Integer num
+				String name;
+				Integer num;
 			}
 		'''.parse(rs)
 		rs.resources.forEach[_ | _.contents.head.assertNoErrors]

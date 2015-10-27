@@ -9,6 +9,7 @@ import co.edu.javeriana.isml.isml.Attribute
 import co.edu.javeriana.isml.isml.CompositeElement
 import co.edu.javeriana.isml.isml.Constraint
 import co.edu.javeriana.isml.isml.Controller
+import co.edu.javeriana.isml.isml.Element
 import co.edu.javeriana.isml.isml.Entity
 import co.edu.javeriana.isml.isml.ForView
 import co.edu.javeriana.isml.isml.Function
@@ -21,7 +22,6 @@ import co.edu.javeriana.isml.isml.Page
 import co.edu.javeriana.isml.isml.Parameter
 import co.edu.javeriana.isml.isml.ParameterizedType
 import co.edu.javeriana.isml.isml.Reference
-import co.edu.javeriana.isml.isml.Statement
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.ViewInstance
 import co.edu.javeriana.isml.scoping.IsmlModelNavigation
@@ -60,7 +60,7 @@ class IsmlOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		// do nothing
 	}
 
-	protected def <T extends Statement> _createChildren(IOutlineNode parentNode, CompositeElement<T> statement) {
+	protected def <T extends Element> _createChildren(IOutlineNode parentNode, CompositeElement<T> statement) {
 
 		for (block : statement.body) {
 			createNode(parentNode, block)

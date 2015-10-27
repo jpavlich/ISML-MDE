@@ -7,34 +7,41 @@ InformationSystem:
 	body+=Package+;
 
 Package:
-	'package' name=QualifiedName
-	imports+=Import* ('resources' '{' body+=Resource* '}')? body+=(Entity | DTO | View | Controller |
-	Primitive | Constraint | ResourceBundle | Actor | Service | Enum)*;
+	'package' name=QualifiedName ';'
+	(imports+=Import)* ('resources' '{' (body+=Resource)* '}')?
+	(body+=(Entity | DTO | View | Controller |
+	Primitive | Constraint | ResourceBundle | Actor | Service | Enum))*;
 
 Import:
-	'import' importedPackage=[Package|QualifiedName] '.*';
+	'import' importedPackage=[Package|QualifiedName] '.*' ';';
 
 Resource:
-	name=ResourceName;
+	name=ResourceName ';';
 
 ResourceBundle:
 	'resourceBundle' name=UPPER_CASE_ID '{'
-	body+=ResourceAssignment*
+	(body+=ResourceAssignment)*
 	'}';
 
 ResourceAssignment:
-	left=ResourceReference '=' right=StringValue;
+	left=ResourceReference '=' right=StringValue ';';
 
 	// Types
 Entity:
 	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
-	('{' body+=Attribute* '}')?;
+	('{' (body+=Attribute)* '}' | ';');
+
+Attribute:
+	type=Type name=LOWER_CASE_ID
+	('must' 'be'? constraints+=ConstraintInstance (',' constraints+=ConstraintInstance)*)?
+	('opposite' opposite=[Attribute|QualifiedName])? ';';
 
 DTO:
-	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' body+=DTOAttribute* '}')?;
+	'dto' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
+	('{' (body+=DTOAttribute)* '}' | ';');
 
 DTOAttribute returns Attribute:
-	type=Type name=LOWER_CASE_ID;
+	type=Type name=LOWER_CASE_ID ';';
 
 Enum:
 	'enum' name=UPPER_CASE_ID '{' body+=EnumItem (',' body+=EnumItem)* '}';
@@ -57,10 +64,6 @@ SimpleType returns Type:
 TypeSpecification:
 	Primitive | Entity | Actor | Controller | View | ResourceBundle;
 
-Attribute:
-	type=Type name=LOWER_CASE_ID ('must' 'be'? constraints+=ConstraintInstance (','
-	constraints+=ConstraintInstance)*)? ('opposite' opposite=[Attribute|QualifiedName])?;
-
 ConstraintInstance:
 	type=ConstraintType ('(' parameters+=Expression (',' parameters+=Expression)* ')')?;
 
@@ -70,7 +73,8 @@ ConstraintType returns Type:
 Primitive:
 	abstract?='abstract'? 'primitive'
 	name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (','
-	genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?;
+	genericTypeParameters+=GenericTypeSpecification)*)? '>')?
+	('extends' superTypes+=Type)? ';';
 
 GenericTypeSpecification:
 	name=UPPER_CASE_ID ('extends' superType=Type)?;
@@ -78,78 +82,74 @@ GenericTypeSpecification:
 Service:
 	'service' name=UPPER_CASE_ID ('<' (genericTypeParameters+=GenericTypeSpecification (','
 	genericTypeParameters+=GenericTypeSpecification)*)? '>')? ('extends' superTypes+=Type)?
-	/* (',' superTypes+=Type)* */
-	'{' body+=Feature*
-	'}';
+	'{' (body+=Feature)* '}';
 
 Feature:
-	=> Method | Attribute;
+	=> Method | ServiceAttribute;
 
-	//Interface:
-//	'interface' name=UPPER_CASE_ID
-//	('extends' superTypes+=Type (',' superTypes+=Type)*)?
-//	'{'
-//	parameters+=Method*
-//	'}';
-Controller:
-	'controller' name=UPPER_CASE_ID
-	'{'
-	body+=(ServiceAttribute | Action)*
-	'}';
+Method:
+	RegularMethod |
+	NativeMethod;
+
+NativeMethod returns Method:
+	native?='native' ('<' (genericTypeParameters+=GenericTypeSpecification (','
+	genericTypeParameters+=GenericTypeSpecification)*)? '>')? type=Type
+	name=LOWER_CASE_ID '(' (parameters+=Parameter (','
+	parameters+=Parameter)*)? ')' ';';
+
+RegularMethod returns Method:
+	('<' (genericTypeParameters+=GenericTypeSpecification (','
+	genericTypeParameters+=GenericTypeSpecification)*)? '>')?
+	type=Type name=LOWER_CASE_ID
+	'(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
+	('{' (body+=MethodStatement)* '}' | ';');
 
 ServiceAttribute returns Attribute:
-	'has' type=Type name=LOWER_CASE_ID?;
+	'has' type=Type name=LOWER_CASE_ID? ';';
 
-Constraint:
-	'constraint' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?;
-
-Actor:
-	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' body+=Attribute* '}')?;
+Controller:
+	'controller' name=UPPER_CASE_ID '{' (body+=(ServiceAttribute | Action))* '}';
 
 Action:
-	default?='default'? name=LOWER_CASE_ID
-	'(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
-	('{' body+=MethodStatement* '}' | body+=MethodStatement)
-	| native?='native' default?='default'? name=LOWER_CASE_ID
-	'(' (parameters+=Parameter (',' parameters+=Parameter)*)?
-	')';
+	default?='default'? name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' '{'
+	(body+=MethodStatement)* '}' | (native?='native' default?='default'?) name=LOWER_CASE_ID '(' (parameters+=Parameter
+	(',' parameters+=Parameter)*)? ')' ';';
+
+Constraint:
+	'constraint' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ';';
+
+Actor:
+	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? ('{' (body+=Attribute)* '}' | ';');
 
 Function:
 	Action | Method;
 
-Method:
-	type=Type name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')'
-	('{' body+=MethodStatement* '}' | body+=MethodStatement) |
-	native?='native' ('<' (genericTypeParameters+=GenericTypeSpecification (','
-	genericTypeParameters+=GenericTypeSpecification)*)? '>')? type=Type name=LOWER_CASE_ID '(' (parameters+=Parameter (','
-	parameters+=Parameter)*)? ')';
-
-ActionCall:
+ActionCall: // FIXME REmove ';'
 	'->' referencedElement=[Action|QualifiedName] '(' (parameters+=Expression (',' parameters+=Expression)*)? ')';
+
+ActionCallStatement returns ActionCall:
+	ActionCall ';'
+;
 
 View:
 	Page | Widget;
 
 Page:
-	'page' name=UPPER_CASE_ID
-	('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?
-	'controlledBy' controller=[Controller|QualifiedName]
-	('{' body+=ViewStatement* '}' | body+=ViewStatement)?;
+	'page' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? 'controlledBy'
+	controller=[Controller|QualifiedName] ('{' (body+=ViewStatement)* '}' | ';');
 
 Widget:
-	'widget' name=UPPER_CASE_ID
-	('(' parameters+=Parameter (',' parameters+=Parameter)* ')')?
-	('controlledBy' controller=[Controller|QualifiedName])?
-	('{' body+=ViewStatement* '}' | body+=ViewStatement)?;
+	'widget' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ('controlledBy'
+	controller=[Controller|QualifiedName])? ('{' (body+=ViewStatement)* '}' | ';');
 
 ViewStatement:
-	IfView | ForView | ViewInstance | NamedViewBlock;
+	(IfView | ForView | ViewInstance | NamedViewBlock);
 
 IfView:
-	'if' {IfView} '(' condition=Expression ')' ('{' body+=ViewStatement* '}' | body+=ViewStatement);
+	'if' {IfView} '(' condition=Expression ')' ('{' (body+=ViewStatement)* '}' | body+=ViewStatement);
 
 ForView:
-	'for' {ForView} '(' variable=ForVariable 'in' collection=VariableReference ')' ('{' body+=ViewStatement* '}' |
+	'for' {ForView} '(' variable=ForVariable 'in' collection=VariableReference ')' ('{' (body+=ViewStatement)* '}' |
 	body+=ViewStatement);
 
 ForVariable returns Variable:
@@ -159,42 +159,37 @@ ViewInstanceNoAction returns ViewInstance:
 	(name=LOWER_CASE_ID '=')? type=WidgetType ('(' parameters+=Expression (',' parameters+=Expression)* ')')?;
 
 ViewInstance:
-	ViewInstanceNoAction actionCall=ActionCall? ('{' body+=ViewStatement* '}' | body+=ViewStatement);
+	ViewInstanceNoAction actionCall=ActionCall? ('{' (body+=ViewStatement)* '}' | ';');
 
 NamedViewBlock:
-	name=LOWER_CASE_ID ':' ('{' body+=ViewStatement* '}' | body+=ViewStatement);
+	name=LOWER_CASE_ID ':' ('{' (body+=ViewStatement)* '}' | body+=ViewStatement);
 
 WidgetType returns Type:
 	referencedElement=[Widget|UPPER_CASE_ID];
 
 MethodStatement:
-	Variable | If | While | Show| For | ActionCall | Assignment;
+	(Variable | If | While | Show | For | ActionCallStatement | ReferenceStatement);
 
-Assignment:
-	left=Reference (symbol='=' |
-	symbol='+=' |
-	symbol='-=' |
-	symbol='*=' |
-	symbol='/=') right=Expression;
+ReferenceStatement returns MethodStatement:
+	Reference ({Assignment.left=current} (symbol='=' | symbol='+=' | symbol='-=' | symbol='*=' | symbol='/=')
+	right=Expression)? ';';
 
 If:
-	{If} 'if' '(' condition=Expression ')'
-	('{' body+=MethodStatement* '}' | body+=MethodStatement)
-	 (=> "else" ('{' elseBody+=MethodStatement* '}' | elseBody+=MethodStatement))?;
+	{If} 'if' '(' condition=Expression ')' ('{' (body+=MethodStatement)* '}' | body+=MethodStatement) (=> "else" ('{'
+	(elseBody+=MethodStatement)* '}' | elseBody+=MethodStatement))?;
 
 While:
-	{While} 'while' '(' condition=Expression ')'
-	('{' body+=MethodStatement* '}' | body+=MethodStatement);
+	{While} 'while' '(' condition=Expression ')' ('{' (body+=MethodStatement)* '}' | body+=MethodStatement);
 
 For:
-	{For} 'for' '(' variable=Variable 'in' collection=VariableReference ')'
-	('{' body+=MethodStatement* '}' | body+=MethodStatement);
+	{For} 'for' '(' variable=Variable 'in' collection=VariableReference ')' ('{' (body+=MethodStatement)* '}' |
+	body+=MethodStatement);
 
 Variable:
-	type=Type name=LOWER_CASE_ID ('=' value=Expression)?;
+	type=Type name=LOWER_CASE_ID ('=' value=Expression)? ';';
 
 Show:
-	{Show} 'show' expression=ViewInstanceNoAction;
+	{Show} 'show' expression=ViewInstanceNoAction ';';
 
 Expression:
 	BoolTerm ({BinaryOperator.left=current} symbol='or' right=BoolTerm)*;
@@ -206,16 +201,8 @@ Negation returns Expression:
 	Comparison | {UnaryOperator} symbol='not' expression=Negation;
 
 Comparison returns Expression:
-	ArithmeticExpression ({BinaryOperator.left=current}
-	(symbol='<=' |
-	symbol='>=' |
-	symbol='>' |
-	symbol='<' |
-	symbol='!=' |
-	symbol='==' |
-	symbol='is' |
-	symbol='as')
-	right=ArithmeticExpression)*;
+	ArithmeticExpression ({BinaryOperator.left=current} (symbol='<=' | symbol='>=' | symbol='>' | symbol='<' | symbol='!='
+	| symbol='==' | symbol='is' | symbol='as') right=ArithmeticExpression)*;
 
 ArithmeticExpression returns Expression:
 	Term ({BinaryOperator.left=current} (symbol='+' | symbol='-') right=Term)*;
@@ -243,8 +230,6 @@ Reference:
 TypedElementReference returns Reference:
 	(MethodCall | VariableReference | SimpleType) tail=ReferenceTail?;
 
-	//TypeReference:
-//	{TypeReference} referencedElement=[TypeSpecification|UPPER_CASE_ID];
 VariableReference:
 	{VariableReference} referencedElement=[VariableTypeElement|LOWER_CASE_ID];
 
@@ -257,11 +242,6 @@ ReferenceTail returns Reference:
 ResourceReference:
 	referencedElement=[Resource|ResourceName];
 
-	//TypeQualifiedName:
-//	(SimpleQualifiedName '.')? UPPER_CASE_ID;
-//
-//SimpleQualifiedName:
-//	LOWER_CASE_ID ('.' LOWER_CASE_ID)*;
 Bound:
 	INT | '*';
 

@@ -28,16 +28,16 @@ class EntityTest extends CommonTests {
 	def void entityStructure() {
 
 		val is = '''
-			package test
+			package test;
 			entity Parent {
 				
 			}
 			
-			entity Parent2
+			entity Parent2;
 			
 			entity MyEntity extends Parent, Parent2 {
-				String name
-				Integer num
+				String name;
+				Integer num;
 			}
 			
 		'''.parse(rs)

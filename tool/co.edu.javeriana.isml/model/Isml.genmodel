@@ -140,10 +140,13 @@
     <genClasses ecoreClass="Isml.ecore#//NamedViewBlock"/>
     <genClasses image="false" ecoreClass="Isml.ecore#//CompositeMethodStatement"/>
     <genClasses image="false" ecoreClass="Isml.ecore#//CompositeElement">
-      <genTypeParameters ecoreTypeParameter="Isml.ecore#//CompositeElement/S"/>
+      <genTypeParameters ecoreTypeParameter="Isml.ecore#//CompositeElement/T"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//CompositeElement/body"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Isml.ecore#//ViewStatement"/>
     <genClasses ecoreClass="Isml.ecore#//Element"/>
+    <genClasses ecoreClass="Isml.ecore#//CompositeTypeSpecification">
+      <genTypeParameters ecoreTypeParameter="Isml.ecore#//CompositeTypeSpecification/T"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -24,7 +24,7 @@ class UniqueTest extends CommonTests {
 	def void duplicateAction() {
 
 		val result = '''
-			package test
+			package test;
 			
 			
 			controller Test {
@@ -46,7 +46,7 @@ class UniqueTest extends CommonTests {
 	def void duplicateAction2() {
 
 		val result = '''
-			package test
+			package test;
 			
 
 			controller Test {
@@ -68,7 +68,7 @@ class UniqueTest extends CommonTests {
 	def void overloadedAction() {
 
 		val result = '''
-			package test
+			package test;
 			
 
 			
@@ -91,10 +91,10 @@ class UniqueTest extends CommonTests {
 	def void overloadedActionCall() {
 
 		'''
-			package test
+			package test;
 			
-			primitive String
-			primitive Integer
+			primitive String;
+			primitive Integer;
 			
 			controller Test {
 				action(String a) {
@@ -104,8 +104,8 @@ class UniqueTest extends CommonTests {
 				}
 								
 				action2(String c) {
-					->action(1)
-					->action("aa")
+					->action(1);
+					->action("aa");
 				}
 			}
 			
@@ -116,9 +116,9 @@ class UniqueTest extends CommonTests {
 	def void duplicateMethod() {
 
 		val result = '''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
 			service Test {
 				method() {
@@ -139,10 +139,10 @@ class UniqueTest extends CommonTests {
 	def void duplicateMethod2() {
 
 		val result = '''
-			package test
+			package test;
 			
-			primitive String
-			primitive Integer
+			primitive String;
+			primitive Integer;
 			service Test {
 				method(String a, Integer b) {
 					
@@ -162,9 +162,9 @@ class UniqueTest extends CommonTests {
 	def void overloadedMethod() {
 
 		val result = '''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
 			service Test {
 				String method() {
@@ -185,9 +185,9 @@ class UniqueTest extends CommonTests {
 	def void overloadedMethodCall() {
 
 		val result = '''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
 			service Test {
 				String method() {
@@ -201,11 +201,11 @@ class UniqueTest extends CommonTests {
 			}
 			
 			controller Controller {
-				has Test test
+				has Test test;
 				
 				action() {
-					test.method()
-					test.method("a")
+					test.method();
+					test.method("a");
 				}
 			}
 			
@@ -217,9 +217,9 @@ class UniqueTest extends CommonTests {
 	def void duplicateController() {
 
 		'''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
 			controller Test {
 			}
@@ -235,9 +235,9 @@ class UniqueTest extends CommonTests {
 	def void duplicateParameter() {
 
 		'''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
 			controller Test {
 				action(String a, String a) {
@@ -253,9 +253,9 @@ class UniqueTest extends CommonTests {
 	def void nonDuplicateParameter() {
 
 		'''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
 			controller Test {
 				action(String a, String b) {
@@ -270,12 +270,12 @@ class UniqueTest extends CommonTests {
 	@Test 
 	def void duplicatePackages() {
 		'''
-			package test
+			package test;
 			
-			primitive String
+			primitive String;
 			
-			package test
-			primitive Integer
+			package test;
+			primitive Integer;
 			
 			
 			

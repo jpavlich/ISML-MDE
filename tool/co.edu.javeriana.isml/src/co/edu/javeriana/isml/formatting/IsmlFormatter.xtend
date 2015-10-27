@@ -40,7 +40,7 @@ class IsmlFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1, 2, 3).around(grammar.ifRule)
 		c.setLinewrap(1, 2, 3).around(grammar.whileRule)
 		c.setLinewrap(1, 2, 3).around(grammar.methodCallRule)
-		c.setLinewrap(1, 2, 3).around(grammar.assignmentRule)
+		c.setLinewrap(1, 2, 3).around(grammar.referenceStatementRule)
 		c.setLinewrap(1, 2, 3).around(grammar.importRule)
 		c.setLinewrap(1, 2, 3).around(grammar.entityRule)
 		c.setLinewrap(1, 2, 3).around(grammar.controllerRule)

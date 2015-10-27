@@ -1,31 +1,31 @@
-package common.widgets
-import common.primitives.*
+package common.widgets;
+import common.primitives.*;
 
 // Simple primitives
-widget Button(String title,Boolean validateForm)
+widget Button(String title,Boolean validateForm);
 
 /**
  * Etiqueta
  */
-widget Label(Any text)
-widget Image(String imageURL)
-widget Link(String label, String url)
+widget Label(Any text);
+widget Image(String imageURL);
+widget Link(String label, String url);
 
 // Form primitives
-widget Form(Block body)
-widget Text(String label, Any value, Integer columns, Integer rows)
-widget OutputText(String label, Any value)
-widget Password(String label, Any value, Integer length)
-widget CheckBox(String label, Boolean value)
-widget ListChooser(String label, Array<Any> list, Array<Any> value, Any defaultValue)
-widget ComboChooser(String label, Array<Any> list, Any value, Any defaultValue)
-widget RadioChooser(String label, Array<Any> list, Any value, Any defaultValue)
-widget Spinner(String label, Float value, Float stepFactor, Float min, Float max, String prefix)
-widget PickList(String title, Any value)
-widget Calendar(String label, Date value, Array<Date> markedDates, String dateFormat, Boolean navigator, String mode)
+widget Form(Block body);
+widget Text(String label, Any value, Integer columns, Integer rows);
+widget OutputText(String label, Any value);
+widget Password(String label, Any value, Integer length);
+widget CheckBox(String label, Boolean value);
+//widget ListChooser(String label, Array<Any> list, Array<Any> value, Any defaultValue);
+//widget ComboChooser(String label, Array<Any> list, Any value, Any defaultValue);
+//widget RadioChooser(String label, Array<Any> list, Any value, Any defaultValue);
+widget Spinner(String label, Float value, Float stepFactor, Float min, Float max, String prefix);
+widget PickList(String title, Any value);
+//widget Calendar(String label, Date value, Array<Date> markedDates, String dateFormat, Boolean navigator, String mode);
 
 
 // Composite primitives
-widget Panel(String title, Block block) 
-widget PanelButton(String title, Block block)  
-widget DataTable(String title, Any selectionObject, Block header, Block body) 
+widget Panel(String title, Block block); 
+widget PanelButton(String title, Block block);  
+widget DataTable(String title, Any selectionObject, Block header, Block body); 

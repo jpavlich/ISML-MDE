@@ -1,12 +1,12 @@
-package common.primitives
+package common.primitives;
 
-constraint NotNull
-constraint NotEmpty
-constraint Min(Integer min)
-constraint Max(Integer max)
-constraint Size(Integer min, Integer max)
-constraint Future
-constraint Past
-constraint AssertFalse
-constraint AssertTrue
+constraint NotNull;
+constraint NotEmpty;
+constraint Min(Integer min);
+constraint Max(Integer max);
+constraint Size(Integer min, Integer max);
+constraint Future;
+constraint Past;
+constraint AssertFalse;
+constraint AssertTrue;
 

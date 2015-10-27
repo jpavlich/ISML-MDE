@@ -27,11 +27,11 @@ class TypeCheckerTest extends CommonTests {
 	@Inject extension IsmlModelNavigation
 
 	private val code = '''
-		package test
+		package test;
 			
 			controller Controller {
 				action() {
-					Integer i = 10
+					Integer i = 10;
 				}
 			}
 	'''

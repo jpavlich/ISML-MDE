@@ -25,7 +25,7 @@ class PageTest extends CommonTests {
 	def void actionCall() {
 
 		'''
-			package test
+			package test;
 			
 			
 			controller Controller {
@@ -39,7 +39,7 @@ class PageTest extends CommonTests {
 			}
 			
 			page Page controlledBy Controller{
-				Button("", true) -> action1()
+				Button("", true) -> action1();
 			}
 			
 		'''.parse(rs).assertNoErrors
@@ -49,7 +49,7 @@ class PageTest extends CommonTests {
 	def void actionCall2() {
 
 		'''
-			package test
+			package test;
 			
 			
 			
@@ -68,7 +68,7 @@ class PageTest extends CommonTests {
 			}
 			
 			page Page controlledBy Controller2{
-				Button("", true) -> Controller.action1()
+				Button("", true) -> Controller.action1();
 			}
 			
 		'''.parse(rs).assertNoErrors
@@ -77,18 +77,18 @@ class PageTest extends CommonTests {
 	@Test
 	def void actionCallMultipleResources() {
 		'''
-			package test
+			package test;
 			
 			
 			page Page controlledBy Controller1 {
-				Button("", true) -> Controller2.action2()
-				Button("", true) -> action1()
-				Button("", true) -> Controller1.action1()
+				Button("", true) -> Controller2.action2();
+				Button("", true) -> action1();
+				Button("", true) -> Controller1.action1();
 			}
 			
 		'''.parse(rs)
 		'''
-			package test
+			package test;
 			
 			
 			controller Controller1 {
@@ -98,7 +98,7 @@ class PageTest extends CommonTests {
 			
 		'''.parse(rs)
 		'''
-			package test
+			package test;
 			
 			
 			controller Controller2 {
@@ -114,7 +114,7 @@ class PageTest extends CommonTests {
 	def void incorrectActionCall() {
 
 		'''
-			package test
+			package test;
 			
 
 			
@@ -134,7 +134,7 @@ class PageTest extends CommonTests {
 			}
 			
 			page Page controlledBy Controller{
-				Button("", true) -> action3()
+				Button("", true) -> action3();
 			}
 			
 		'''.parse(rs).assertErrors
@@ -144,7 +144,7 @@ class PageTest extends CommonTests {
 	def void forVarReference() {
 
 		'''
-			package test
+			package test;
 			
 			
 			
@@ -162,7 +162,7 @@ class PageTest extends CommonTests {
 			
 			page Page(Array<String> list) controlledBy Controller{
 				for (String str in list) {
-					Button(str, true)
+					Button(str, true);
 				}
 			}
 			
@@ -173,11 +173,11 @@ class PageTest extends CommonTests {
 	def void forVarReference2() {
 
 		'''
-			package test
+			package test;
 			
 			
 			entity Entity {
-				String name
+				String name;
 				
 			}
 			
@@ -195,7 +195,7 @@ class PageTest extends CommonTests {
 			
 			page Page(Array<Entity> list) controlledBy Controller{
 				for (Entity ent in list) {
-					Button(ent.name, true)
+					Button(ent.name, true);
 				}
 			}
 			

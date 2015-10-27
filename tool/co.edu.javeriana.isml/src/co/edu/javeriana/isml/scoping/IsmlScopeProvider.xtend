@@ -28,13 +28,14 @@ import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
 import org.eclipse.xtext.util.PolymorphicDispatcher
+import co.edu.javeriana.isml.isml.Service
 
 /**
  * This class contains custom scoping description.
  * 
  * see : http://www.eclipse.org/Xtext/documentation.html#scoping
  * on how and when to use it 
- *
+ * 
  */
 class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 	@Inject extension IsmlModelNavigation
@@ -89,22 +90,31 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 	def IScope scope_MethodCall_referencedElement(MethodCall call, EReference ref) {
 		val parent = call.eContainer
 		val scopes = new ArrayList<EObject>
-		scopes.addAll(call.containerController.allMethods)
+//		scopes.addAll(call.containerController.allMethods)
 		switch (parent) {
 			Reference: {
 				val parentType = parent.referencedElement.type
 				val parentClassifier = parentType.typeSpecification
 				if(parentClassifier instanceof Interface) {
-					scopes.addAll(parentClassifier.allMethods.filter[method|method.isCongruentWith(call)])
+					scopes.addAll(parentClassifier.allMethods.filter [ method |
+						method.isCongruentWith(call)
+					])
 				}
 				return Scopes.scopeFor(scopes)
 			}
 			default: {
+				val containerService = call.findAncestor(Service)
+				if(containerService != null) {
+					scopes.addAll(containerService.allMethods.filter [ method |
+						method.isCongruentWith(call)
+					])
+				}
 				for (service : call.unnamedServices) {
 					if(service.name == null) {
 						scopes.addAll(service.allMethods.filter[method|method.isCongruentWith(call)])
 					}
 				}
+
 				return Scopes.scopeFor(scopes)
 			}
 		}
@@ -116,7 +126,9 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 			val controllers = caller.eResource.resourceSet.getAllInstances(Controller)
 			val candidateActions = controllers.map[getActions].flatten
 			val actions = (candidateActions).filterCongruent(caller)
-			scope = Scopes::scopeFor(actions, [_|QualifiedName.create(_.containerController.name).append(_.name)], scope)
+			scope = Scopes::scopeFor(actions, [ _ |
+				QualifiedName.create(_.containerController.name).append(_.name)
+			], scope)
 			val controller = caller.containerController
 			if(controller != null) {
 				scope = Scopes::scopeFor(controller.actions.filterCongruent(caller), scope)
@@ -150,10 +162,9 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 		return IScope::NULLSCOPE
 	}
-	
+
 	def is(IEObjectDescription desc, Class<? extends EObject> c) {
 		c.isInstance(desc.getEObjectOrProxy)
 	}
-
 
 }

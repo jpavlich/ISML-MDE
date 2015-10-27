@@ -26,12 +26,12 @@ class GenericsTest extends CommonTests {
 	@Inject extension IsmlModelNavigation
 
 	@Test def void overloadedMethodSignatureTest() {
-		val is = '''package test
+		val is = '''package test;
 		
 					
 					service Persistence {
-						native <T> T delete(Type<T> type, Integer id)
-						native <T> T delete(T obj)
+						native <T> T delete(Type<T> type, Integer id);
+						native <T> T delete(T obj);
 					}
 				'''.parse(rs)
 		val pkg = is.components.get(0) as Package
@@ -49,7 +49,7 @@ class GenericsTest extends CommonTests {
 	@Test def void genericsAndInheritance() {
 		
 		'''
-		package test
+		package test;
 		
 		entity Team {
 			
@@ -67,9 +67,9 @@ class GenericsTest extends CommonTests {
 		package test
 		
 		controller TeamListManager {
-			has TeamPersistence teamPersistence
+			has TeamPersistence teamPersistence;
 			action() {
-				show TeamList(teamPersistence.findAll(),null,null)
+				show TeamList(teamPersistence.findAll(),null,null);
 			}
 		}
 		'''.parse(rs)
@@ -108,7 +108,7 @@ class GenericsTest extends CommonTests {
 		controller TeamListManager {
 			has Persistence<Team> teamPersistence
 			action() {
-				show TeamList(teamPersistence.findAll(),null,null)
+				show TeamList(teamPersistence.findAll(),null,null);
 			}
 		}
 		'''.parse(rs)

@@ -23,10 +23,10 @@ class IsmlValidatorTest extends CommonTests {
 	def void incorrectAssignment() {
 		println("incorrectAssignment")
 		val is = '''
-			package test
+			package test;
 				controller Controller {
 					action() {
-						Integer i = "a"
+						Integer i = "a";
 					}
 				}
 		'''.parse(rs)
@@ -38,7 +38,7 @@ class IsmlValidatorTest extends CommonTests {
 	def void incorrectAssignmentGenericArray() {
 		println("incorrectAssignmentGenericArray")
 		val is = '''
-			package test
+			package test;
 			
 			
 			entity Course {
@@ -46,14 +46,14 @@ class IsmlValidatorTest extends CommonTests {
 			}
 			
 			service Persistence {
-				native Any load(Type t,Integer id)
-				native <T> Collection<T> findAll(Type<T> t)
+				native Any load(Type t,Integer id);
+				native <T> Collection<T> findAll(Type<T> t);
 			}
 			
 			controller Controller {
-				has Persistence persistence
+				has Persistence persistence;
 				action() {
-					Course course = persistence.findAll(Course)
+					Course course = persistence.findAll(Course);
 				}
 			}
 			
@@ -66,7 +66,7 @@ class IsmlValidatorTest extends CommonTests {
 	def void incorrectAssignmentArrayContent() {
 		println("incorrectAssignmentArrayContent")
 		val is = '''
-			package test
+			package test;
 			
 			
 			entity Course {
@@ -74,14 +74,14 @@ class IsmlValidatorTest extends CommonTests {
 			}
 			
 			service Persistence {
-				native Any load(Type t,Integer id)
-				native <T> Collection<T> findAll(Type<T> t)
+				native Any load(Type t,Integer id);
+				native <T> Collection<T> findAll(Type<T> t);
 			}
 			
 			controller Controller {
 				has Persistence persistence
 				action() {
-					Collection<Course> course = persistence.findAll(String)
+					Collection<Course> course = persistence.findAll(String);
 				}
 			}
 			
@@ -94,7 +94,7 @@ class IsmlValidatorTest extends CommonTests {
 	def void correctAssignmentGenericsWithTypes() {
 		println("correctAssignmentGenericsWithTypes")
 		'''
-			package test
+			package test;
 			
 			
 			entity Course {
@@ -102,14 +102,14 @@ class IsmlValidatorTest extends CommonTests {
 			}
 			
 			service Test {
-				native <T> T load(Type<T> t,Integer id)
-				native <T> Collection<T> findAll(Type<T> t)
+				native <T> T load(Type<T> t,Integer id);
+				native <T> Collection<T> findAll(Type<T> t);
 			}
 			
 			controller Controller {
-				has Test test
+				has Test test;
 				action() {
-					Course course = test.load(Course, 1)
+					Course course = test.load(Course, 1);
 				}
 			}
 			
@@ -120,7 +120,7 @@ class IsmlValidatorTest extends CommonTests {
 	def void parameterizedType4() {
 
 		'''
-			package test
+			package test;
 			
 			
 			entity Course {
@@ -128,14 +128,14 @@ class IsmlValidatorTest extends CommonTests {
 			}
 			
 			service Persistence {
-				native Any load(Type t,Integer id)
-				native <T> Collection<T> findAll(Type<T> t)
+				native Any load(Type t,Integer id);
+				native <T> Collection<T> findAll(Type<T> t);
 			}
 			
 			controller Controller {
 				has Persistence persistence
 				action() {
-					Course course = persistence.load(String, 1)
+					Course course = persistence.load(String, 1);
 				}
 			}
 			
@@ -146,7 +146,7 @@ class IsmlValidatorTest extends CommonTests {
 	def void callToGenericMethod() {
 		println("callToGenericMethod")
 		val is = '''
-					package test
+					package test;
 					
 					
 					
@@ -155,17 +155,17 @@ class IsmlValidatorTest extends CommonTests {
 					}
 					
 					service Persistence {
-						native <T> T load(Type<T> type,Integer id)
-						native <T> Collection<T> findAll(Type<T> type)
-						native <T> T delete(Type<T> type, Integer id)
-						native <T> T delete(T obj)
+						native <T> T load(Type<T> type,Integer id);
+						native <T> Collection<T> findAll(Type<T> type);
+						native <T> T delete(Type<T> type, Integer id);
+						native <T> T delete(T obj);
 					}
 					
 					controller Controller {
-						has Persistence persistence
+						has Persistence persistence;
 						action() {
-							Course course
-							persistence.delete(course)
+							Course course;
+							persistence.delete(course);
 						}
 					}
 					

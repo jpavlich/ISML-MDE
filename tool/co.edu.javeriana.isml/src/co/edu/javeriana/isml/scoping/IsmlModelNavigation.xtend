@@ -60,6 +60,7 @@ import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider
 import co.edu.javeriana.isml.isml.CompositeElement
 import co.edu.javeriana.isml.isml.Struct
+import co.edu.javeriana.isml.isml.CompositeTypeSpecification
 
 /**
  * Helper to navigate Isml models
@@ -93,20 +94,24 @@ class IsmlModelNavigation {
 		}
 	}
 
-	def Iterable<Feature> getFeatures(CompositeElement ts) {
-		return ts.body.filter(Feature)
+	def Iterable<Feature> getFeatures(TypeSpecification ts) {
+		if (ts instanceof CompositeTypeSpecification<?>) {
+			return ts.body.filter(Feature)
+		} else {
+			return emptyList
+		}
 	}
 
 	def Iterable<Attribute> getAttributes(Struct c) {
-		return c.features.filter(Attribute)
+		return c.body.filter(Attribute)
 	}
 
-	def Iterable<Method> getMethods(Service c) {
+	def Iterable<Method> getMethods(Interface c) {
 		return c.features.filter(Method)
 	}
 
 	def Iterable<Action> getActions(Controller c) {
-		return c.features.filter(Action)
+		return c.body.filter(Action)
 	}
 
 	def Iterable<Attribute> getAllAttributes(TypeSpecification c) {
@@ -129,11 +134,10 @@ class IsmlModelNavigation {
 	def getTypeSpecification(Type type) {
 		return type.referencedElement
 	}
-	
+
 	def setTypeSpecification(Type type, TypeSpecification ts) {
 		type.referencedElement = ts
 	}
-	
 
 	def <T extends EObject> T findByName(Iterable<T> elements, String name) {
 		for (e : elements) {
@@ -258,7 +262,7 @@ class IsmlModelNavigation {
 	// def dispatch Set<TypedElement> getAllFeatures(Interface i) {
 	// i.allTypeSpecificationFeatures
 	// }
-	def dispatch Set<TypedElement> getAllFeatures(TypeSpecification ts) {
+	def dispatch Set<TypedElement> getAllFeatures(CompositeTypeSpecification<?> ts) {
 		ts.allTypeSpecificationFeatures
 	}
 
@@ -266,11 +270,13 @@ class IsmlModelNavigation {
 		t.typeSpecification.allFeatures
 	}
 
-	def Set<TypedElement> getAllTypeSpecificationFeatures(TypeSpecification c) {
+	def Set<TypedElement> getAllTypeSpecificationFeatures(CompositeTypeSpecification<?> c) {
 		val features = new LinkedHashSet<TypedElement>
 		features.addAll(c.features)
-		for (p : c.superTypes) {
-			features.addAll(p.allFeatures)
+		if(c instanceof TypeSpecification) {
+			for (p : c.superTypes) {
+				features.addAll(p.allFeatures)
+			}
 		}
 		return features
 	}
@@ -360,12 +366,12 @@ class IsmlModelNavigation {
 		return current as View
 	}
 
-	def Iterable<Feature> getServices(Controller c) {
+	def Iterable<Feature> getServices(CompositeTypeSpecification<?> c) {
 		return c.features.filter[_|_.type?.typeSpecification instanceof Service]
 	}
 
 	def Iterable<Feature> getServices(Reference r) {
-		var EObject current = r.findAnyAncestor(Controller, View)
+		var EObject current = r.findAnyAncestor(Controller, View, Service)
 
 		if(current instanceof View) {
 			if(current.controller != null) {
@@ -373,6 +379,10 @@ class IsmlModelNavigation {
 			}
 		}
 		if(current instanceof Controller) {
+			return current.services
+		}
+		
+		if(current instanceof Service) {
 			return current.services
 		}
 		return emptySet
@@ -412,8 +422,8 @@ class IsmlModelNavigation {
 		return null
 
 	}
-	
-	def <S extends EObject, T extends S> findAncestor(S obj, Class<T> c) {
+
+	def <S extends EObject, T extends EObject> findAncestor(S obj, Class<T> c) {
 		return obj.findAnyAncestor(c).cast(c)
 	}
 
@@ -1208,7 +1218,7 @@ class IsmlModelNavigation {
 	def <S extends EObject, T extends S> cast(S obj, Class<T> c) {
 		return obj as T
 	}
-	
+
 	def getComponents(InformationSystem is) {
 		return is.body
 	}
@@ -1216,5 +1226,5 @@ class IsmlModelNavigation {
 	def getComponents(Package p) {
 		return p.body
 	}
-	
+
 }
