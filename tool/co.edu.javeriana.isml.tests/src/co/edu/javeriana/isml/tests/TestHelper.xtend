@@ -17,6 +17,11 @@ class TestHelper {
 	def void assertErrors(EObject obj) {
 		assertTrue("Errors were expected in the test code, but there are none", !obj.validate.empty)
 	}
+	
+	def void assertNoSyntaxErrors(EObject obj) {
+		val errors = obj.validate
+		assertTrue(errors.forall[_ | !_.isSyntaxError])
+	}
 
 	def <T extends EObject, R> Iterable<T> assertArrayEquals(Iterable<T> real, Iterable<R> expected, Function1<T, R> transformation) {
 		assertArrayEquals(expected, real.map(transformation))

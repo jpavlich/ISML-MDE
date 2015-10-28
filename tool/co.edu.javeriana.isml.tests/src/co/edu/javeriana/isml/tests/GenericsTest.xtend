@@ -2,19 +2,19 @@ package co.edu.javeriana.isml.tests
 
 import co.edu.javeriana.isml.IsmlInjectorProvider
 import co.edu.javeriana.isml.isml.InformationSystem
+import co.edu.javeriana.isml.isml.Method
 import co.edu.javeriana.isml.isml.Package
+import co.edu.javeriana.isml.isml.Service
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
+import co.edu.javeriana.isml.validation.SignatureExtension
 import com.google.inject.Inject
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import co.edu.javeriana.isml.isml.Service
-import co.edu.javeriana.isml.isml.Method
-import co.edu.javeriana.isml.validation.SignatureExtension
-import org.junit.Assert
-import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -119,22 +119,25 @@ class GenericsTest extends CommonTests {
 	
 	@Test def void wrongNumOfTypeParameters() {
 		
-		'''
-		package test;
+		val obj1 = '''
+				package test;
+				
+				service Test<T> {
+					
+				}
+				'''.parse(rs)
 		
-		service Test<T> {
-			
-		}
-		'''.parse(rs)
 		
-		'''
-		package test;
-		
-		service Test2 extends Test<Integer,Integer> {
-			
-		}
-		'''.parse(rs).assertErrors
-		
+		val obj2 = '''
+				package test;
+				
+				service Test2 extends Test<Integer,Integer> {
+					
+				}
+				'''.parse(rs)
+		obj2.assertErrors
+		obj1.assertNoSyntaxErrors
+		obj2.assertNoSyntaxErrors
 		
 	}
 	

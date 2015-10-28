@@ -32,6 +32,7 @@ class IsmlValidatorTest extends CommonTests {
 		'''.parse(rs)
 		println(is.validate) // prints errors
 		is.assertErrors
+		is.assertNoSyntaxErrors
 	}
 
 	@Test

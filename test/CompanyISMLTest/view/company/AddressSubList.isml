@@ -1,4 +1,4 @@
-package test
+package test;
 
 page AddressSubList(Any container, Collection<Address> collection) controlledBy AddressManager  {
 	Form {

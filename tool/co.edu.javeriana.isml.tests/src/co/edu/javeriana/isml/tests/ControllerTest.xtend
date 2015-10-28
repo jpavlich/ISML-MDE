@@ -183,58 +183,65 @@ class ControllerTest extends CommonTests {
 	@Test
 	def void incorrectVariableDeclaration1() {
 
-		'''
-			package test;
-			
-			
-			controller Test {
-				action2() {
-						x = 1;
-						String x;
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+		val is = '''
+					package test;
+					
+					
+					controller Test {
+						action2() {
+								x = 1;
+								String x;
+						}
+					}
+					
+				'''.parse(rs)
+		is.assertErrors
+		is.assertNoSyntaxErrors
+		
 	}
 
 	@Test
 	def void incorrectVariableDeclaration2() {
 
-		'''
-			package test;
-			
-			
-			controller Test {
-				action2() {
-					if (true) {
-						String x;
-					} else {
-						x = 1;
+		val obj = '''
+					package test;
+					
+					
+					controller Test {
+						action2() {
+							if (true) {
+								String x;
+							} else {
+								x = 1;
+							}
+						}
 					}
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void incorrectVariableDeclaration3() {
 
-		'''
-			package test;
-			
-			
-			controller Test {
-				action2() {
-					if (true) {
-					} else {
-						x = 1;
+		val obj = '''
+					package test;
+					
+					
+					controller Test {
+						action2() {
+							if (true) {
+							} else {
+								x = 1;
+							}
+							String x;
+						}
 					}
-					String x;
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
