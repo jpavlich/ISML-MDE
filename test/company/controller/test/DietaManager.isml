@@ -1,13 +1,13 @@
-package test
+package test;
 
 controller DietaManager {
-	has Persistence<Dieta> persistence
+	has Persistence<Dieta> persistence;
 	
 	/**
 	* Lists all instances of Dieta.
 	*/
 	default listAll() {
-		show DietaList(persistence.findAll())
+		show DietaList(persistence.findAll());
 	}
 
 	/**
@@ -15,7 +15,7 @@ controller DietaManager {
 	* @param dietaList The list of instances of Dieta to show.
 	*/
 	listDieta(Collection<Dieta> dietaList) {
-	show DietaList(dietaList)
+		show DietaList(dietaList);
 	}
 	
 	/**
@@ -23,7 +23,7 @@ controller DietaManager {
 	* @param dietaList The list of instances of Dieta to show.
 	*/
 	subListDieta(Any container, Collection<Dieta> collection) {
-		show DietaSubList(container, collection)
+		show DietaSubList(container, collection);
 	}
 
 	/** Creates a new instance of Dieta and opens a form to 
@@ -32,7 +32,7 @@ controller DietaManager {
 	* @param collection The collection to which the new instance will be added
 	*/
 	createDietaToAdd(Any container, Collection<Dieta> collection) {
-		show CreateDietaToAdd(container, collection, new Dieta)
+		show CreateDietaToAdd(container, collection, new Dieta);
 	}
 
 	/** Opens a page to select an instance to add it to collection.
@@ -40,8 +40,8 @@ controller DietaManager {
 	* @param collection The collection to which the selected instance will be added
 	*/
 	selectDietaToAdd(Any container, Collection<Dieta> collection) {
-	Collection<Dieta> selectableElements = persistence.findAllExcept(collection)
-	show SelectDietaToAdd(selectableElements, container, collection)
+		Collection<Dieta> selectableElements = persistence.findAllExcept(collection);
+		show SelectDietaToAdd(selectableElements, container, collection);
 	}
 
 	/** Adds an instance of Dieta to a collection
@@ -50,8 +50,8 @@ controller DietaManager {
 	* @param dieta The instance that will be added to collection
 	*/
 	addDieta(Any container, Collection<Dieta> collection, Dieta instance) {
-	persistence.addToCollection(container, collection, instance)
-	-> DefaultPageDispatcher.edit(container)
+		persistence.addToCollection(container, collection, instance);
+		-> DefaultPageDispatcher.edit(container);
 	}
 	
 	
@@ -62,8 +62,8 @@ controller DietaManager {
 	* @param dieta The instance that will be removed from collection
 	*/
 	removeDieta(Any container, Collection<Dieta> collection, Dieta instance) {
-		persistence.removeFromCollection(container, collection, instance)
-		-> DefaultPageDispatcher.edit(container)
+		persistence.removeFromCollection(container, collection, instance);
+		-> DefaultPageDispatcher.edit(container);
 	}
 	
 	/** Opens a page to select an instance to assign it to an entity's attribute.
@@ -71,8 +71,8 @@ controller DietaManager {
 	* @param attribute The attribute name to which the selected instance will be assigned
 	*/
 	selectDietaToAssign(Any container, String attribute) {
-		Collection<Dieta> elements = persistence.findAll()
-		show SelectDietaToAssign(elements, container, attribute)
+		Collection<Dieta> elements = persistence.findAll();
+		show SelectDietaToAssign(elements, container, attribute);
 	}
 	
 	/** Assigns an object to an entity's attribute.
@@ -81,8 +81,8 @@ controller DietaManager {
 	* @param instance The object that will be assigned to attribute
 	*/
 	assignDieta(Any container, String attribute, Dieta instance) {
-		persistence.assignToAttribute(container, attribute, instance)
-		-> DefaultPageDispatcher.edit(container)
+		persistence.assignToAttribute(container, attribute, instance);
+		-> DefaultPageDispatcher.edit(container);
 	}
 	
 	/**
@@ -90,7 +90,7 @@ controller DietaManager {
 	* @param id the ID of the Dieta.
 	*/
 	viewDieta(Integer id) {
-		show ViewDieta(persistence.find(id))
+		show ViewDieta(persistence.find(id));
 	}
 
 	/**
@@ -98,7 +98,7 @@ controller DietaManager {
 	* @param dieta the Dieta to open.
 	*/		
 	viewDieta(Dieta dieta) {
-	show ViewDieta(dieta)
+		show ViewDieta(dieta);
 	}
 
 
@@ -107,14 +107,14 @@ controller DietaManager {
 	* @param dieta the Dieta to open.
 	*/			
 	editDieta(Dieta dieta) {
-	show EditDieta(dieta)
+		show EditDieta(dieta);
 	}
 
 	/**
 	* Creates a a new instance of Dieta.
 	*/			
 	createDieta() {
-		show EditDieta(new Dieta)
+		show EditDieta(new Dieta);
 	}
 
 
@@ -124,11 +124,11 @@ controller DietaManager {
 	*/			
 	saveDieta(Dieta dieta) {
 	if(persistence.isPersistent(dieta)){
-		persistence.edit(dieta)
+		persistence.edit(dieta);
 	} else {
-		persistence.create(dieta)
+		persistence.create(dieta);
 	}
-	-> listAll()
+	-> listAll();
 	}
 
 
@@ -137,8 +137,8 @@ controller DietaManager {
 	* @param dieta the Dieta to delete.
 	*/		
 	deleteDieta(Dieta dieta) {
-	persistence.remove(dieta)
-	-> listAll()
+		persistence.remove(dieta);
+		-> listAll();
 	}
 
 	/**
@@ -146,7 +146,7 @@ controller DietaManager {
 	* @param id the ID of the Dieta to delete.
 	*/		
 	deleteDieta(Integer id) {
-	persistence.remove(id)
-	-> listAll()
+		persistence.remove(id);
+		-> listAll();
 	}
 }

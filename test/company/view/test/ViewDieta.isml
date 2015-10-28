@@ -1,13 +1,18 @@
-package test
+package test;
 
 page ViewDieta(Dieta dieta) controlledBy DietaManager {
 	Panel("Dieta") {
-		Label("Desayuno") Label(dieta.desayuno)
-		Label("Almuerzo") Label(dieta.almuerzo)
-		Label("Cena") Label(dieta.cena)
-		Label("Merienda") Label(dieta.merienda)
-		Label("Patologia") Label(dieta.patologia)
+		Label("Desayuno");
+		Label(dieta.desayuno);
+		Label("Almuerzo");
+		Label(dieta.almuerzo);
+		Label("Cena");
+		Label(dieta.cena);
+		Label("Merienda");
+		Label(dieta.merienda);
+		Label("Patologia");
+		Label(dieta.patologia);
 
-		Button("Ok", false) -> listAll()
+		Button("Ok", false) -> listAll();
 	}
 }

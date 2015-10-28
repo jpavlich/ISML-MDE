@@ -1,11 +1,11 @@
-package test
+package test;
 
 entity Dieta {
 	
-    String desayuno
-    String almuerzo
-    String cena
-    String merienda
-    Integer patologia
+    String desayuno;
+    String almuerzo;
+    String cena;
+    String merienda;
+    Integer patologia;
 	
 }

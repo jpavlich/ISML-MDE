@@ -1,7 +1,7 @@
-package test
+package test;
 
 
 entity RolUsuario {
-	String preferencia
+	String preferencia;
 	
 }
