@@ -760,7 +760,7 @@ class IsmlModelNavigation {
 	/**
 	 * Este método obtiene los statements de tipo Show de un Block
 	 */
-	def Iterable<Show> getShowStatements(CompositeMethodStatement statement) {
+	def getShowStatements(EObject statement) {
 		return statement.eAllContents.filter(Show).toIterable
 	}
 
