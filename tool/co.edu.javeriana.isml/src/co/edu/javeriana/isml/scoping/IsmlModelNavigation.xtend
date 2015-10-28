@@ -79,7 +79,7 @@ class IsmlModelNavigation {
 
 	def TypeSpecification getContainerTypeSpecification(Feature f) {
 		val container = f.eContainer
-		if(container instanceof TypeSpecification) {
+		if (container instanceof TypeSpecification) {
 			return container
 		}
 	}
@@ -90,7 +90,7 @@ class IsmlModelNavigation {
 
 	def Type getContainerType(Caller c) {
 		val container = c.eContainer
-		if(container instanceof VariableReference) {
+		if (container instanceof VariableReference) {
 			val referenced = container.referencedElement
 			return referenced.type
 		}
@@ -143,9 +143,9 @@ class IsmlModelNavigation {
 
 	def <T extends EObject> T findByName(Iterable<T> elements, String name) {
 		for (e : elements) {
-			if(e instanceof NamedElement) {
+			if (e instanceof NamedElement) {
 				val ne = e as NamedElement
-				if(name.equals(ne.name)) {
+				if (name.equals(ne.name)) {
 					return e
 				}
 			}
@@ -191,11 +191,11 @@ class IsmlModelNavigation {
 	}
 
 	def dispatch boolean isSubtypeOf(ParameterizedType t1, ParameterizedType t2) {
-		if(t1.typeSpecification.isSubtypeSpecificationOf(t2.typeSpecification)) {
+		if (t1.typeSpecification.isSubtypeSpecificationOf(t2.typeSpecification)) {
 			for (i : 0 ..< t1.typeParameters.size) {
 				val typeParam1 = t1.typeParameters.get(i)
 				val typeParam2 = t2.typeParameters.get(i)
-				if(!typeParam1.isSubtypeOf(typeParam2)) {
+				if (!typeParam1.isSubtypeOf(typeParam2)) {
 					return false
 				}
 			}
@@ -206,11 +206,11 @@ class IsmlModelNavigation {
 	}
 
 	def dispatch boolean isSubtypeOf(Type t1, Type t2) {
-		if(EcoreUtil.equals(t1, t2)) {
+		if (EcoreUtil.equals(t1, t2)) {
 			return true
 		} else {
 			for (superType : t1.typeSpecification.superTypes) {
-				if(superType.isSubtypeOf(t2)) {
+				if (superType.isSubtypeOf(t2)) {
 					return true
 				}
 			}
@@ -220,11 +220,11 @@ class IsmlModelNavigation {
 	}
 
 	def boolean isSubtypeSpecificationOf(TypeSpecification t1, TypeSpecification t2) {
-		if(EcoreUtil.equals(t1, t2)) {
+		if (EcoreUtil.equals(t1, t2)) {
 			return true
 		} else {
 			for (superType : t1.superTypeSpecifications) {
-				if(superType.isSubtypeSpecificationOf(t2)) {
+				if (superType.isSubtypeSpecificationOf(t2)) {
 					return true
 				}
 			}
@@ -275,7 +275,7 @@ class IsmlModelNavigation {
 	def Set<TypedElement> getAllTypeSpecificationFeatures(CompositeTypeSpecification<?> c) {
 		val features = new LinkedHashSet<TypedElement>
 		features.addAll(c.features)
-		if(c instanceof TypeSpecification) {
+		if (c instanceof TypeSpecification) {
 			for (p : c.superTypes) {
 				features.addAll(p.allFeatures)
 			}
@@ -298,10 +298,10 @@ class IsmlModelNavigation {
 
 	def dispatch View getView(Instance obj) {
 		var container = obj.eContainer
-		while(!(container instanceof View) || (container as View).controller == null) {
+		while (!(container instanceof View) || (container as View).controller == null) {
 			container = container.eContainer
 		}
-		if(container != null && container instanceof View) {
+		if (container != null && container instanceof View) {
 			return container as View
 		}
 		return null
@@ -314,7 +314,7 @@ class IsmlModelNavigation {
 		for (resourceDescription : resourceDescriptions.allResourceDescriptions) {
 			val r = resourceSet.getResource(resourceDescription.getURI, true)
 			for (o : r.allContents.filter(obj.class).toIterable) {
-				if(o.eIsProxy) {
+				if (o.eIsProxy) {
 					val resolved = EcoreUtil2.resolve(o, obj.eResource.resourceSet) as T
 					instances.add(resolved)
 				} else {
@@ -334,14 +334,15 @@ class IsmlModelNavigation {
 	// }
 	def <T extends EObject> Collection<T> getAllInstances(ResourceSet resourceSet, Class<T> c) {
 
-		val IResourceDescriptions resourceDescriptions = resourceDescriptionsProvider.getResourceDescriptions(resourceSet);
+		val IResourceDescriptions resourceDescriptions = resourceDescriptionsProvider.
+			getResourceDescriptions(resourceSet);
 
 		val instances = new LinkedHashSet<T>
 
 		for (resourceDescription : resourceDescriptions.allResourceDescriptions) {
 			val res = resourceSet.getResource(resourceDescription.getURI, true)
 			for (o : res.allContents.filter(c).toIterable) {
-				if(o.eIsProxy) {
+				if (o.eIsProxy) {
 					val resolved = EcoreUtil2.resolve(o, resourceSet)
 					instances.add(resolved as T)
 				} else {
@@ -362,7 +363,7 @@ class IsmlModelNavigation {
 
 	def View getContainerView(EObject vp) {
 		var EObject current = vp
-		while(current != null && !(current instanceof View)) {
+		while (current != null && !(current instanceof View)) {
 			current = current.eContainer
 		}
 		return current as View
@@ -375,16 +376,16 @@ class IsmlModelNavigation {
 	def Iterable<Feature> getServices(Reference r) {
 		var EObject current = r.findAnyAncestor(Controller, View, Service)
 
-		if(current instanceof View) {
-			if(current.controller != null) {
+		if (current instanceof View) {
+			if (current.controller != null) {
 				return current.controller.services
 			}
 		}
-		if(current instanceof Controller) {
+		if (current instanceof Controller) {
 			return current.services
 		}
-		
-		if(current instanceof Service) {
+
+		if (current instanceof Service) {
 			return current.services
 		}
 		return emptySet
@@ -413,9 +414,9 @@ class IsmlModelNavigation {
 	 */
 	def EObject findAnyAncestor(EObject obj, Class<? extends EObject>... classes) {
 		var current = obj
-		while(current != null) {
+		while (current != null) {
 			for (c : classes) {
-				if(c.isAssignableFrom(current.class)) {
+				if (c.isAssignableFrom(current.class)) {
 					return current
 				}
 			}
@@ -428,8 +429,7 @@ class IsmlModelNavigation {
 	def <S extends EObject, T extends EObject> findAncestor(S obj, Class<T> c) {
 		return obj.findAnyAncestor(c).cast(c)
 	}
-	
-	
+
 	def findContainingFeature(EObject object, EObject ancestor) {
 		var current = object
 		var EStructuralFeature currentFeature = null
@@ -439,7 +439,6 @@ class IsmlModelNavigation {
 		}
 		return currentFeature
 	}
-	
 
 	/** Finds the ancestor whose parent is of certain types. 
 	 * @param obj the object from which ancestors' child are searched
@@ -448,11 +447,11 @@ class IsmlModelNavigation {
 	 */
 	def EObject findAncestorWithParentOfType(EObject obj, Class<? extends EObject>... classes) {
 		var current = obj
-		while(current != null) {
+		while (current != null) {
 			val parent = current.eContainer
-			if(parent != null) {
+			if (parent != null) {
 				for (c : classes) {
-					if(c.isAssignableFrom(parent.class)) {
+					if (c.isAssignableFrom(parent.class)) {
 						return current
 					}
 				}
@@ -465,7 +464,7 @@ class IsmlModelNavigation {
 	def EObject findDescendent(EObject obj, Class<? extends EObject>... classes) {
 		for (child : obj.eAllContents.toIterable) {
 			for (c : classes) {
-				if(c.isAssignableFrom(child.class)) {
+				if (c.isAssignableFrom(child.class)) {
 					return child
 				}
 			}
@@ -479,7 +478,7 @@ class IsmlModelNavigation {
 		methods.addAll(i.methods)
 		for (superType : i.superTypes) {
 			val typeSpecification = superType.typeSpecification
-			if(typeSpecification instanceof Interface) {
+			if (typeSpecification instanceof Interface) {
 				methods.addAll(typeSpecification.allMethods)
 			}
 		}
@@ -497,12 +496,12 @@ class IsmlModelNavigation {
 	 */
 	def Controller getContainerController(EObject e) {
 		var current = e
-		while(current != null && !(current instanceof Controller) && !(current instanceof Page)) {
+		while (current != null && !(current instanceof Controller) && !(current instanceof Page)) {
 			current = current.eContainer
 		}
-		if(current instanceof Page) {
+		if (current instanceof Page) {
 			return current.controller
-		} else if(current instanceof Controller) {
+		} else if (current instanceof Controller) {
 			return current
 		} else {
 			return null
@@ -511,7 +510,7 @@ class IsmlModelNavigation {
 
 	def Page getContainerPage(EObject e) {
 		var current = e
-		while(current != null && !(current instanceof Page)) {
+		while (current != null && !(current instanceof Page)) {
 			current = current.eContainer
 		}
 
@@ -520,7 +519,7 @@ class IsmlModelNavigation {
 
 	def Attribute getProperty(Entity e, String propName) {
 		for (p : e.attributes) {
-			if(p.name.equals(propName)) {
+			if (p.name.equals(propName)) {
 				return p;
 			}
 		}
@@ -528,7 +527,7 @@ class IsmlModelNavigation {
 
 	def Parameter getParameter(TypeSpecification t, String paramName) {
 		for (p : t.parameters) {
-			if(p.name.equals(paramName)) {
+			if (p.name.equals(paramName)) {
 				return p;
 			}
 		}
@@ -553,7 +552,7 @@ class IsmlModelNavigation {
 	def Expression getParameter(Instance i, String paramName) {
 		var int pos = 0
 		for (p : i.type.typeSpecification.parameters) {
-			if(p.name.equals(paramName)) {
+			if (p.name.equals(paramName)) {
 				return i.parameters.get(pos)
 			}
 			pos = pos + 1
@@ -565,11 +564,11 @@ class IsmlModelNavigation {
 		var pathElements = relativePath.split("\\.")
 		var element = parent
 		var i = 0
-		while(i < pathElements.length - 1) {
+		while (i < pathElements.length - 1) {
 			val attr = pathElements.get(i)
 			var obj = element.getSimpleAttributeValue(attr)
-			if(obj != null) {
-				if(obj instanceof EObject) {
+			if (obj != null) {
+				if (obj instanceof EObject) {
 					element = obj as EObject
 				}
 			} else {
@@ -582,7 +581,7 @@ class IsmlModelNavigation {
 
 	private def Object getSimpleAttributeValue(EObject element, String attr) {
 		val feature = element.eClass.getEStructuralFeature(attr)
-		if(feature != null) {
+		if (feature != null) {
 			var obj = element.eGet(feature)
 			return obj
 		} else {
@@ -619,7 +618,7 @@ class IsmlModelNavigation {
 	def isParentEntity(EList<TypeSpecification> superTypes) {
 		var boolean isEntity = false;
 		for (c : superTypes) {
-			if(c instanceof Entity) {
+			if (c instanceof Entity) {
 				isEntity = true;
 			}
 		}
@@ -633,7 +632,7 @@ class IsmlModelNavigation {
 	def isSon(Entity entity) {
 		var boolean isSon = false
 		for (parent : entity.superTypes) {
-			if(parent.typeSpecification instanceof Entity) {
+			if (parent.typeSpecification instanceof Entity) {
 				isSon = true
 			}
 		}
@@ -647,7 +646,7 @@ class IsmlModelNavigation {
 	 */
 	def isArrayPresent(Iterable<Attribute> attributes) {
 		for (a : attributes) {
-			if(a.type.isCollection) {
+			if (a.type.isCollection) {
 				return true;
 			}
 		}
@@ -663,10 +662,10 @@ class IsmlModelNavigation {
 	}
 
 	def isGenericType(EObject elem) {
-		if(elem instanceof GenericTypeSpecification) {
+		if (elem instanceof GenericTypeSpecification) {
 			return true
 		}
-		if(elem instanceof Type) {
+		if (elem instanceof Type) {
 			return elem.typeSpecification instanceof GenericTypeSpecification
 		}
 		return false
@@ -685,7 +684,7 @@ class IsmlModelNavigation {
 
 		for (anotherEntity : allEntities) {
 			for (superType : anotherEntity.superTypes) {
-				if(superType.typeSpecification.name.equals(entity.name)) {
+				if (superType.typeSpecification.name.equals(entity.name)) {
 					isParent = true
 				}
 			}
@@ -701,12 +700,12 @@ class IsmlModelNavigation {
 	}
 
 	def findEntityTypeSpec(Type type) {
-		if(type.is(Entity)) {
+		if (type.is(Entity)) {
 			return type.typeSpecification as Entity
-		} else if(type.isCollection) {
+		} else if (type.isCollection) {
 			val collectionType = type as ParameterizedType
 			val containedTypeSpec = collectionType.typeParameters.get(0).typeSpecification
-			if(containedTypeSpec instanceof Entity) {
+			if (containedTypeSpec instanceof Entity) {
 				return containedTypeSpec
 			}
 		}
@@ -719,7 +718,7 @@ class IsmlModelNavigation {
 	def boolean getIsOppositeCollection(Attribute attribute) {
 		val opposite = attribute.searchOpposite
 
-		if(opposite != null) {
+		if (opposite != null) {
 			return opposite.type.isCollection
 		}
 		return false
@@ -735,10 +734,10 @@ class IsmlModelNavigation {
 	 */
 	def Attribute searchOpposite(Attribute a) {
 		var Attribute opposite = null;
-		if(a.type instanceof ParameterizedType) {
+		if (a.type instanceof ParameterizedType) {
 			for (feature : (a.type as ParameterizedType).typeParameters.get(0).typeSpecification.features) {
-				if(feature instanceof Attribute) {
-					if(feature.opposite != null && feature.opposite.name.equals(a.name)) {
+				if (feature instanceof Attribute) {
+					if (feature.opposite != null && feature.opposite.name.equals(a.name)) {
 						opposite = feature;
 					}
 
@@ -746,8 +745,8 @@ class IsmlModelNavigation {
 			}
 		} else {
 			for (feature : a.type.typeSpecification.features) {
-				if(feature instanceof Attribute) {
-					if(feature.opposite != null && feature.opposite.name.equals(a.name)) {
+				if (feature instanceof Attribute) {
+					if (feature.opposite != null && feature.opposite.name.equals(a.name)) {
 						opposite = feature;
 					}
 
@@ -771,10 +770,11 @@ class IsmlModelNavigation {
 
 		// Obtiene la lista de todas las acciones referenciasdas por ViewInstances contenidas dentro del ViewBlock
 		val showActions = new ArrayList<Action>
-		val actions = page.eAllContents.filter(ViewInstance).filter[_|_.actionCall != null].map[_|_.actionCall.action].toIterable
+		val actions = page.eAllContents.filter(ViewInstance).filter[_|_.actionCall != null].map[_|_.actionCall.action].
+			toIterable
 
 		for (action : actions) {
-			if(!action.eAllContents.filter(Show).empty) {
+			if (!action.eAllContents.filter(Show).empty) {
 				showActions.add(action)
 			}
 		}
@@ -786,10 +786,11 @@ class IsmlModelNavigation {
 		var Set<Page> allPages
 		var EList<Page> controlledPages = new BasicEList
 		allPages = new LinkedHashSet
-		allPages.addAll((controller.eContainer.eContainer as InformationSystem).eResource.resourceSet.getAllInstances(Page))
+		allPages.addAll(
+			(controller.eContainer.eContainer as InformationSystem).eResource.resourceSet.getAllInstances(Page))
 		for (page : allPages) {
-			if(page.controller != null) {
-				if(page.controller.name.equals(controller.name)) {
+			if (page.controller != null) {
+				if (page.controller.name.equals(controller.name)) {
 					controlledPages.add(page)
 				}
 			}
@@ -798,7 +799,7 @@ class IsmlModelNavigation {
 	}
 
 	def String getCollectionString(Type type) {
-		if(type.typeSpecification.name.equals("Array")) {
+		if (type.typeSpecification.name.equals("Array")) {
 			return "List"
 		} else {
 			return type.typeSpecification.name
@@ -808,7 +809,7 @@ class IsmlModelNavigation {
 
 	def boolean evaluateCardinality(Attribute a) {
 		var boolean flag = false
-		if(a.type instanceof ParameterizedType) {
+		if (a.type instanceof ParameterizedType) {
 			flag = (a.type as ParameterizedType).typeParameters.get(0).typeSpecification instanceof Entity
 		} else {
 			flag = a.type.typeSpecification instanceof Entity
@@ -817,14 +818,14 @@ class IsmlModelNavigation {
 	}
 
 	def CharSequence associationAnnotation(Attribute a) {
-		if(a.evaluateCardinality) {
-			if(a.type.isCollection) {
-				if(a.opposite != null) {
+		if (a.evaluateCardinality) {
+			if (a.type.isCollection) {
+				if (a.opposite != null) {
 
 					/*Se verifica el mapeo de la entidad
 					 * para indicar atributo maestro
 					 */
-					if(a.opposite.type.isCollection) {
+					if (a.opposite.type.isCollection) {
 						return '''@ManyToMany(mappedBy = "«a.opposite.name»")'''
 					} else {
 						return '''@OneToMany(mappedBy = "«a.opposite.name»")'''
@@ -832,22 +833,22 @@ class IsmlModelNavigation {
 				} else {
 					val opposite = a.searchOpposite
 
-					if(opposite != null)
-						if(opposite.type.isCollection) {
+					if (opposite != null)
+						if (opposite.type.isCollection) {
 							return '''@ManyToMany'''
 						} else {
 							return '''@OneToMany(mappedBy = "«a.searchOpposite.name»")'''
 						}
 				}
 			} else {
-				if(a.opposite != null) {
-					if(a.opposite.type.isCollection) {
+				if (a.opposite != null) {
+					if (a.opposite.type.isCollection) {
 						return '''@ManyToOne'''
 					} else {
 						return '''@OneToOne(mappedBy="«a.opposite.name»")'''
 					}
 				} else {
-					if(a.searchOpposite.type.isCollection) {
+					if (a.searchOpposite.type.isCollection) {
 						return '''@ManyToOne'''
 					} else {
 						return '''@OneToOne'''
@@ -861,7 +862,7 @@ class IsmlModelNavigation {
 	def String writeType(Type type, boolean complete) {
 		var String typeString = ""
 
-		if(!type.isCollection) {
+		if (!type.isCollection) {
 			switch (type.typeSpecification.name) {
 				case "Any": typeString = "Object"
 				case "Type": typeString = type.classValue
@@ -872,22 +873,24 @@ class IsmlModelNavigation {
 			}
 		} else {
 			typeString = getCollectionString(type)
-			if(type instanceof ParameterizedType && complete == true) {
-				if((type as ParameterizedType).typeParameters.empty) {
+			if (type instanceof ParameterizedType && complete == true) {
+				if ((type as ParameterizedType).typeParameters.empty) {
 					typeString += "<Object>"
 				} else {
 					typeString += "<" + (type as ParameterizedType).typeParameters.get(0).writeType(complete) + ">"
-					if((type as ParameterizedType).typeParameters.get(0).typeSpecification instanceof GenericTypeSpecification) {
-						if(type.eContainer instanceof Function) {
+					if ((type as ParameterizedType).typeParameters.get(0).
+						typeSpecification instanceof GenericTypeSpecification) {
+						if (type.eContainer instanceof Function) {
 							var ser = type.eContainer.findAnyAncestor(TypeSpecification) as TypeSpecification
-							if(ser.genericTypeParameters.isEmpty) {
-								typeString = "<" + (type as ParameterizedType).typeParameters.get(0).typeSpecification + ">" + typeString
+							if (ser.genericTypeParameters.isEmpty) {
+								typeString = "<" + (type as ParameterizedType).typeParameters.get(0).typeSpecification +
+									">" + typeString
 							}
 						}
 					}
 				}
 			} else {
-				if(complete == true) {
+				if (complete == true) {
 					typeString += "<Object>"
 				}
 			}
@@ -897,8 +900,8 @@ class IsmlModelNavigation {
 	}
 
 	def String getClassValue(Type type) {
-		if(type instanceof Primitive) {
-			if(type.genericTypeParameters.isEmpty) {
+		if (type instanceof Primitive) {
+			if (type.genericTypeParameters.isEmpty) {
 				return "Class<?>"
 			} else {
 				return "Class<T>"
@@ -907,12 +910,12 @@ class IsmlModelNavigation {
 	}
 
 	def String getTypeString(Type t) {
-		if(t.typeSpecification instanceof GenericTypeSpecification && !(t.eContainer instanceof ParameterizedType)) {
+		if (t.typeSpecification instanceof GenericTypeSpecification && !(t.eContainer instanceof ParameterizedType)) {
 			var str = ""
-			if(t.eContainer instanceof Function) {
+			if (t.eContainer instanceof Function) {
 				str = ""
 				var ser = t.eContainer.findAnyAncestor(TypeSpecification) as TypeSpecification
-				if(ser.genericTypeParameters.isEmpty) {
+				if (ser.genericTypeParameters.isEmpty) {
 					str = "<" + t.typeSpecification.name + ">" + t.typeSpecification.name
 				} else {
 					str = t.typeSpecification.name
@@ -935,7 +938,7 @@ class IsmlModelNavigation {
 		var EList<Page> controlledPages = getControlledPages(controller)
 		for (page : controlledPages) {
 			for (param : page.parameters) {
-				if(!neededAttributes.containsKey(param.name)) {
+				if (!neededAttributes.containsKey(param.name)) {
 					neededAttributes.put(param.name, param.type)
 				}
 			}
@@ -949,11 +952,12 @@ class IsmlModelNavigation {
 		var EList<Page> controlledPages = getControlledPages(controller)
 		for (page : controlledPages) {
 			for (param : page.parameters) {
-				if(param.type?.typeSpecification instanceof Entity) {
+				if (param.type?.typeSpecification instanceof Entity) {
 					controllerEntities.add(param.type.typeSpecification as Entity)
-				} else if(param.type instanceof ParameterizedType) {
-					if((param.type as ParameterizedType).typeParameters.get(0).typeSpecification instanceof Entity) {
-						returnData.put("entityToList", (param.type as ParameterizedType).typeParameters.get(0).typeSpecification as Entity)
+				} else if (param.type instanceof ParameterizedType) {
+					if ((param.type as ParameterizedType).typeParameters.get(0).typeSpecification instanceof Entity) {
+						returnData.put("entityToList",
+							(param.type as ParameterizedType).typeParameters.get(0).typeSpecification as Entity)
 						returnData.put("selectedRegisters",(param.type as ParameterizedType))
 					}
 				}
@@ -976,7 +980,7 @@ class IsmlModelNavigation {
 	def EList<Parameter> evaluateParameters(EList<Parameter> parameters, Map<String, Type> neededAttibutes) {
 		var EList<Parameter> newList = new BasicEList
 		for (param : parameters) {
-			if(!neededAttibutes.containsKey(param.name)) {
+			if (!neededAttibutes.containsKey(param.name)) {
 				newList.add(param)
 			}
 		}
@@ -987,258 +991,296 @@ class IsmlModelNavigation {
 	def Map<QualifiedName, TypeSpecification> getNeededImportsInActions(Controller controller) {
 		var Map<QualifiedName, TypeSpecification> imports = new HashMap
 		for (action : controller.actions) {
-			if(action.type != null && !action.type.typeSpecification.eContainer.fullyQualifiedName.equals(controller.eContainer.fullyQualifiedName)) {
-				if(!(action.type.typeSpecification instanceof Primitive)) {
-					if(!imports.containsKey(action.type.typeSpecification.fullyQualifiedName)) {
+			if (action.type != null &&
+				!action.type.typeSpecification.eContainer.fullyQualifiedName.equals(
+					controller.eContainer.fullyQualifiedName)) {
+				if (!(action.type.typeSpecification instanceof Primitive)) {
+					if (!imports.containsKey(action.type.typeSpecification.fullyQualifiedName)) {
 						imports.put(action.type.typeSpecification.fullyQualifiedName, action.type.typeSpecification)
 					}
 				}
 			}
 			for (param : action.parameters) {
-				if(!param.type.isCollection) {
-					if(!param.type.typeSpecification.eContainer.fullyQualifiedName.equals(controller.eContainer.fullyQualifiedName)) {
-						if(!(param.type.typeSpecification instanceof Primitive)) {
-							if(!imports.containsKey(param.type.typeSpecification.fullyQualifiedName)) {
-								imports.put(param.type.typeSpecification.fullyQualifiedName, param.type.typeSpecification)
+				if (!param.type.isCollection) {
+					if (!param.type.typeSpecification.eContainer.fullyQualifiedName.equals(
+						controller.eContainer.fullyQualifiedName)) {
+						if (!(param.type.typeSpecification instanceof Primitive)) {
+							if (!imports.containsKey(param.type.typeSpecification.fullyQualifiedName)) {
+								imports.put(param.type.typeSpecification.fullyQualifiedName,
+									param.type.typeSpecification)
 							}
 						}
 					}
 				} else {
-					if(param.type instanceof ParameterizedType) {
-						if(!(param.type as ParameterizedType).typeParameters.get(0).typeSpecification.eContainer.fullyQualifiedName.equals(
-							controller.eContainer.fullyQualifiedName)) {
-							if(!((param.type as ParameterizedType).typeParameters.get(0).typeSpecification instanceof Primitive)) {
-								if(!imports.containsKey((param.type as ParameterizedType).typeParameters.get(0).typeSpecification.fullyQualifiedName)) {
-									imports.put((param.type as ParameterizedType).typeParameters.get(0).typeSpecification.fullyQualifiedName,
-										(param.type as ParameterizedType).typeParameters.get(0).typeSpecification as Entity)
-								}
-							}
-						}
-					}
-				}
-			}
-			for (stmnt : action.body) {
-				isNeededImportInBody(stmnt.eAllContents.toList, imports, controller)
-			}
-		}
-		return imports
-	}
-
-	def void isNeededImportInBody(List<EObject> allContents, Map<QualifiedName, TypeSpecification> imports, TypeSpecification controller) {
-		for (obj : allContents) {
-			if((obj instanceof TypedElement && !((obj as TypedElement).type.typeSpecification instanceof Primitive))) {
-				if(!(obj as TypedElement).type.typeSpecification.eContainer.fullyQualifiedName.equals(controller.eContainer.fullyQualifiedName)) {
-					if(!imports.containsKey((obj as TypedElement).type.typeSpecification.fullyQualifiedName)) {
-						imports.put((obj as TypedElement).type.typeSpecification.fullyQualifiedName, (obj as TypedElement).type.typeSpecification)
-					}
-				}
-			} else if((obj instanceof Reference && (obj as Reference).referencedElement instanceof TypeSpecification &&
-				!((obj as Reference).referencedElement instanceof Primitive))) {
-				if(!((obj as Reference).referencedElement as TypeSpecification).eContainer.fullyQualifiedName.equals(
-					controller.eContainer.fullyQualifiedName)) {
-					if(!imports.containsKey(((obj as Reference).referencedElement as TypeSpecification).fullyQualifiedName)) {
-						imports.put(((obj as Reference).referencedElement as TypeSpecification).eContainer.fullyQualifiedName,
-							(obj as Reference).referencedElement as TypeSpecification)
-					}
-
-				}
-			}
-			isNeededImportInBody(obj.eAllContents.toList, imports, controller)
-		}
-	}
-
-	def Controller getControllerIfExists(EObject actionCall) {
-		var Controller c = null
-		var EObject tmp = actionCall
-		while(tmp != null && c == null) {
-			if(tmp.eContainer != null && tmp.eContainer instanceof Controller) {
-				c = tmp.eContainer as Controller
-			}
-			tmp = tmp.eContainer
-		}
-		return c
-	}
-
-	def EList<Expression> validateParameterForActionCall(ActionCall action) {
-		var EList<Expression> finalList = new BasicEList
-		var Controller c = getControllerIfExists(action.referencedElement)
-		if(c != null) {
-			var Map<String, Type> controllerAttributes = getNeededAttributes(c).get("neededAttributes") as Map<String, Type>;
-			for (parameter : action.parameters) {
-				if(!(parameter instanceof VariableReference) ||
-					(parameter instanceof VariableReference && !controllerAttributes.containsKey((parameter as VariableReference).referencedElement.name))) {
-					finalList.add(parameter)
-				}
-			}
-		}
-		return finalList
-	}
-
-	def int getRows(ViewInstance viewInstance) {
-
-		var rows = viewInstance.getParameter('rows')
-
-		if(rows instanceof LiteralValue) {
-			return rows.literal as Integer
-
-		}
-
-		return 0
-	}
-
-	def Type getTailType(Reference reference) {
-		var Reference tmp = reference
-		while(tmp.tail != null) {
-			tmp = tmp.tail
-		}
-		return tmp.referencedElement.cast(TypedElement).type
-	}
-
-	def dispatch List<Object> evaluateToCast(Variable assignment) {
-		var List<Object> returnData = new ArrayList
-		var Boolean doCast = false
-		var Type castTo = null
-		if(assignment.value instanceof Reference) {
-			var Reference value = assignment.value as Reference
-			if(!getTailType(value).typeSpecification.name.equals(assignment.type.typeSpecification.name)) {
-				doCast = true
-				castTo = assignment.type
-				returnData.add(doCast)
-				returnData.add(castTo)
-			}
-		}
-		return returnData
-	}
-
-	def dispatch List<Object> evaluateToCast(Assignment assignment) {
-		var List<Object> returnData = new ArrayList
-		var Boolean doCast = false
-		var Type castTo = null
-		if(assignment.right instanceof Reference && assignment.left instanceof Reference) {
-			var Reference rightRef = assignment.right as Reference
-			var Reference leftRef = assignment.left as Reference
-			if(!getTailType(rightRef).typeSpecification.name.equals(getTailType(leftRef).typeSpecification.name)) {
-				doCast = true
-				castTo = getTailType(leftRef)
-				returnData.add(doCast)
-				returnData.add(castTo)
-			}
-		} else if(assignment.right instanceof Reference && assignment.left instanceof Variable) {
-			var Reference rightRef = assignment.right as Reference
-			var Variable leftRef = assignment.left as Variable
-			if(!getTailType(rightRef).typeSpecification.name.equals(leftRef.type.typeSpecification.name)) {
-				doCast = true
-				castTo = leftRef.type
-				returnData.add(doCast)
-				returnData.add(castTo)
-			}
-		}
-		return returnData
-	}
-
-	/**
-	 * Este metodo obtiene recursivamente la acción a la cual pertenece un statement
-	 */
-	def Action getActionRecursivelly(EObject eContainer) {
-		if(eContainer instanceof Action) {
-			return eContainer
-		} else {
-			return getActionRecursivelly(eContainer.eContainer);
-		}
-	}
-
-	def String getTypeSpecificationString(TypeSpecification specification) {
-		if(specification instanceof Primitive && specification.name.equalsIgnoreCase("Integer")) {
-			return "Long"
-		} else if(specification instanceof Primitive && specification.name.equalsIgnoreCase("BytesArray")) {
-			return "byte[]"
-		} else if(specification instanceof Primitive && specification.name.equalsIgnoreCase("Any")) {
-			return "Object"
-		} else {
-			return specification.name
-		}
-	}
-
-	def String getFullName(Type t) {
-		var name = ""
-
-		// if(t.typeSpecification instanceof GenericTypeSpecification && t.findAncestor(Parameter) != null) {
-		// name += t.typeSpecification?.name
-		// } else {
-		name += t.typeSpecification?.fullyQualifiedName
-
-		// }
-		if(t instanceof ParameterizedType) {
-			name += "<"
-			for (typeParam : t.typeParameters) {
-				name += typeParam.fullName
-			}
-			name += ">"
-		}
-		return name
-	}
-
-	def Type getReplacedType(TypeSpecification service, Type type) {
-		if(type.typeSpecification instanceof GenericTypeSpecification) {
-			if(service.genericTypeParameters.isEmpty) {
-				if(service.superTypes.get(0).typeSpecification.genericTypeParameters.isEmpty) {
-					return type
-				} else {
-					var i = 0
-					for (param : service.superTypes.get(0).typeSpecification.genericTypeParameters) {
-						if(param.name.equals(type.typeSpecification.name)) {
-							if(service.superTypes.get(0) instanceof ParameterizedType) {
-								if(!(service.superTypes.get(0) as ParameterizedType).typeParameters.isEmpty) {
-									return (service.superTypes.get(0) as ParameterizedType).typeParameters.get(i)
-								}
-							}
-						}
-						i++
-					}
-					return type
-				}
-			}
-		} else if(type.isCollection) {
-			if(service.genericTypeParameters.isEmpty) {
-				if(!service.superTypes.isEmpty) {
-					if(service.superTypes.get(0).typeSpecification.genericTypeParameters.isEmpty) {
-						return type
-					} else {
-						var i = 0
-						for (param : service.superTypes.get(0).typeSpecification.genericTypeParameters) {
-							if(param.name.equals((type as ParameterizedType).typeParameters.get(0).typeSpecification.name)) {
-								if(service.superTypes.get(0) instanceof ParameterizedType) {
-
-									var typ = (type as ParameterizedType)
-									if(!(service.superTypes.get(0) as ParameterizedType).typeParameters.isEmpty) {
-										var EList<Type> l = new BasicEList
-										l.addAll((service.superTypes.get(0) as ParameterizedType).typeParameters)
-										typ.typeParameters.get(i).typeSpecification = (service.superTypes.get(0) as ParameterizedType).typeParameters.get(i).
-											typeSpecification
-										return typ
+					if (param.type instanceof ParameterizedType) {
+						if (!(param.type as ParameterizedType).typeParameters.get(0).typeSpecification.eContainer.
+							fullyQualifiedName.equals(controller.eContainer.fullyQualifiedName)) {
+							if (!((param.type as ParameterizedType).typeParameters.get(0).
+								typeSpecification instanceof Primitive)) {
+								if (!imports.containsKey(
+									(param.type as ParameterizedType).typeParameters.get(0).typeSpecification.
+										fullyQualifiedName)) {
+											imports.put(
+												(param.type as ParameterizedType).typeParameters.get(0).
+													typeSpecification.fullyQualifiedName,
+												(param.type as ParameterizedType).typeParameters.get(0).
+													typeSpecification as Entity)
+										}
 									}
 								}
 							}
-							i++
 						}
-						return type
+					}
+					for (stmnt : action.body) {
+						isNeededImportInBody(stmnt.eAllContents.toList, imports, controller)
 					}
 				}
+				return imports
 			}
-		}
-		return type
-	}
 
-	def <S extends EObject, T extends S> cast(S obj, Class<T> c) {
-		return obj as T
-	}
+			def void isNeededImportInBody(List<EObject> allContents, Map<QualifiedName, TypeSpecification> imports,
+				TypeSpecification controller) {
+				for (obj : allContents) {
+					if ((obj instanceof TypedElement &&
+						!((obj as TypedElement).type.typeSpecification instanceof Primitive))) {
+						if (!(obj as TypedElement).type.typeSpecification.eContainer.fullyQualifiedName.equals(
+							controller.eContainer.fullyQualifiedName)) {
+							if (!imports.containsKey((obj as TypedElement).type.typeSpecification.fullyQualifiedName)) {
+								imports.put((obj as TypedElement).type.typeSpecification.fullyQualifiedName,
+									(obj as TypedElement).type.typeSpecification)
+							}
+						}
+					} else if ((obj instanceof Reference &&
+						(obj as Reference).referencedElement instanceof TypeSpecification &&
+						!((obj as Reference).referencedElement instanceof Primitive))) {
+						if (!((obj as Reference).referencedElement as TypeSpecification).eContainer.fullyQualifiedName.
+							equals(controller.eContainer.fullyQualifiedName)) {
+							if (!imports.containsKey(
+								((obj as Reference).referencedElement as TypeSpecification).fullyQualifiedName)) {
+								imports.put(((obj as Reference).referencedElement as TypeSpecification).eContainer.
+									fullyQualifiedName, (obj as Reference).referencedElement as TypeSpecification)
+							}
 
-	def getComponents(InformationSystem is) {
-		return is.body
-	}
+						}
+					}
+					isNeededImportInBody(obj.eAllContents.toList, imports, controller)
+				}
+			}
 
-	def getComponents(Package p) {
-		return p.body
-	}
+			def Controller getControllerIfExists(EObject actionCall) {
+				var Controller c = null
+				var EObject tmp = actionCall
+				while (tmp != null && c == null) {
+					if (tmp.eContainer != null && tmp.eContainer instanceof Controller) {
+						c = tmp.eContainer as Controller
+					}
+					tmp = tmp.eContainer
+				}
+				return c
+			}
 
-}
+			def EList<Expression> validateParameterForActionCall(ActionCall action) {
+				var EList<Expression> finalList = new BasicEList
+				var Controller c = getControllerIfExists(action.referencedElement)
+				if (c != null) {
+					var Map<String, Type> controllerAttributes = getNeededAttributes(c).get(
+						"neededAttributes") as Map<String, Type>;
+					for (parameter : action.parameters) {
+						if (!(parameter instanceof VariableReference) ||
+							(parameter instanceof VariableReference &&
+								!controllerAttributes.containsKey(
+									(parameter as VariableReference).referencedElement.name))) {
+								finalList.add(parameter)
+							}
+						}
+					}
+					return finalList
+				}
+
+				def int getRows(ViewInstance viewInstance) {
+
+					var rows = viewInstance.getParameter('rows')
+
+					if (rows instanceof LiteralValue) {
+						return rows.literal as Integer
+
+					}
+
+					return 0
+				}
+
+				def Type getTailType(Reference reference) {
+					var Reference tmp = reference
+					while (tmp.tail != null) {
+						tmp = tmp.tail
+					}
+					return tmp.referencedElement.cast(TypedElement).type
+				}
+
+				def dispatch List<Object> evaluateToCast(Variable assignment) {
+					var List<Object> returnData = new ArrayList
+					var Boolean doCast = false
+					var Type castTo = null
+					if (assignment.value instanceof Reference) {
+						var Reference value = assignment.value as Reference
+						if (!getTailType(value).typeSpecification.name.equals(assignment.type.typeSpecification.name)) {
+							doCast = true
+							castTo = assignment.type
+							returnData.add(doCast)
+							returnData.add(castTo)
+						}
+					}
+					return returnData
+				}
+
+				def dispatch List<Object> evaluateToCast(Assignment assignment) {
+					var List<Object> returnData = new ArrayList
+					var Boolean doCast = false
+					var Type castTo = null
+					if (assignment.right instanceof Reference && assignment.left instanceof Reference) {
+						var Reference rightRef = assignment.right as Reference
+						var Reference leftRef = assignment.left as Reference
+						if (!getTailType(rightRef).typeSpecification.name.equals(
+							getTailType(leftRef).typeSpecification.name)) {
+							doCast = true
+							castTo = getTailType(leftRef)
+							returnData.add(doCast)
+							returnData.add(castTo)
+						}
+					} else if (assignment.right instanceof Reference && assignment.left instanceof Variable) {
+						var Reference rightRef = assignment.right as Reference
+						var Variable leftRef = assignment.left as Variable
+						if (!getTailType(rightRef).typeSpecification.name.equals(leftRef.type.typeSpecification.name)) {
+							doCast = true
+							castTo = leftRef.type
+							returnData.add(doCast)
+							returnData.add(castTo)
+						}
+					}
+					return returnData
+				}
+
+				/**
+				 * Este metodo obtiene recursivamente la acción a la cual pertenece un statement
+				 */
+				def Action getActionRecursivelly(EObject eContainer) {
+					if (eContainer instanceof Action) {
+						return eContainer
+					} else {
+						return getActionRecursivelly(eContainer.eContainer);
+					}
+				}
+
+				def String getTypeSpecificationString(TypeSpecification specification) {
+					if (specification instanceof Primitive && specification.name.equalsIgnoreCase("Integer")) {
+						return "Long"
+					} else if (specification instanceof Primitive &&
+						specification.name.equalsIgnoreCase("BytesArray")) {
+						return "byte[]"
+					} else if (specification instanceof Primitive && specification.name.equalsIgnoreCase("Any")) {
+						return "Object"
+					} else {
+						return specification.name
+					}
+				}
+
+				def String getFullName(Type t) {
+					var name = ""
+
+					// if(t.typeSpecification instanceof GenericTypeSpecification && t.findAncestor(Parameter) != null) {
+					// name += t.typeSpecification?.name
+					// } else {
+					name += t.typeSpecification?.fullyQualifiedName
+
+					// }
+					if (t instanceof ParameterizedType) {
+						name += "<"
+						for (typeParam : t.typeParameters) {
+							name += typeParam.fullName
+						}
+						name += ">"
+					}
+					return name
+				}
+
+				def Type getReplacedType(TypeSpecification service, Type type) {
+					if (type.typeSpecification instanceof GenericTypeSpecification) {
+						if (service.genericTypeParameters.isEmpty) {
+							if (service.superTypes.get(0).typeSpecification.genericTypeParameters.isEmpty) {
+								return type
+							} else {
+								var i = 0
+								for (param : service.superTypes.get(0).typeSpecification.genericTypeParameters) {
+									if (param.name.equals(type.typeSpecification.name)) {
+										if (service.superTypes.get(0) instanceof ParameterizedType) {
+											if (!(service.superTypes.get(0) as ParameterizedType).typeParameters.
+												isEmpty) {
+												return (service.superTypes.get(0) as ParameterizedType).typeParameters.
+													get(i)
+											}
+										}
+									}
+									i++
+								}
+								return type
+							}
+						}
+					} else if (type.isCollection) {
+						if (service.genericTypeParameters.isEmpty) {
+							if (!service.superTypes.isEmpty) {
+								if (service.superTypes.get(0).typeSpecification.genericTypeParameters.isEmpty) {
+									return type
+								} else {
+									var i = 0
+									for (param : service.superTypes.get(0).typeSpecification.genericTypeParameters) {
+										if (param.name.equals(
+											(type as ParameterizedType).typeParameters.get(0).typeSpecification.name)) {
+											if (service.superTypes.get(0) instanceof ParameterizedType) {
+
+												var typ = (type as ParameterizedType)
+												if (!(service.superTypes.get(0) as ParameterizedType).typeParameters.
+													isEmpty) {
+													var EList<Type> l = new BasicEList
+													l.addAll(
+														(service.superTypes.get(0) as ParameterizedType).typeParameters)
+													typ.typeParameters.get(i).typeSpecification = (service.superTypes.
+														get(0) as ParameterizedType).typeParameters.get(i).
+														typeSpecification
+													return typ
+												}
+											}
+										}
+										i++
+									}
+									return type
+								}
+							}
+						}
+					}
+					return type
+				}
+
+				def <S extends EObject, T extends S> cast(S obj, Class<T> c) {
+					return obj as T
+				}
+
+				def getComponents(InformationSystem is) {
+					return is.body
+				}
+
+				def getComponents(Package p) {
+					return p.body
+				}
+
+				def isUniqueStatement(EObject obj) {
+					val container = obj.eContainer
+					val containingFeature = obj.eContainingFeature
+					if (containingFeature.upperBound == 1) {
+						return true
+					} else {
+						val list = container.eGet(containingFeature) as Collection<?>
+						return list.size() == 1
+					}
+				}
+
+			}
