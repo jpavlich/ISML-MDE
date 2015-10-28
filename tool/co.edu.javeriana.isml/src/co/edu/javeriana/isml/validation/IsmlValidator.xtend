@@ -58,8 +58,8 @@ class IsmlValidator extends AbstractIsmlValidator {
 			return
 		}
 
-		if(widget.body.size != instance.body.size) {
-			error("Incorrect parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
+		if(widget.body.size > 0 && widget.body.size != instance.body.size) {
+			error("Incorrect body parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
 		}
 		// Checks specific arguments only if the widget body has some elements in it
 		if(widget.body.size > 0) {
@@ -70,12 +70,12 @@ class IsmlValidator extends AbstractIsmlValidator {
 					val widgetElem = widget.body.get(i)
 					if(instanceElem.type.typeSpecification != widgetElem.type.typeSpecification)
 					{
-						error("Incorrect parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
+						error("Incorrect body parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
 					}
 					if (instanceElem instanceof NamedElement) {
 						if (widgetElem instanceof NamedElement) {
 							if (!instanceElem.name.equals(widgetElem.name)) {
-								error("Incorrect parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
+								error("Incorrect body parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
 							}
 							
 						}

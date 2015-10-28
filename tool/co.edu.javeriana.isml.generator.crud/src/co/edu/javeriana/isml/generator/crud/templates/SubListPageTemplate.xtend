@@ -12,7 +12,7 @@ class SubListPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
-		package «e.eContainer?.fullyQualifiedName»
+		package «e.eContainer?.fullyQualifiedName»;
 		
 		page «e.subListPage»(Any container, Collection<«e.name»> collection) controlledBy «e.controllerName»  {
 			Form {
@@ -30,7 +30,7 @@ class SubListPageTemplate extends SimpleTemplate<Entity> {
 			               		«ENDFOR»
 			               }
 			           }
-					Button("Back", false) -> DefaultPageDispatcher.view(container)
+					Button("Back", false) -> DefaultPageDispatcher.view(container);
 				}
 			} 
 			

@@ -90,7 +90,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Iteration" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" eType="#//Variable"
         containment="true" resolveProxies="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="collection" eType="#//VariableReference"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="collection" eType="#//Reference"
         containment="true" resolveProxies="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ForView" eSuperTypes="#//CompositeViewStatement #//Iteration"/>

@@ -1,28 +1,28 @@
-package test
+package test;
 
 page SelectPersonToAssign(Collection<Person> personList, Any container, String attribute) controlledBy PersonManager  {
 	Form {
 	       Panel("Collection<Person>") {
 	           DataTable("Collection<Person>", null) {
 	               header: {                    
-	                   Label("Name")
-	                   Label("Last Name")
-	                   Label("Ssn")
-	                   Label("Dob")
-	                   Label("Employer")
-	                   Label("Select Person to Assign")
+	                   Label("Name");
+	                   Label("Last Name");
+	                   Label("Ssn");
+	                   Label("Dob");
+	                   Label("Employer");
+	                   Label("Select Person to Assign");
 	               }
 	               body:
 	               for(Person person in personList) {
-	               		Label(person.name)
-	               		Label(person.lastName)
-	               		Label(person.ssn)
-	               		Label(person.dob)
-	               		Label(person.employer)
-	               		Button("Select",false)-> assignPerson(container, attribute, person)
+	               		Label(person.name);
+	               		Label(person.lastName);
+	               		Label(person.ssn);
+	               		Label(person.dob);
+	               		Label(person.employer);
+	               		Button("Select",false)-> assignPerson(container, attribute, person);
 	               }
 	           }
-               Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+               Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
 		}
 	}
 }

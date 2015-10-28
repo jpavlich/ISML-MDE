@@ -1,13 +1,17 @@
-package test
+package test;
 
 page ViewPerson(Person person) controlledBy PersonManager {
 	Panel("Person") {
-		Label("Name") Label(person.name)
-		Label("Last Name") Label(person.lastName)
-		Label("Ssn") Label(person.ssn)
-		Label("Dob") Label(person.dob)
-		Label("Employer") Label(person.employer)
+		Label("Name");
+		Label(person.name);
+		Label("Last Name");
+		Label(person.lastName);
+		Label("Ssn");
+		Label(person.ssn);
+		Label("Dob");
+		Label(person.dob);
+		Button("Employer", false) -> CompanyManager.viewCompany(person.employer);
 
-		Button("Ok", false) -> listAll()
+		Button("Ok", false) -> listAll();
 	}
 }

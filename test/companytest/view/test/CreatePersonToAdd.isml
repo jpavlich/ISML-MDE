@@ -1,9 +1,13 @@
-package test
+package test;
 
 page CreatePersonToAdd(Any container, Collection<Person> collection, Person person) controlledBy PersonManager  {
 	Form {
+		Text("Name", person.name, 25, 1);
+		Text("Last Name", person.lastName, 25, 1);
+		Text("Ssn", person.ssn, 25, 1);
+		Calendar("Dob", person.dob, null, "dd/MM/yyyy", true, "inline");
 		
-		Button("Save", true) -> addPerson(container, collection, person)
-		Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+		Button("Save", true) -> addPerson(container, collection, person);
+		Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
 	}
 }

@@ -12,7 +12,7 @@ class SelectToAssignPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
-		package «e.eContainer?.fullyQualifiedName»
+		package «e.eContainer?.fullyQualifiedName»;
 		
 		page «e.selectToAssignPage»(«e.collectionType» «e.collectionVariable», Any container, String attribute) controlledBy «e.controllerName»  {
 			Form {
@@ -22,17 +22,17 @@ class SelectToAssignPageTemplate extends SimpleTemplate<Entity> {
 			                   «FOR attr : e.attributes»
 			                   	«attr.headerCell»
 			                   «ENDFOR»
-			                   Label("Select «e.name» to Assign")
+			                   Label("Select «e.name» to Assign");
 			               }
 			               body:
 			               for(«e.name» «e.variable» in «e.collectionVariable») {
 			               		«FOR attr : e.attributes»
 			               			«e.cell(attr)»
 			               		«ENDFOR»
-			               		Button("Select",false)-> «e.assignAction»(container, attribute, «e.variable»)
+			               		Button("Select",false)-> «e.assignAction»(container, attribute, «e.variable»);
 			               }
 			           }
-		               Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+		               Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
 				}
 			}
 		}

@@ -16,7 +16,7 @@ class AddPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
-		package «e.eContainer?.fullyQualifiedName»
+		package «e.eContainer?.fullyQualifiedName»;
 		
 		page «e.createToAddPage»(Any container, Collection<«e.name»> collection, «e.name» «e.variable») controlledBy «e.controllerName»  {
 			Form {
@@ -24,8 +24,8 @@ class AddPageTemplate extends SimpleTemplate<Entity> {
 					«templateEdit(e,a,false)»
 				«ENDFOR»
 				
-				Button("Save", true) -> «e.addAction»(container, collection, «e.variable»)
-				Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+				Button("Save", true) -> «e.addAction»(container, collection, «e.variable»);
+				Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
 			}
 		}
 	'''

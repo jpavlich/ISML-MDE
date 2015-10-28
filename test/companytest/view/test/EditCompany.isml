@@ -1,9 +1,35 @@
-package test
+package test;
 
 page EditCompany(Company company) controlledBy CompanyManager  {
 	Form {
+		Text("Name", company.name, 25, 1);
+		Text("Nit", company.nit, 25, 1);
+		Calendar("Creation Date", company.creationDate, null, "dd/MM/yyyy", true, "inline");
+		Panel("Employees") {
+			DataTable("Employees", null) {
+				header : {                    
+				          Label("Name");
+				          Label("Last Name");
+				          Label("Ssn");
+				          Label("Dob");
+				          Label("Employer");
+				          Label("Delete");
+				}
+				body : 
+				for(Person aPerson in company.employees) {
+				      		Label(aPerson.name);
+				      		Label(aPerson.lastName);
+				      		Label(aPerson.ssn);
+				      		Label(aPerson.dob);
+				      		Label(aPerson.employer);
+				      		Button("Remove",false) -> PersonManager.removePerson(company, company.employees, aPerson);
+				}
+			}
+			Button("Add New Person", false) -> PersonManager.createPersonToAdd(company, company.employees);
+			Button("Add Existing Person", false) -> PersonManager.selectPersonToAdd(company, company.employees);
+		}
 		
-		Button("Save", true) -> saveCompany(company)
-		Button("Cancel", false) -> listAll()
+		Button("Save", true) -> saveCompany(company);
+		Button("Cancel", false) -> listAll();
 	}
 }

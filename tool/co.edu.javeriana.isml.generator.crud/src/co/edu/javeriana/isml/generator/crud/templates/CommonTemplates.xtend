@@ -96,7 +96,7 @@ class CommonTemplates {
 	«IF attr.type.isCollection» 
 
 	«ELSE»
-		Label("«attr.name.toLabel»")
+		Label("«attr.name.toLabel»");
 	«ENDIF»
 	'''
 
@@ -104,7 +104,7 @@ class CommonTemplates {
 		«IF a.type.isCollection» 
 
 		«ELSE»
-			Label(«e.variable».«a.name»)
+			Label(«e.variable».«a.name»);
 		«ENDIF»
 	'''
 
@@ -127,17 +127,17 @@ class CommonTemplates {
 		val attTypeSpec = a.type.typeSpecification
 		switch (a.type.typeSpecification.name) {
 			case "String":
-				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 25, 1)'''
+				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 25, 1);'''
 			case "Date":
-				return '''Calendar("«a.name.toLabel»", «e.variable».«a.name», null, "dd/MM/yyyy", true, "inline")'''
+				return '''Calendar("«a.name.toLabel»", «e.variable».«a.name», null, "dd/MM/yyyy", true, "inline");'''
 			case "Integer":
-				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 10, 1)'''
+				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 10, 1);'''
 			case "Float":
-				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 10, 1)'''
+				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 10, 1);'''
 			case "Boolean":
-				return '''CheckBox("«a.name.toLabel»", «e.variable».«a.name»)'''
+				return '''CheckBox("«a.name.toLabel»", «e.variable».«a.name»);'''
 			case "Email":
-				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 25, 1)'''
+				return '''Text("«a.name.toLabel»", «e.variable».«a.name», 25, 1);'''
 			default: {
 				val attrType = a.type
 				if(deepEdit) {
@@ -153,8 +153,8 @@ class CommonTemplates {
 								«FOR attr : e.allAttributes»
 									«templateView(e, attr, false)»
 								«ENDFOR»
-								Button("Change", false) -> «attTypeSpec.controllerName».«attTypeSpec.selectToAssignAction»(«e.variable», "«a.name»")
-								Button("Remove", false) -> «attTypeSpec.controllerName».«attTypeSpec.assignAction»(«e.variable», "«a.name»", null)
+								Button("Change", false) -> «attTypeSpec.controllerName».«attTypeSpec.selectToAssignAction»(«e.variable», "«a.name»");
+								Button("Remove", false) -> «attTypeSpec.controllerName».«attTypeSpec.assignAction»(«e.variable», "«a.name»", null);
 							}
 						'''
 					}
@@ -175,21 +175,21 @@ class CommonTemplates {
 					          «FOR attr : containedTypeSpec.allAttributes»
 					          	«attr.headerCell»
 					          «ENDFOR»
-					          Label("Delete")
+					          Label("Delete");
 					}
 					body : 
 					for(«containedTypeSpec.name» «containedTypeSpec.itVariable» in «e.variable».«a.name») {
 					      		«FOR attr : containedTypeSpec.allAttributes»
-					      			Label(«containedTypeSpec.itVariable».«attr.name»)
+					      			Label(«containedTypeSpec.itVariable».«attr.name»);
 					      		«ENDFOR»
 					      		Button("Remove",false) -> «containedTypeSpec.controllerName».«containedTypeSpec.removeAction»(«e.variable», «e.variable».«a.name», «containedTypeSpec.
-				itVariable»)
+				itVariable»);
 					}
 				}
 				Button("Add New «containedTypeSpec.name.toLabel»", false) -> «containedTypeSpec.controllerName».«containedTypeSpec.createToAddAction»(«e.variable», «e.
-				variable».«a.name»)
+				variable».«a.name»);
 				Button("Add Existing «containedTypeSpec.name.toLabel»", false) -> «containedTypeSpec.controllerName».«containedTypeSpec.selectToAddAction»(«e.
-				variable», «e.variable».«a.name»)
+				variable», «e.variable».«a.name»);
 			}
 		'''
 	}
@@ -197,11 +197,14 @@ class CommonTemplates {
 	def templateView(Entity e, Attribute a, boolean deepView) {
 		if(a.type.isCollection) {
 			'''Button("«a.name.toLabel»", false) -> «a.type.containedTypeSpecification.controllerName».«a.type.containedTypeSpecification?.subListAction»(«e.variable», «e.
-				variable».«a.name»)'''
+				variable».«a.name»);'''
 		} else if(a.type.typeSpecification instanceof Entity && deepView) {
-			'''Button("«a.name.toLabel»", false) -> «a.type.typeSpecification.controllerName».«a.type.typeSpecification.viewAction»(«e.variable».«a.name»)'''
+			'''Button("«a.name.toLabel»", false) -> «a.type.typeSpecification.controllerName».«a.type.typeSpecification.viewAction»(«e.variable».«a.name»);'''
 		} else {
-			'''Label("«a.name.toLabel»") Label(«e.variable».«a.name»)'''
+			'''
+				Label("«a.name.toLabel»");
+				Label(«e.variable».«a.name»);
+			'''
 		}
 	}
 }

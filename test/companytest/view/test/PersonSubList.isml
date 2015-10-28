@@ -1,26 +1,26 @@
-package test
+package test;
 
 page PersonSubList(Any container, Collection<Person> collection) controlledBy PersonManager  {
 	Form {
 	       Panel("Collection<Person>") {
 	           DataTable("Collection<Person>", null) {
 	               header : {                    
-	                   Label("Name")
-	                   Label("Last Name")
-	                   Label("Ssn")
-	                   Label("Dob")
-	                   Label("Employer")
+	                   Label("Name");
+	                   Label("Last Name");
+	                   Label("Ssn");
+	                   Label("Dob");
+	                   Label("Employer");
 	               }
 	               body : 
 	               for(Person person in collection) {
-	               		Label(person.name)
-	               		Label(person.lastName)
-	               		Label(person.ssn)
-	               		Label(person.dob)
-	               		Label(person.employer)
+	               		Label(person.name);
+	               		Label(person.lastName);
+	               		Label(person.ssn);
+	               		Label(person.dob);
+	               		Label(person.employer);
 	               }
 	           }
-			Button("Back", false) -> DefaultPageDispatcher.view(container)
+			Button("Back", false) -> DefaultPageDispatcher.view(container);
 		}
 	} 
 	

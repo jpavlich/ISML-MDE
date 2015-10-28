@@ -12,7 +12,7 @@ class ListPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
-		package «e.eContainer?.fullyQualifiedName»
+		package «e.eContainer?.fullyQualifiedName»;
 		
 		page «e.listPage»(«e.collectionType» «e.collectionVariable») controlledBy «e.controllerName»  {
 			Form {
@@ -22,18 +22,18 @@ class ListPageTemplate extends SimpleTemplate<Entity> {
 			                   «FOR attr : e.attributes»
 			                   		«attr.headerCell»
 			                   «ENDFOR»
-			                   Label("View")
-			                   Label("Edit")
-			                   Label("Delete")
+			                   Label("View");
+			                   Label("Edit");
+			                   Label("Delete");
 			               }
 			               body : 
 			               for(«e.name» «e.variable» in «e.collectionVariable») {
 			               		«FOR attr : e.attributes»
 			               			«e.cell(attr)»
 			               		«ENDFOR»
-			                   	Button("View",false)-> «e.viewAction»(«e.variable»)
-			                   	Button("Edit",false) -> «e.editAction»(«e.variable»)
-			                   	Button("Delete",false) -> «e.deleteAction»(«e.variable»)
+			                   	Button("View",false)-> «e.viewAction»(«e.variable»);
+			                   	Button("Edit",false) -> «e.editAction»(«e.variable»);
+			                   	Button("Delete",false) -> «e.deleteAction»(«e.variable»);
 			               }
 
 			           }

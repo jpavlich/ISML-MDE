@@ -16,7 +16,7 @@ class EditPageTemplate extends SimpleTemplate<Entity> {
 	@Inject extension IsmlModelNavigation
 
 	override protected template(Entity e) '''
-		package «e.eContainer?.fullyQualifiedName»
+		package «e.eContainer?.fullyQualifiedName»;
 		
 		page «e.editPage»(«e.name» «e.variable») controlledBy «e.controllerName»  {
 			Form {
@@ -24,8 +24,8 @@ class EditPageTemplate extends SimpleTemplate<Entity> {
 					«templateEdit(e,a,true)»
 				«ENDFOR»
 				
-				Button("Save", true) -> «e.saveAction»(«e.variable»)
-				Button("Cancel", false) -> listAll()
+				Button("Save", true) -> «e.saveAction»(«e.variable»);
+				Button("Cancel", false) -> listAll();
 			}
 		}
 	'''

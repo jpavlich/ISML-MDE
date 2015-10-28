@@ -148,7 +148,7 @@ IfView:
 	'if' {IfView} '(' condition=Expression ')' (hasBody?='{' (body+=ViewStatement)* '}' | body+=ViewStatement);
 
 ForView:
-	'for' {ForView} '(' variable=ForVariable 'in' collection=VariableReference ')' (hasBody?='{' (body+=ViewStatement)* '}' |
+	'for' {ForView} '(' variable=ForVariable 'in' collection=Reference ')' (hasBody?='{' (body+=ViewStatement)* '}' |
 	body+=ViewStatement);
 
 ForVariable returns Variable:
@@ -181,7 +181,7 @@ While:
 	{While} 'while' '(' condition=Expression ')' (hasBody?='{' (body+=MethodStatement)* '}' | body+=MethodStatement);
 
 For:
-	{For} 'for' '(' variable=Variable 'in' collection=VariableReference ')' (hasBody?='{' (body+=MethodStatement)* '}' |
+	{For} 'for' '(' variable=Variable 'in' collection=Reference ')' (hasBody?='{' (body+=MethodStatement)* '}' |
 	body+=MethodStatement);
 
 Variable:

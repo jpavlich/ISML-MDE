@@ -257,6 +257,34 @@ class PageTest extends CommonTests {
 			
 		'''.parse(rs).assertNoErrors
 	}
+	
+		@Test
+	def void correctBlock3() {
+		'''
+			package test;
+			widget TestText;
+			widget TestForm {
+				
+			}
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			
+			page Page controlledBy Controller{
+				TestForm {
+					
+				}
+			}
+			
+		'''.parse(rs).assertNoErrors
+	}	
 
 	@Test
 	def void incorrectBlock() {
@@ -349,6 +377,48 @@ class PageTest extends CommonTests {
 			}
 			
 		'''.parse(rs).assertErrors
+	}
+	
+			@Test
+	def void correctViewInstance() {
+		'''
+			package test;
+			
+			controller Controller ;
+			widget TestWidget;
+			page Page controlledBy Controller {
+				Form {
+					TestWidget;
+				}
+			}
+						
+		'''.parse(rs).assertNoErrors
+	}
+	
+	@Test def void correctCollectionReference() {
+		'''
+			package test ;
+			
+			
+			controller Controller ;
+			widget TestWidget;
+			
+			entity Company {
+				Array<Person> persons;
+			}
+			
+			entity Person {
+				String name;
+				
+			}
+			
+			page Page(Company company) controlledBy Controller {
+				for(Person aPerson in company.persons) {
+			  		Label(aPerson.name);
+				}
+						
+			}
+		'''.parse(rs).assertNoErrors
 	}
 
 }
