@@ -1,0 +1,9 @@
+package test
+
+page CreatePersonToAdd(Any container, Collection<Person> collection, Person person) controlledBy PersonManager  {
+	Form {
+		
+		Button("Save", true) -> addPerson(container, collection, person)
+		Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+	}
+}

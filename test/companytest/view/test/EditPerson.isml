@@ -1,0 +1,9 @@
+package test
+
+page EditPerson(Person person) controlledBy PersonManager  {
+	Form {
+		
+		Button("Save", true) -> savePerson(person)
+		Button("Cancel", false) -> listAll()
+	}
+}

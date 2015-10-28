@@ -1,0 +1,9 @@
+package test
+
+page CreateCompanyToAdd(Any container, Collection<Company> collection, Company company) controlledBy CompanyManager  {
+	Form {
+		
+		Button("Save", true) -> addCompany(container, collection, company)
+		Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+	}
+}

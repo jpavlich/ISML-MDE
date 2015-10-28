@@ -1,0 +1,7 @@
+package bank
+
+entity Account {
+	Integer balance
+	String name
+	
+}

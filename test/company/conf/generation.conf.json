@@ -1,0 +1,173 @@
+{
+	generatorSuiteConfigurations: [
+	
+		{
+		generatorClass: "co.edu.javeriana.zoe.generator.jee7.ZoeJEE7Generator",
+		active: true,
+		outputConfigurations: 
+		[
+			{
+				name: "pages",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-web/src/main/webapp",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "backing.beans",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-web/src/main/java",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "service.interface",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/interfaces",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:true,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "service.impl",
+				outputDirectory: "../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/ejb",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:false,			
+				overrideExistingResources:false,
+				setDerivedProperty:false,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "service.qualifier",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/interfaces",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			}			
+		]
+	},
+
+	{
+		generatorClass: "co.edu.javeriana.isml.generator.crud.CRUDGenerator",
+		active: true,
+		onDemand: true,
+		outputConfigurations: 
+		[
+			{
+				name: "controllers",
+				outputDirectory:"controller",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:false,
+				overrideExistingResources:true,
+				setDerivedProperty:false,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "pages",
+				outputDirectory:"view",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:false,
+				overrideExistingResources:true,
+				setDerivedProperty:false,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			}
+			
+			
+		]
+	},
+	{
+		generatorClass: "co.edu.javeriana.zoe.generator.persistence.ZoePersistenceGenerator",
+		active: true,
+		outputConfigurations: 
+		[
+			{
+				name: "entities",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "dto",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "enum",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			},
+			{
+				name: "resource.bundle",
+				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+			}			
+		]
+	}
+	]
+}

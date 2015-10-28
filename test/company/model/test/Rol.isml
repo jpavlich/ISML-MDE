@@ -1,0 +1,7 @@
+package test
+
+
+entity Rol {
+	String preferencia
+	
+}
