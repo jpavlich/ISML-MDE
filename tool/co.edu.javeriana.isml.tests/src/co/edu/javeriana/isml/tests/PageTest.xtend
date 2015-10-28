@@ -203,7 +203,7 @@ class PageTest extends CommonTests {
 	}
 
 	@Test
-	def void testCorrectBlock() {
+	def void correctBlock() {
 		'''
 			package test;
 			widget TestText;
@@ -223,22 +223,21 @@ class PageTest extends CommonTests {
 			
 			page Page controlledBy Controller{
 				TestForm {
-					TestText;
+					
 				}
 			}
 			
 		'''.parse(rs).assertNoErrors
 	}
 	
-	@Test
-	def void testIncorrectBlock() {
+		@Test
+	def void correctBlock2() {
 		'''
 			package test;
-			
-			widget TestForm;
-			
 			widget TestText;
-			
+			widget TestForm {
+				
+			}
 			controller Controller {
 				action1() {
 					
@@ -252,15 +251,15 @@ class PageTest extends CommonTests {
 			
 			page Page controlledBy Controller{
 				TestForm {
-					TestText;
+					
 				}
 			}
 			
-		'''.parse(rs).assertErrors
+		'''.parse(rs).assertNoErrors
 	}
-	
-		@Test
-	def void testIncorrectBlock2() {
+
+	@Test
+	def void incorrectBlock() {
 		'''
 			package test;
 			
@@ -269,7 +268,6 @@ class PageTest extends CommonTests {
 				}
 				body: {
 				}
-				
 			}
 			
 			widget TestText;
@@ -287,7 +285,66 @@ class PageTest extends CommonTests {
 			
 			page Page controlledBy Controller{
 				TestDataTable {
+					header: {
+						TestText
+					}
+					body: {
+						TestText
+					}
+				}
+			}
+			
+		'''.parse(rs).assertErrors
+	}
+
+	@Test
+	def void incorrectBlock2() {
+		'''
+			package test;
+			
+			widget TestDataTable {
+				header: {
+				}
+				body: {
+				}
+			}
+			
+			widget TestText;
+			
+			controller Controller;
+			
+			page Page controlledBy Controller{
+				TestDataTable {
 					TestText;
+				}
+			}
+			
+		'''.parse(rs).assertErrors
+	}
+	
+		@Test
+	def void incorrectBlock3() {
+		'''
+			package test;
+			
+			widget TestDataTable {
+				header: {
+				}
+				body: {
+				}
+				
+			}
+			
+			widget TestText;
+			
+			controller Controller;
+			
+			page Page controlledBy Controller{
+				TestDataTable {
+					header: {
+					}
+					incorrectParameter: {
+					}
 				}
 			}
 			

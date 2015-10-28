@@ -11,13 +11,14 @@ import co.edu.javeriana.isml.isml.ParameterizedType
 import co.edu.javeriana.isml.isml.Reference
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.Variable
+import co.edu.javeriana.isml.isml.ViewInstance
+import co.edu.javeriana.isml.isml.Widget
 import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.ComposedChecks
-import co.edu.javeriana.isml.isml.Widget
-import co.edu.javeriana.isml.isml.ViewInstance
+import co.edu.javeriana.isml.isml.NamedElement
 
 /**
  * Custom validation rules. 
@@ -55,6 +56,35 @@ class IsmlValidator extends AbstractIsmlValidator {
 		if(widget.hasBody != instance.hasBody) {
 			error("This widget must have a body", instance, IsmlPackage.Literals.TYPED_ELEMENT__TYPE)
 			return
+		}
+
+		if(widget.body.size != instance.body.size) {
+			error("Incorrect parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
+		}
+		// Checks specific arguments only if the widget body has some elements in it
+		if(widget.body.size > 0) {
+
+			for (i : 1 ..< widget.body.size) {
+				try {
+					val instanceElem = instance.body.get(i)
+					val widgetElem = widget.body.get(i)
+					if(instanceElem.type.typeSpecification != widgetElem.type.typeSpecification)
+					{
+						error("Incorrect parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
+					}
+					if (instanceElem instanceof NamedElement) {
+						if (widgetElem instanceof NamedElement) {
+							if (!instanceElem.name.equals(widgetElem.name)) {
+								error("Incorrect parameters", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY);
+							}
+							
+						}
+					}
+
+				} catch(Exception e) {
+					e.printStackTrace
+				}
+			}
 		}
 	}
 

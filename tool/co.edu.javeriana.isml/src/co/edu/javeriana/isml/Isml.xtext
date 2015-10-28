@@ -108,7 +108,7 @@ ServiceAttribute returns Attribute:
 	'has' type=Type name=LOWER_CASE_ID? ';';
 
 Controller:
-	'controller' name=UPPER_CASE_ID hasBody?='{' (body+=(ServiceAttribute | Action))* '}';
+	'controller' name=UPPER_CASE_ID (hasBody?='{' (body+=(ServiceAttribute | Action))* '}' | ';');
 
 Action:
 	default?='default'? name=LOWER_CASE_ID '(' (parameters+=Parameter (',' parameters+=Parameter)*)? ')' '{'
