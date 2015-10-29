@@ -84,9 +84,7 @@
     <genClasses ecoreClass="Isml.ecore#//Return">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Return/expression"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="Isml.ecore#//Instance">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Instance/type"/>
-    </genClasses>
+    <genClasses image="false" ecoreClass="Isml.ecore#//Instance"/>
     <genClasses image="false" ecoreClass="Isml.ecore#//Caller">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//Caller/parameters"/>
     </genClasses>
@@ -142,6 +140,7 @@
     <genClasses image="false" ecoreClass="Isml.ecore#//CompositeElement">
       <genTypeParameters ecoreTypeParameter="Isml.ecore#//CompositeElement/T"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Isml.ecore#//CompositeElement/body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Isml.ecore#//CompositeElement/hasBody"/>
     </genClasses>
     <genClasses image="false" ecoreClass="Isml.ecore#//ViewStatement"/>
     <genClasses ecoreClass="Isml.ecore#//Element"/>

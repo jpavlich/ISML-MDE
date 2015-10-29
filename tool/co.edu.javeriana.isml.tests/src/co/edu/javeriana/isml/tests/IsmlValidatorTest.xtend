@@ -61,6 +61,7 @@ class IsmlValidatorTest extends CommonTests {
 		'''.parse(rs)
 		println(is.validate) // prints errors
 		is.assertErrors
+		is.assertNoSyntaxErrors
 	}
 
 	@Test
@@ -75,12 +76,12 @@ class IsmlValidatorTest extends CommonTests {
 			}
 			
 			service Persistence {
-				native Any load(Type t,Integer id);
+				native <T> Any load(Type<T> t,Integer id);
 				native <T> Collection<T> findAll(Type<T> t);
 			}
 			
 			controller Controller {
-				has Persistence persistence
+				has Persistence persistence;
 				action() {
 					Collection<Course> course = persistence.findAll(String);
 				}
@@ -89,6 +90,7 @@ class IsmlValidatorTest extends CommonTests {
 		'''.parse(rs)
 		println(is.validate) // prints errors
 		is.assertErrors
+		is.assertNoSyntaxErrors
 	}
 
 	@Test
@@ -120,27 +122,29 @@ class IsmlValidatorTest extends CommonTests {
 	@Test
 	def void parameterizedType4() {
 
-		'''
-			package test;
-			
-			
-			entity Course {
-				
-			}
-			
-			service Persistence {
-				native Any load(Type t,Integer id);
-				native <T> Collection<T> findAll(Type<T> t);
-			}
-			
-			controller Controller {
-				has Persistence persistence
-				action() {
-					Course course = persistence.load(String, 1);
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+		val obj = '''
+					package test;
+					
+					
+					entity Course {
+						
+					}
+					
+					service Persistence {
+						native <T> Any load(Type<T> t,Integer id);
+						native <T> Collection<T> findAll(Type<T> t);
+					}
+					
+					controller Controller {
+						has Persistence persistence;
+						action() {
+							Course course = persistence.load(String, 1);
+						}
+					}
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test

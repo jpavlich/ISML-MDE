@@ -107,57 +107,63 @@ class ServiceTest extends CommonTests {
 	@Test
 	def void incorrectVariableDeclaration1() {
 
-		'''
-			package test;
-			
-			service Test {
-				Void method2() {
-						x = 1;
-						String x;
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+		val obj = '''
+					package test;
+					
+					service Test {
+						Void method2() {
+								x = 1;
+								String x;
+						}
+					}
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void incorrectVariableDeclaration2() {
 
-		'''
-			package test;
-			
-			
-			service Test {
-				Void method2() {
-					if (true) {
-						String x;
-					} else {
-						x = 1;
+		val obj = '''
+					package test;
+					
+					
+					service Test {
+						Void method2() {
+							if (true) {
+								String x;
+							} else {
+								x = 1;
+							}
+						}
 					}
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void incorrectVariableDeclaration3() {
 
-		'''
-			package test;
-			
-			
-			service Test {
-				Void method2() {
-					if (true) {
-					} else {
-						x = 1;
+		val obj = '''
+					package test;
+					
+					
+					service Test {
+						Void method2() {
+							if (true) {
+							} else {
+								x = 1;
+							}
+							String x;
+						}
 					}
-					String x;
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test

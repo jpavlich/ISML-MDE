@@ -1,17 +1,17 @@
 package co.edu.javeriana.isml.tests
 
-import org.junit.runner.RunWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.InjectWith
 import co.edu.javeriana.isml.IsmlInjectorProvider
-import org.eclipse.xtext.junit4.util.ParseHelper
 import co.edu.javeriana.isml.isml.InformationSystem
-import com.google.inject.Inject
-import org.junit.Test
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import co.edu.javeriana.isml.isml.IsmlPackage
-import org.junit.Assert
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.junit4.util.ParseHelper
+import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -23,7 +23,7 @@ class UniqueTest extends CommonTests {
 	@Test
 	def void duplicateAction() {
 
-		val result = '''
+		val obj = '''
 			package test;
 			
 			
@@ -39,13 +39,14 @@ class UniqueTest extends CommonTests {
 			}
 			
 		'''.parse(rs)
-		result.assertErrors
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void duplicateAction2() {
 
-		val result = '''
+		val obj = '''
 			package test;
 			
 
@@ -61,7 +62,8 @@ class UniqueTest extends CommonTests {
 			}
 			
 		'''.parse(rs)
-		result.assertErrors
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
@@ -115,47 +117,49 @@ class UniqueTest extends CommonTests {
 	@Test
 	def void duplicateMethod() {
 
-		val result = '''
+		val obj = '''
 			package test;
 			
 			primitive String;
 			
 			service Test {
-				method() {
+				Void method() {
 					
 				}
 				
-				method() {
+				Void method() {
 					
 					
 				}
 			}
 			
 		'''.parse
-		result.assertErrors
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void duplicateMethod2() {
 
-		val result = '''
+		val obj = '''
 			package test;
 			
 			primitive String;
 			primitive Integer;
 			service Test {
-				method(String a, Integer b) {
+				Void method(String a, Integer b) {
 					
 				}
 				
-				method(String a, Integer b) {
+				Void method(String a, Integer b) {
 					
 					
 				}
 			}
 			
 		'''.parse
-		result.assertErrors
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
@@ -216,37 +220,41 @@ class UniqueTest extends CommonTests {
 	@Test
 	def void duplicateController() {
 
-		'''
-			package test;
-			
-			primitive String;
-			
-			controller Test {
-			}
-			
-			controller Test {
-				
-			}
-			
-		'''.parse.assertErrors
+		val obj = '''
+					package test;
+					
+					primitive String;
+					
+					controller Test {
+					}
+					
+					controller Test {
+						
+					}
+					
+				'''.parse
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void duplicateParameter() {
 
-		'''
-			package test;
-			
-			primitive String;
-			
-			controller Test {
-				action(String a, String a) {
-				}
-			}
-			
-			
-			
-		'''.parse.assertErrors
+		val obj = '''
+					package test;
+					
+					primitive String;
+					
+					controller Test {
+						action(String a, String a) {
+						}
+					}
+					
+					
+					
+				'''.parse
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test

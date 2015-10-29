@@ -20,7 +20,11 @@ class TestHelper {
 	
 	def void assertNoSyntaxErrors(EObject obj) {
 		val errors = obj.validate
-		assertTrue(errors.forall[_ | !_.isSyntaxError])
+		val syntaxErrors = errors.filter[_ | _.isSyntaxError]
+		if (syntaxErrors.size > 0) {
+			fail("Found syntax errors: " + syntaxErrors)			
+		}
+		
 	}
 
 	def <T extends EObject, R> Iterable<T> assertArrayEquals(Iterable<T> real, Iterable<R> expected, Function1<T, R> transformation) {

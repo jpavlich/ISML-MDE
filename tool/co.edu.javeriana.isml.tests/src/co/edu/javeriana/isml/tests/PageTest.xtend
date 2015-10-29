@@ -1,18 +1,18 @@
 package co.edu.javeriana.isml.tests
 
-import org.junit.runner.RunWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.InjectWith
 import co.edu.javeriana.isml.IsmlInjectorProvider
-import org.eclipse.xtext.junit4.util.ParseHelper
 import co.edu.javeriana.isml.isml.InformationSystem
-import com.google.inject.Inject
-import org.junit.Test
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import co.edu.javeriana.isml.isml.IsmlPackage
-import org.junit.Assert
+import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl
+import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.junit4.util.ParseHelper
+import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.junit.Assert
+import org.junit.Test
+import org.junit.runner.RunWith
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -113,7 +113,7 @@ class PageTest extends CommonTests {
 	@Test
 	def void incorrectActionCall() {
 
-		'''
+		val obj = '''
 			package test;
 			
 			
@@ -137,7 +137,9 @@ class PageTest extends CommonTests {
 				Button("", true) -> action3();
 			}
 			
-		'''.parse(rs).assertErrors
+		'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
@@ -203,7 +205,7 @@ class PageTest extends CommonTests {
 	}
 
 	@Test
-	def void correctBlock() {
+	def void wodgetHasBodyAndInstanceAlsoHasBody() {
 		'''
 			package test;
 			widget TestText;
@@ -229,15 +231,16 @@ class PageTest extends CommonTests {
 			
 		'''.parse(rs).assertNoErrors
 	}
-	
-		@Test
-	def void correctBlock2() {
-		'''
+
+	@Test
+	def void instanceShouldHaveBody() {
+		val obj = '''
 			package test;
 			widget TestText;
 			widget TestForm {
 				
 			}
+			
 			controller Controller {
 				action1() {
 					
@@ -248,17 +251,16 @@ class PageTest extends CommonTests {
 				}
 			}
 			
-			
 			page Page controlledBy Controller{
-				TestForm {
-					
-				}
+				TestForm;
 			}
 			
-		'''.parse(rs).assertNoErrors
+		'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
-	
-		@Test
+
+	@Test
 	def void correctBlock3() {
 		'''
 			package test;
@@ -284,50 +286,11 @@ class PageTest extends CommonTests {
 			}
 			
 		'''.parse(rs).assertNoErrors
-	}	
-
-	@Test
-	def void incorrectBlock() {
-		'''
-			package test;
-			
-			widget TestDataTable {
-				header: {
-				}
-				body: {
-				}
-			}
-			
-			widget TestText;
-			
-			controller Controller {
-				action1() {
-					
-				}
-				
-				action2() {
-					
-				}
-			}
-			
-			
-			page Page controlledBy Controller{
-				TestDataTable {
-					header: {
-						TestText
-					}
-					body: {
-						TestText
-					}
-				}
-			}
-			
-		'''.parse(rs).assertErrors
 	}
 
 	@Test
-	def void incorrectBlock2() {
-		'''
+	def void missingAndIncorrectBlockParameters() {
+		val obj = '''
 			package test;
 			
 			widget TestDataTable {
@@ -347,12 +310,14 @@ class PageTest extends CommonTests {
 				}
 			}
 			
-		'''.parse(rs).assertErrors
+		'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
-	
-		@Test
-	def void incorrectBlock3() {
-		'''
+
+	@Test
+	def void incorrectBlockParameter() {
+		val obj = '''
 			package test;
 			
 			widget TestDataTable {
@@ -376,10 +341,140 @@ class PageTest extends CommonTests {
 				}
 			}
 			
-		'''.parse(rs).assertErrors
+		'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
+	}
+
+	@Test
+	def void missingBlockParameter() {
+		val obj = '''
+			package test;
+			
+			widget TestDataTable {
+				header: {
+					subheader: {
+						
+					}
+				}
+				body: {
+				}
+			}
+			
+			widget TestText;
+			
+			controller Controller;
+			
+			page Page controlledBy Controller{
+				TestDataTable {
+					header: {
+					}
+					body: {
+					}
+				}
+			}
+			
+		'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 	
-			@Test
+	@Test
+	def void correctNestedBlockParameters() {
+		val obj = '''
+			package test;
+			
+			widget TestDataTable {
+						header: {
+							subheader: {
+								subsubheader: {
+									
+								}
+							}
+						}
+						body: {
+						}
+					}
+
+			widget TestText;
+			
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			page Page controlledBy Controller{
+				TestDataTable {
+					header: {
+						subheader: {
+							subsubheader: {
+							
+							}
+						}
+					}
+					body: {
+						TestText;
+					}
+				}
+			}
+			
+		'''.parse(rs)
+		obj.assertNoErrors
+	}
+	
+		@Test
+	def void incorrectNestedBlockParameters() {
+		val obj = '''
+			package test;
+			
+			widget TestDataTable {
+						header: {
+							subheader: {
+								subsubheader: {
+									
+								}
+							}
+						}
+						body: {
+						}
+					}
+
+			widget TestText;
+			
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			page Page controlledBy Controller{
+				TestDataTable {
+					header: {
+						subheader: {
+							TestText;
+						}
+					}
+					body: {
+						TestText;
+					}
+				}
+			}
+			
+		'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
+	}
+
+	@Test
 	def void correctViewInstance() {
 		'''
 			package test;
@@ -394,7 +489,7 @@ class PageTest extends CommonTests {
 						
 		'''.parse(rs).assertNoErrors
 	}
-	
+
 	@Test def void correctCollectionReference() {
 		'''
 			package test ;
@@ -414,7 +509,7 @@ class PageTest extends CommonTests {
 			
 			page Page(Company company) controlledBy Controller {
 				for(Person aPerson in company.persons) {
-			  		Label(aPerson.name);
+				 		Label(aPerson.name);
 				}
 						
 			}
