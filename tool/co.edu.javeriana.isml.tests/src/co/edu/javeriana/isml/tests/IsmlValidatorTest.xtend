@@ -47,7 +47,7 @@ class IsmlValidatorTest extends CommonTests {
 			}
 			
 			service Persistence {
-				native Any load(Type t,Integer id);
+				native <T> Any load(Type<T> t,Integer id);
 				native <T> Collection<T> findAll(Type<T> t);
 			}
 			
