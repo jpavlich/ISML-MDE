@@ -1,0 +1,6 @@
+package test;
+
+entity EEE extends Car {
+	String name;
+	
+}

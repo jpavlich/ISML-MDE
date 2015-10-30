@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="co.edu.javeriana.isml.visual.Activator"
+               id="co.edu.javeriana.isml.visual"
+	       name="visual">
+    </component>
+  </extension>
+</plugin>

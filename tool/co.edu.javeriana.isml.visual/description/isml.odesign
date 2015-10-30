@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" name="visual" version="10.0.0.201505222000">
+  <ownedViewpoints name="isml" label="ISML" modelFileExtension="isml">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="Entity diagram" domainClass="isml.Package" enablePopupBars="true">
+      <defaultLayer name="Default">
+        <edgeMappings name="inheritance" label="Inheritance" sourceMapping="//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']" targetMapping="//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']" targetFinderExpression="[self.superTypes.referencedElement /]">
+          <style targetArrow="InputClosedArrow" sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="opposite" label="Opposite" sourceMapping="//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']" targetMapping="//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']" targetFinderExpression="[self.type.referencedElement/]" sourceFinderExpression="[self.opposite.type.referencedElement /]" domainClass="isml.Attribute" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelExpression="[self.name/]">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="entity" label="Entity" domainClass="isml.Entity" childrenPresentation="List">
+          <subNodeMappings name="attributes" label="Attributes" preconditionExpression="[self.opposite.oclIsUndefined()/]" semanticCandidatesExpression="feature:body" domainClass="isml.Attribute">
+            <style xsi:type="style:SquareDescription" labelExpression="[self.name + ' : ' + self.type.referencedElement.name /]" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </containerMappings>
+      </defaultLayer>
+    </ownedRepresentations>
+  </ownedViewpoints>
+</description:Group>

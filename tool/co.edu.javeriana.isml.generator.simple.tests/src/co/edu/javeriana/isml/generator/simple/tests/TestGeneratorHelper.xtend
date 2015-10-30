@@ -8,8 +8,8 @@ import static org.junit.Assert.*
 class TestGeneratorHelper {
 
 	def <T extends EObject> void assertGenerates(SimpleTemplate<T> template, T input, CharSequence expectedOutput) {
-		val inputText = template.toText(input).trimUnwantedChars()
-		val trimmedExpectedOutput = expectedOutput.trimUnwantedChars()
+		val inputText = template.toText(input).trimUnwantedChars
+		val trimmedExpectedOutput = expectedOutput.trimUnwantedChars
 		if (!inputText.equals(trimmedExpectedOutput)) {
 			printCallingMethod()
 			println("Input: \n\"" + inputText + "\"")

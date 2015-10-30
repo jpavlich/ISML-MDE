@@ -1,0 +1,12 @@
+package test;
+
+
+
+entity WaterEntity {
+	
+
+}
+
+entity Ship  extends Vehicle, WaterEntity {
+	Integer size;
+}

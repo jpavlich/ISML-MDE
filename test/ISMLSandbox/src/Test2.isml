@@ -1,0 +1,21 @@
+package test;
+
+entity Person {
+	String name;
+	Integer age;
+	Company company;
+}
+ 
+entity Company {
+	String name;
+	Person employee opposite company;
+}
+
+entity Car extends Vehicle {
+	String make;
+	String model;
+}
+
+entity Vehicle {
+	Date creationDate;
+}
