@@ -1,15 +1,15 @@
 package co.edu.javeriana.isml.tests
 
 import com.google.inject.Inject
-import org.eclipse.emf.ecore.EObject
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import static org.junit.Assert.*
-import org.eclipse.xtext.xbase.lib.Functions.Function1
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1
-import java.util.List
-import org.eclipse.emf.ecore.EReference
-import org.eclipse.emf.ecore.EAttribute
 import java.util.ArrayList
+import java.util.List
+import org.eclipse.emf.ecore.EAttribute
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.EReference
+import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.xbase.lib.Functions.Function1
+
+import static org.junit.Assert.*
 
 class TestHelper {
 	@Inject extension ValidationTestHelper

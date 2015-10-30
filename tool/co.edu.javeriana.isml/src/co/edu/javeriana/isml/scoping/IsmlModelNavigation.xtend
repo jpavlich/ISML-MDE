@@ -105,20 +105,21 @@ class IsmlModelNavigation {
 	}
 
 	def Iterable<Attribute> getAttributes(Struct c) {
-		return c.body.filter(Attribute)
+		val body = c.body 
+		return body?.filter(Attribute) 
 	}
 
 	def Iterable<Method> getMethods(Interface c) {
-		return c.features.filter(Method)
+		return c.features?.filter(Method) 
 	}
 
 	def Iterable<Action> getActions(Controller c) {
-		return c.body.filter(Action)
+		return c.body?.filter(Action) 
 	}
 
 	def Iterable<Attribute> getAllAttributes(TypeSpecification c) {
 		val f = c.allFeatures
-		return f.filter(Attribute)
+		return f?.filter(Attribute)
 	}
 
 	def Iterable<Method> getAllMethods(TypeSpecification c) {

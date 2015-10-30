@@ -28,7 +28,8 @@ ResourceAssignment:
 
 	// Types
 Entity:
-	abstract?='abstract'? 'entity' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)?
+	abstract?='abstract'? 'entity' name=UPPER_CASE_ID
+	('extends' superTypes+=Type (',' superTypes+=Type)*)?
 	(hasBody?='{' (body+=Attribute)* '}' | ';');
 
 Attribute:
@@ -119,7 +120,8 @@ Constraint:
 	'constraint' name=UPPER_CASE_ID ('(' parameters+=Parameter (',' parameters+=Parameter)* ')')? ';';
 
 Actor:
-	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? (hasBody?='{' (body+=Attribute)* '}' | ';');
+	'actor' name=UPPER_CASE_ID ('extends' superTypes+=Type (',' superTypes+=Type)*)? (hasBody?='{' (body+=Attribute)* '}'
+	| ';');
 
 Function:
 	Action | Method;
@@ -174,8 +176,8 @@ ReferenceStatement returns MethodStatement:
 	right=Expression)? ';';
 
 If:
-	{If} 'if' '(' condition=Expression ')' (hasBody?='{' (body+=MethodStatement)* '}' | body+=MethodStatement) (=> "else" ('{'
-	(elseBody+=MethodStatement)* '}' | elseBody+=MethodStatement))?;
+	{If} 'if' '(' condition=Expression ')' (hasBody?='{' (body+=MethodStatement)* '}' | body+=MethodStatement) (=> "else"
+	('{' (elseBody+=MethodStatement)* '}' | elseBody+=MethodStatement))?;
 
 While:
 	{While} 'while' '(' condition=Expression ')' (hasBody?='{' (body+=MethodStatement)* '}' | body+=MethodStatement);
