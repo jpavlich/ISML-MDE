@@ -1,6 +1,6 @@
-package test;
+package test2;
 
-entity EEE extends Car {
-	String name;
+import test.*;
+entity Bicycle extends Vehicle {
 	
 }

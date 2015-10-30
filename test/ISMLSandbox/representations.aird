@@ -101,18 +101,27 @@
             <styles xmi:type="notation:ShapeStyle" xmi:id="_bNpNgX9SEeWR-assOrwoBg" fontName="Droid Sans" fontHeight="8"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bNpNgn9SEeWR-assOrwoBg" x="204" y="48" width="126" height="47"/>
           </children>
-          <children xmi:type="notation:Node" xmi:id="_aELuQH9WEeWxfO7UbSKS2Q" type="2003" element="_aD72oH9WEeWxfO7UbSKS2Q">
-            <children xmi:type="notation:Node" xmi:id="_aEOxkH9WEeWxfO7UbSKS2Q" type="5007"/>
-            <children xmi:type="notation:Node" xmi:id="_aEPYoH9WEeWxfO7UbSKS2Q" type="7004">
-              <children xmi:type="notation:Node" xmi:id="_ugtAUH9XEeWxfO7UbSKS2Q" type="3010" element="_uggMAH9XEeWxfO7UbSKS2Q">
-                <styles xmi:type="notation:FontStyle" xmi:id="_ugtAUX9XEeWxfO7UbSKS2Q" fontName="Droid Sans" fontHeight="8"/>
-                <layoutConstraint xmi:type="notation:Location" xmi:id="_ugtAUn9XEeWxfO7UbSKS2Q"/>
+          <children xmi:type="notation:Node" xmi:id="_eQSQYH9YEeWCCYvFuChyjA" type="2003" element="_eP09YH9YEeWCCYvFuChyjA">
+            <children xmi:type="notation:Node" xmi:id="_eQVTsH9YEeWCCYvFuChyjA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_eQV6wH9YEeWCCYvFuChyjA" type="7004">
+              <children xmi:type="notation:Node" xmi:id="_eQWh0H9YEeWCCYvFuChyjA" type="3010" element="_eP2ykH9YEeWCCYvFuChyjA">
+                <styles xmi:type="notation:FontStyle" xmi:id="_eQWh0X9YEeWCCYvFuChyjA" fontName="Droid Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Location" xmi:id="_eQWh0n9YEeWCCYvFuChyjA"/>
               </children>
-              <styles xmi:type="notation:SortingStyle" xmi:id="_aEPYoX9WEeWxfO7UbSKS2Q"/>
-              <styles xmi:type="notation:FilteringStyle" xmi:id="_aEPYon9WEeWxfO7UbSKS2Q"/>
+              <styles xmi:type="notation:SortingStyle" xmi:id="_eQV6wX9YEeWCCYvFuChyjA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_eQV6wn9YEeWCCYvFuChyjA"/>
             </children>
-            <styles xmi:type="notation:ShapeStyle" xmi:id="_aELuQX9WEeWxfO7UbSKS2Q" fontName="Droid Sans" fontHeight="8"/>
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aELuQn9WEeWxfO7UbSKS2Q" x="456" y="108"/>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_eQSQYX9YEeWCCYvFuChyjA" fontName="Droid Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eQSQYn9YEeWCCYvFuChyjA" x="480" y="120"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hzM9gH9YEeWCCYvFuChyjA" type="2003" element="_hy6CkH9YEeWCCYvFuChyjA">
+            <children xmi:type="notation:Node" xmi:id="_hzM9g39YEeWCCYvFuChyjA" type="5007"/>
+            <children xmi:type="notation:Node" xmi:id="_hzM9hH9YEeWCCYvFuChyjA" type="7004">
+              <styles xmi:type="notation:SortingStyle" xmi:id="_hzM9hX9YEeWCCYvFuChyjA"/>
+              <styles xmi:type="notation:FilteringStyle" xmi:id="_hzM9hn9YEeWCCYvFuChyjA"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hzM9gX9YEeWCCYvFuChyjA" fontName="Droid Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hzM9gn9YEeWCCYvFuChyjA" x="484" y="276"/>
           </children>
           <styles xmi:type="notation:DiagramStyle" xmi:id="_i-Fkon9KEeWqDqWxlEeVQA"/>
           <edges xmi:type="notation:Edge" xmi:id="_jbuz0H9TEeWR-assOrwoBg" type="4001" element="_jbduEH9TEeWR-assOrwoBg" source="_D7LMkH9SEeWR-assOrwoBg" target="_8LzGEH9REeWR-assOrwoBg">
@@ -147,22 +156,6 @@
             <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jbwpAH9TEeWR-assOrwoBg" id="(0.5,0.5)"/>
             <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_jbwpAX9TEeWR-assOrwoBg" id="(0.5,0.5)"/>
           </edges>
-          <edges xmi:type="notation:Edge" xmi:id="_hCBDEH9WEeWxfO7UbSKS2Q" type="4001" element="_hBk-MH9WEeWxfO7UbSKS2Q" source="_aELuQH9WEeWxfO7UbSKS2Q" target="_1mSKoH9REeWR-assOrwoBg">
-            <children xmi:type="notation:Node" xmi:id="_hCCRMH9WEeWxfO7UbSKS2Q" type="6001">
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hCCRMX9WEeWxfO7UbSKS2Q" y="-10"/>
-            </children>
-            <children xmi:type="notation:Node" xmi:id="_hCCRMn9WEeWxfO7UbSKS2Q" type="6002">
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hCCRM39WEeWxfO7UbSKS2Q" y="10"/>
-            </children>
-            <children xmi:type="notation:Node" xmi:id="_hCC4QH9WEeWxfO7UbSKS2Q" type="6003">
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hCC4QX9WEeWxfO7UbSKS2Q" y="10"/>
-            </children>
-            <styles xmi:type="notation:ConnectorStyle" xmi:id="_hCBDEX9WEeWxfO7UbSKS2Q"/>
-            <styles xmi:type="notation:FontStyle" xmi:id="_hCBDEn9WEeWxfO7UbSKS2Q" fontName="Droid Sans" fontHeight="8"/>
-            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hCBDE39WEeWxfO7UbSKS2Q" points="[456, 108, 456, 108]$[288, 216, 288, 216]"/>
-            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hCEtcH9WEeWxfO7UbSKS2Q" id="(0.5,0.5)"/>
-            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hCEtcX9WEeWxfO7UbSKS2Q" id="(0.5,0.49206349206349204)"/>
-          </edges>
           <edges xmi:type="notation:Edge" xmi:id="_qOTMcH9WEeWxfO7UbSKS2Q" type="4001" element="_qOJbcH9WEeWxfO7UbSKS2Q" source="_D7LMkH9SEeWR-assOrwoBg" target="_bNpNgH9SEeWR-assOrwoBg">
             <children xmi:type="notation:Node" xmi:id="_qOTMdH9WEeWxfO7UbSKS2Q" type="6001">
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_qOTMdX9WEeWxfO7UbSKS2Q" y="-10"/>
@@ -194,6 +187,38 @@
             <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_C6BC039YEeWxfO7UbSKS2Q" points="[420, 408, 420, 408]$[156, 408, 156, 408]"/>
             <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_C6Bp5n9YEeWxfO7UbSKS2Q" id="(0.49586776859504134,0.49206349206349204)"/>
             <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_C6Bp539YEeWxfO7UbSKS2Q" id="(0.5,0.5)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_eQXv8H9YEeWCCYvFuChyjA" type="4001" element="_eQBxsH9YEeWCCYvFuChyjA" source="_eQSQYH9YEeWCCYvFuChyjA" target="_1mSKoH9REeWR-assOrwoBg">
+            <children xmi:type="notation:Node" xmi:id="_eQYXAH9YEeWCCYvFuChyjA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eQYXAX9YEeWCCYvFuChyjA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_eQYXAn9YEeWCCYvFuChyjA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eQYXA39YEeWCCYvFuChyjA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_eQY-EH9YEeWCCYvFuChyjA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eQY-EX9YEeWCCYvFuChyjA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_eQXv8X9YEeWCCYvFuChyjA"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_eQXv8n9YEeWCCYvFuChyjA" fontName="Droid Sans" fontHeight="8"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eQXv839YEeWCCYvFuChyjA" points="[-47, 15, 143, -89]$[-229, 74, -39, -30]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eQbaUH9YEeWCCYvFuChyjA" id="(0.5,0.5)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eQbaUX9YEeWCCYvFuChyjA" id="(0.5,0.49206349206349204)"/>
+          </edges>
+          <edges xmi:type="notation:Edge" xmi:id="_pdvnUH9YEeWCCYvFuChyjA" type="4001" element="_pdg90H9YEeWCCYvFuChyjA" source="_hzM9gH9YEeWCCYvFuChyjA" target="_bNpNgH9SEeWR-assOrwoBg">
+            <children xmi:type="notation:Node" xmi:id="_pdwOYH9YEeWCCYvFuChyjA" type="6001">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pdwOYX9YEeWCCYvFuChyjA" y="-10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_pdwOYn9YEeWCCYvFuChyjA" type="6002">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pdwOY39YEeWCCYvFuChyjA" y="10"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_pdwOZH9YEeWCCYvFuChyjA" type="6003">
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_pdwOZX9YEeWCCYvFuChyjA" y="10"/>
+            </children>
+            <styles xmi:type="notation:ConnectorStyle" xmi:id="_pdvnUX9YEeWCCYvFuChyjA"/>
+            <styles xmi:type="notation:FontStyle" xmi:id="_pdvnUn9YEeWCCYvFuChyjA" fontName="Droid Sans" fontHeight="8"/>
+            <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_pdvnU39YEeWCCYvFuChyjA" points="[484, 276, 484, 276]$[204, 48, 204, 48]"/>
+            <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pdwOZn9YEeWCCYvFuChyjA" id="(0.5,0.5)"/>
+            <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_pdwOZ39YEeWCCYvFuChyjA" id="(0.5,0.48936170212765956)"/>
           </edges>
         </data>
       </ownedAnnotationEntries>
@@ -251,7 +276,7 @@
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@subNodeMappings[name='attributes']"/>
         </ownedElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_1mK14H9REeWR-assOrwoBg" name="Car" outgoingEdges="_jbeVIH9TEeWR-assOrwoBg" incomingEdges="_hBk-MH9WEeWxfO7UbSKS2Q">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_1mK14H9REeWR-assOrwoBg" name="Car" outgoingEdges="_jbeVIH9TEeWR-assOrwoBg" incomingEdges="_eQBxsH9YEeWCCYvFuChyjA">
         <target xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.2"/>
         <semanticElements xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.2"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -308,7 +333,7 @@
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@subNodeMappings[name='attributes']"/>
         </ownedElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_bNif0H9SEeWR-assOrwoBg" name="Vehicle" incomingEdges="_jbeVIH9TEeWR-assOrwoBg _qOJbcH9WEeWxfO7UbSKS2Q">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_bNif0H9SEeWR-assOrwoBg" name="Vehicle" incomingEdges="_jbeVIH9TEeWR-assOrwoBg _qOJbcH9WEeWxfO7UbSKS2Q _pdg90H9YEeWCCYvFuChyjA">
         <target xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.3"/>
         <semanticElements xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.3"/>
         <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
@@ -343,33 +368,6 @@
         </ownedStyle>
         <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']"/>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_aD72oH9WEeWxfO7UbSKS2Q" name="EEE" outgoingEdges="_hBk-MH9WEeWxfO7UbSKS2Q">
-        <target xmi:type="Isml:Entity" href="src/Test5.isml#//@body.0/@body.0"/>
-        <semanticElements xmi:type="Isml:Entity" href="src/Test5.isml#//@body.0/@body.0"/>
-        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
-        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
-        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_aD72oX9WEeWxfO7UbSKS2Q" borderSize="1" borderSizeComputationExpression="1">
-          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@style"/>
-        </ownedStyle>
-        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']"/>
-        <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_uggMAH9XEeWxfO7UbSKS2Q" name="name : String">
-          <target xmi:type="Isml:Attribute" href="src/Test5.isml#//@body.0/@body.0/@body.0"/>
-          <semanticElements xmi:type="Isml:Attribute" href="src/Test5.isml#//@body.0/@body.0/@body.0"/>
-          <ownedStyle xmi:type="diagram:Square" xmi:id="_uggzEH9XEeWxfO7UbSKS2Q" labelAlignment="LEFT" labelPosition="node">
-            <description xmi:type="style:SquareDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@subNodeMappings[name='attributes']/@style"/>
-          </ownedStyle>
-          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@subNodeMappings[name='attributes']"/>
-        </ownedElements>
-      </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hBk-MH9WEeWxfO7UbSKS2Q" sourceNode="_aD72oH9WEeWxfO7UbSKS2Q" targetNode="_1mK14H9REeWR-assOrwoBg">
-        <target xmi:type="Isml:Entity" href="src/Test5.isml#//@body.0/@body.0"/>
-        <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hBk-MX9WEeWxfO7UbSKS2Q" targetArrow="InputClosedArrow" size="2">
-          <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']/@style"/>
-          <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hBk-Mn9WEeWxfO7UbSKS2Q"/>
-        </ownedStyle>
-        <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']"/>
-      </ownedDiagramElements>
       <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_qOJbcH9WEeWxfO7UbSKS2Q" sourceNode="_D7FtAH9SEeWR-assOrwoBg" targetNode="_bNif0H9SEeWR-assOrwoBg">
         <target xmi:type="Isml:Entity" href="src/Test.isml#//@body.0/@body.1"/>
         <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_qOJbcX9WEeWxfO7UbSKS2Q" targetArrow="InputClosedArrow" size="2">
@@ -386,6 +384,52 @@
           <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_C5-mkn9YEeWxfO7UbSKS2Q"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='opposite']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_eP09YH9YEeWCCYvFuChyjA" name="EEE" outgoingEdges="_eQBxsH9YEeWCCYvFuChyjA">
+        <target xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.4"/>
+        <semanticElements xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.4"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_eP1kcH9YEeWCCYvFuChyjA" borderSize="1" borderSizeComputationExpression="1">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']"/>
+        <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_eP2ykH9YEeWCCYvFuChyjA" name="name : String">
+          <target xmi:type="Isml:Attribute" href="src/Test2.isml#//@body.0/@body.4/@body.0"/>
+          <semanticElements xmi:type="Isml:Attribute" href="src/Test2.isml#//@body.0/@body.4/@body.0"/>
+          <ownedStyle xmi:type="diagram:Square" xmi:id="_eP3ZoH9YEeWCCYvFuChyjA" labelAlignment="LEFT" labelPosition="node">
+            <description xmi:type="style:SquareDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@subNodeMappings[name='attributes']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@subNodeMappings[name='attributes']"/>
+        </ownedElements>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_eQBxsH9YEeWCCYvFuChyjA" sourceNode="_eP09YH9YEeWCCYvFuChyjA" targetNode="_1mK14H9REeWR-assOrwoBg">
+        <target xmi:type="Isml:Entity" href="src/Test2.isml#//@body.0/@body.4"/>
+        <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_eQBxsX9YEeWCCYvFuChyjA" targetArrow="InputClosedArrow" size="2">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']/@style"/>
+          <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_eQBxsn9YEeWCCYvFuChyjA"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_hy6CkH9YEeWCCYvFuChyjA" name="Bicycle" outgoingEdges="_pdg90H9YEeWCCYvFuChyjA">
+        <target xmi:type="Isml:Entity" href="src/Test5.isml#//@body.0/@body.0"/>
+        <semanticElements xmi:type="Isml:Entity" href="src/Test5.isml#//@body.0/@body.0"/>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_hy6CkX9YEeWCCYvFuChyjA" borderSize="1" borderSizeComputationExpression="1">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@containerMappings[name='entity']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_pdg90H9YEeWCCYvFuChyjA" sourceNode="_hy6CkH9YEeWCCYvFuChyjA" targetNode="_bNif0H9SEeWR-assOrwoBg">
+        <target xmi:type="Isml:Entity" href="src/Test5.isml#//@body.0/@body.0"/>
+        <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_pdg90X9YEeWCCYvFuChyjA" targetArrow="InputClosedArrow" size="2">
+          <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']/@style"/>
+          <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_pdg90n9YEeWCCYvFuChyjA"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']/@defaultLayer/@edgeMappings[name='inheritance']"/>
       </ownedDiagramElements>
       <description xmi:type="description_1:DiagramDescription" href="platform:/resource/co.edu.javeriana.isml.visual/description/visual.odesign#//@ownedViewpoints[name='isml']/@ownedRepresentations[name='Entity%20diagram']"/>
       <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_i93iNX9KEeWqDqWxlEeVQA"/>

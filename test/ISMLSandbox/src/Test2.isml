@@ -19,3 +19,8 @@ entity Car extends Vehicle {
 entity Vehicle {
 	Date creationDate;
 }
+
+entity EEE extends Car {
+	String name;
+	
+}
