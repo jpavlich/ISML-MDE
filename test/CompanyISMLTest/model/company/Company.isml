@@ -1,0 +1,8 @@
+package test;
+
+entity Company {
+	String name must be NotNull, Size(1,20);
+	String nit must be NotNull, Size(1,10) ;
+	Date creationDate;
+	Array<Person> employees opposite employer;
+}

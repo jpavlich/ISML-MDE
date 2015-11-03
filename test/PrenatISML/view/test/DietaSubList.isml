@@ -1,0 +1,27 @@
+package test;
+
+page DietaSubList(Any container, Collection<Dieta> collection) controlledBy DietaManager  {
+	Form {
+	       Panel("Collection<Dieta>") {
+	           DataTable("Collection<Dieta>", null) {
+	               header : {                    
+	                   Label("Desayuno");
+	                   Label("Almuerzo");
+	                   Label("Cena");
+	                   Label("Merienda");
+	                   Label("Patologia");
+	               }
+	               body : 
+	               for(Dieta dieta in collection) {
+	               		Label(dieta.desayuno);
+	               		Label(dieta.almuerzo);
+	               		Label(dieta.cena);
+	               		Label(dieta.merienda);
+	               		Label(dieta.patologia);
+	               }
+	           }
+			Button("Back", false) -> DefaultPageDispatcher.view(container);
+		}
+	} 
+	
+}

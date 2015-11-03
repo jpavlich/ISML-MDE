@@ -10,8 +10,13 @@ import co.edu.javeriana.isml.isml.Type
 import java.util.LinkedList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.naming.QualifiedName
+import com.google.inject.Inject
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
+import co.edu.javeriana.isml.isml.If
 
 class SignatureExtension {
+	@Inject extension IsmlModelNavigation
+
 
 	def String getSignature(EObject obj) {
 
@@ -66,13 +71,30 @@ class SignatureExtension {
 	}
 
 	private def String getStringID(EObject obj) {
+		var id = ""
 		val nameFeature = obj?.eClass?.getEStructuralFeature("name")
 		if(nameFeature != null) {
 			val name = obj.eGet(nameFeature) as String
 			if(name != null) {
-				return name
+				id = name
+			} else {
+				id = String.valueOf(obj)
 			}
+		} else {
+			id = String.valueOf(obj)
 		}
-		return String.valueOf(obj)
+		if(needToDisplayFeature(obj.eContainer)) {
+			val feature = obj.eContainingFeature?.name
+			if (feature != null) {
+				id = "|" + feature + "|." + id 
+			}
+			
+		}
+
+		return id
+	}
+
+	private def needToDisplayFeature(EObject obj) {
+		return obj instanceof If
 	}
 }

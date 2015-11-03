@@ -1,0 +1,26 @@
+package test;
+
+page SelectCompanyToAdd(Collection<Company> companyList, Any container, Collection<Company> collection) controlledBy CompanyManager  {
+	Form {
+	       Panel("Collection<Company>") {
+	           DataTable("Collection<Company>", null) {
+	               header: {                    
+	                   Label("Name");
+	                   Label("Nit");
+	                   Label("Creation Date");
+	                   
+	                   Label("Select Company to Add");
+	               }
+	               body:
+	               for(Company company in companyList) {
+	               		Label(company.name);
+	               		Label(company.nit);
+	               		Label(company.creationDate);
+	               		
+	               		Button("Select",false)-> addCompany(container, collection, company);
+	               }
+	           }
+               Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
+		}
+	}
+}

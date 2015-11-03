@@ -1,0 +1,8 @@
+package bank;
+
+entity Bank {
+	
+	Integer nit;
+	String name;
+	
+}

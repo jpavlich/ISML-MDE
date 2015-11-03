@@ -1,0 +1,34 @@
+package test;
+
+page PersonList(Collection<Person> personList) controlledBy PersonManager  {
+	Form {
+	       Panel("Collection<Person>") {
+	           DataTable("Collection<Person>", null) {
+	               header : {                    
+	                   Label("Name");
+	                   Label("Last Name");
+	                   Label("Ssn");
+	                   Label("Dob");
+	                   Label("Employer");
+	                   Label("View");
+	                   Label("Edit");
+	                   Label("Delete");
+	               }
+	               body : 
+	               for(Person person in personList) {
+	               		Label(person.name);
+	               		Label(person.lastName);
+	               		Label(person.ssn);
+	               		Label(person.dob);
+	               		Label(person.employer);
+	                   	Button("View",false)-> viewPerson(person);
+	                   	Button("Edit",false) -> editPerson(person);
+	                   	Button("Delete",false) -> deletePerson(person);
+	               }
+
+	           }
+	        	
+		}
+	} 
+	
+}

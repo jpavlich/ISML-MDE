@@ -2,9 +2,10 @@ package co.edu.javeriana.isml.tests
 
 import co.edu.javeriana.isml.IsmlInjectorProvider
 import co.edu.javeriana.isml.isml.Action
+import co.edu.javeriana.isml.isml.ActionCall
 import co.edu.javeriana.isml.isml.Assignment
-import co.edu.javeriana.isml.isml.Block
 import co.edu.javeriana.isml.isml.Controller
+import co.edu.javeriana.isml.isml.If
 import co.edu.javeriana.isml.isml.InformationSystem
 import co.edu.javeriana.isml.isml.Package
 import co.edu.javeriana.isml.isml.Reference
@@ -21,8 +22,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import static org.junit.Assert.*
-import co.edu.javeriana.isml.isml.If
-import co.edu.javeriana.isml.isml.ActionCall
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(IsmlInjectorProvider))
@@ -36,7 +35,7 @@ class ControllerTest extends CommonTests {
 	def void uniqueInIfElse() {
 
 		val is = '''
-			package test
+			package test;
 			
 			controller Test {
 				action1() {
@@ -44,11 +43,11 @@ class ControllerTest extends CommonTests {
 				}
 				
 				action2() {
-					String s
+					String s;
 					if (true) {
-						String s	
+						String s;
 					} else {
-						String s
+						String s;
 					}
 					
 				}
@@ -59,27 +58,25 @@ class ControllerTest extends CommonTests {
 		is.assertNoErrors
 		is.assertEqualsElement(
 			InformationSystem -> #[
-				"components" -> #[
+				"body" -> #[
 					Package -> #[
 						"name" -> "test",
-						"components" -> #[
+						"body" -> #[
 							Controller -> #[
 								"name" -> "Test",
-								"parameters" -> #[
+								"body" -> #[
 									Action -> #[],
 									Action -> #[
-										"body" -> (Block -> #[
-											"statements" -> #[
-												Variable -> #[
-													"name" -> "s",
-													"type" -> (Type -> #[
-														"typeSpecification" -> (TypeSpecification -> #[
-															"name" -> "String"
-														])
+										"body" -> #[
+											Variable -> #[
+												"name" -> "s",
+												"type" -> (Type -> #[
+													"referencedElement" -> (TypeSpecification -> #[
+														"name" -> "String"
 													])
-												]
+												])
 											]
-										])
+										]
 									]
 								]
 							]
@@ -94,13 +91,13 @@ class ControllerTest extends CommonTests {
 	def void correctVariableDeclaration1() {
 
 		val is = '''
-			package test
+			package test;
 			
 			controller Test {
 				action2() {
-						String x
+						String x;
 						
-						x = "a"
+						x = "a";
 				}
 			}
 			
@@ -108,9 +105,9 @@ class ControllerTest extends CommonTests {
 		println(is.validate)
 		is.assertNoErrors
 
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val v = action2.body.statements.head.cast(Variable)
-		val assignment = action2.body.statements.get(1).cast(Assignment)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val v = action2.body.head.cast(Variable)
+		val assignment = action2.body.get(1).cast(Assignment)
 		val assignedVar = assignment.left.cast(Reference).referencedElement
 		assertSame(v, assignedVar);
 	}
@@ -119,17 +116,17 @@ class ControllerTest extends CommonTests {
 	def void correctVariableDeclaration2() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action2() {
-					String x
+					String x;
 					if (true) {
-						String y
-						y = "a"
+						String y;
+						y = "a";
 					} else {
-						x = "bggg"
+						x = "bggg";
 					}
 				}
 			}
@@ -137,11 +134,11 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		is.assertNoErrors
 
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val x = action2.body.statements.head.cast(Variable)
-		val y = action2.body.statements.get(1).cast(If).body.statements.head.cast(Variable)
-		val xAssignment = action2.body.statements.get(1).cast(If).elseBody.statements.head.cast(Assignment)
-		val yAssignment = action2.body.statements.get(1).cast(If).body.statements.get(1).cast(Assignment)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val x = action2.body.head.cast(Variable)
+		val y = action2.body.get(1).cast(If).body.head.cast(Variable)
+		val xAssignment = action2.body.get(1).cast(If).elseBody.head.cast(Assignment)
+		val yAssignment = action2.body.get(1).cast(If).body.get(1).cast(Assignment)
 
 		// Verifies that the assignment x="bggg" corresponds to the variable x
 		assertSame(x, xAssignment.left.cast(Reference).referencedElement)
@@ -154,18 +151,18 @@ class ControllerTest extends CommonTests {
 	def void correctVariableDeclaration3() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			
 			controller Test {
 				action2() {
 					if (true) {
-						String x
-						x = "aa"
+						String x;
+						x = "aa";
 					} else {
-						String x
-						x = "bb"
+						String x;
+						x = "bb";
 					}
 				}
 			}
@@ -173,11 +170,11 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		is.assertNoErrors
 
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val x = action2.body.statements.head.cast(If).body.statements.head.cast(Variable)
-		val x2 = action2.body.statements.head.cast(If).elseBody.statements.head.cast(Variable)
-		val xAssignment = action2.body.statements.head.cast(If).body.statements.get(1).cast(Assignment)
-		val x2Assignment = action2.body.statements.head.cast(If).elseBody.statements.get(1).cast(Assignment)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val x = action2.body.head.cast(If).body.head.cast(Variable)
+		val x2 = action2.body.head.cast(If).elseBody.head.cast(Variable)
+		val xAssignment = action2.body.head.cast(If).body.get(1).cast(Assignment)
+		val x2Assignment = action2.body.head.cast(If).elseBody.get(1).cast(Assignment)
 
 		assertSame(x, xAssignment.left.cast(Reference).referencedElement)
 		assertSame(x2, x2Assignment.left.cast(Reference).referencedElement)
@@ -186,74 +183,81 @@ class ControllerTest extends CommonTests {
 	@Test
 	def void incorrectVariableDeclaration1() {
 
-		'''
-			package test
-			
-			
-			controller Test {
-				action2() {
-						x = 1
-						String x
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+		val is = '''
+					package test;
+					
+					
+					controller Test {
+						action2() {
+								x = 1;
+								String x;
+						}
+					}
+					
+				'''.parse(rs)
+		is.assertErrors
+		is.assertNoSyntaxErrors
+		
 	}
 
 	@Test
 	def void incorrectVariableDeclaration2() {
 
-		'''
-			package test
-			
-			
-			controller Test {
-				action2() {
-					if (true) {
-						String x
-					} else {
-						x = 1
+		val obj = '''
+					package test;
+					
+					
+					controller Test {
+						action2() {
+							if (true) {
+								String x;
+							} else {
+								x = 1;
+							}
+						}
 					}
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void incorrectVariableDeclaration3() {
 
-		'''
-			package test
-			
-			
-			controller Test {
-				action2() {
-					if (true) {
-					} else {
-						x = 1
+		val obj = '''
+					package test;
+					
+					
+					controller Test {
+						action2() {
+							if (true) {
+							} else {
+								x = 1;
+							}
+							String x;
+						}
 					}
-					String x
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void parameterReference() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			
 			controller Test {
 				action(String a, String b) {
-					-> action2(a)
-					-> action(a,b)
-					-> action2(b)
-					-> action(b,a)
+					-> action2(a);
+					-> action(a,b);
+					-> action2(b);
+					-> action(b,a);
 				}
 				
 				action2(String c) {
@@ -263,12 +267,12 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs)
 		is.assertNoErrors
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.get(1).cast(Action)
-		val action2Call1 = action.body.statements.head.cast(ActionCall)
-		val action1Call1 = action.body.statements.get(1).cast(ActionCall)
-		val action2Call2 = action.body.statements.get(2).cast(ActionCall)
-		val action1Call2 = action.body.statements.get(3).cast(ActionCall)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.get(1).cast(Action)
+		val action2Call1 = action.body.head.cast(ActionCall)
+		val action1Call1 = action.body.get(1).cast(ActionCall)
+		val action2Call2 = action.body.get(2).cast(ActionCall)
+		val action1Call2 = action.body.get(3).cast(ActionCall)
 
 		assertSame(action, action1Call1.referencedElement)
 		assertSame(action, action1Call2.referencedElement)
@@ -278,15 +282,38 @@ class ControllerTest extends CommonTests {
 	}
 
 	@Test
-	def void otherControllerActionCall() {
+	def void parameterReference2() {
 
 		val is = '''
-			package test
+			package test;
+			
 			
 			
 			controller Test {
 				action(String a, String b) {
-					-> Test2.action3()
+					a = "aa";
+				}
+				
+				action2(String c) {
+					
+				}
+			}
+			
+		'''.parse(rs)
+		is.assertNoErrors
+
+	}
+
+	@Test
+	def void otherControllerActionCall() {
+
+		val is = '''
+			package test;
+			
+			
+			controller Test {
+				action(String a, String b) {
+					-> Test2.action3();
 				}
 				
 				action2(String c) {
@@ -302,10 +329,10 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		is.assertNoErrors
 
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action3 = is.components.head.cast(Package).components.get(1).cast(Controller).parameters.head.cast(Action)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action3 = is.components.head.cast(Package).components.get(1).cast(Controller).body.head.cast(Action)
 
-		val action3Call = action.body.statements.head.cast(ActionCall)
+		val action3Call = action.body.head.cast(ActionCall)
 
 		assertSame(action3, action3Call.referencedElement)
 	}
@@ -313,12 +340,12 @@ class ControllerTest extends CommonTests {
 	@Test
 	def void otherControllerActionCallMultipleResources() {
 		val is = '''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action(String a, String b) {
-					-> Test2.action3()
+					-> Test2.action3();
 				}
 				
 				action2(String c) {
@@ -328,7 +355,7 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs)
 		val is2 = '''
-			package test
+			package test;
 			
 			
 			controller Test2 {
@@ -339,10 +366,10 @@ class ControllerTest extends CommonTests {
 		'''.parse(rs)
 		rs.resources.forEach[_|_.contents.get(0).assertNoErrors]
 
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action3 = is2.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action3 = is2.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
 
-		val action3Call = action.body.statements.head.cast(ActionCall)
+		val action3Call = action.body.head.cast(ActionCall)
 
 		assertSame(action3, action3Call.referencedElement)
 	}
@@ -351,12 +378,12 @@ class ControllerTest extends CommonTests {
 	def void nullParameterCall() {
 
 		val is = '''
-			package test
+			package test;
 			
 			
 			controller Test {
 				action() {
-					-> action2(null)
+					-> action2(null);
 				}
 				
 				action2(String c) {
@@ -367,16 +394,33 @@ class ControllerTest extends CommonTests {
 			
 		'''.parse(rs)
 		is.assertNoErrors
-		val action = is.components.head.cast(Package).components.head.cast(Controller).parameters.head.cast(Action)
-		val action2 = is.components.head.cast(Package).components.head.cast(Controller).parameters.get(1).cast(Action)
+		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
+		val action2 = is.components.head.cast(Package).components.head.cast(Controller).body.get(1).cast(Action)
 
-		val action2Call = action.body.statements.head.cast(ActionCall)
+		val action2Call = action.body.head.cast(ActionCall)
 		assertSame(action2, action2Call.referencedElement)
 
 	}
 
 	@Test
 	def void callWithinCall() {
+		val is = '''
+			package test;
+			
+			
+			controller Test {
+				action() {
+					-> action();
+				}
+				
+				action2(String c) {
+					
+				}
+			}
+			
+			
+		'''.parse(rs)
+		is.assertNoErrors
 	}
 
 }

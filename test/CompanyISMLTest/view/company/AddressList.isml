@@ -1,0 +1,32 @@
+package test;
+
+page AddressList(Collection<Address> addressList) controlledBy AddressManager  {
+	Form {
+	       Panel("Collection<Address>") {
+	           DataTable("Collection<Address>", null) {
+	               header : {                    
+	                   Label("Street");
+	                   Label("City");
+	                   Label("Country");
+	                   Label("Employer");
+	                   Label("View");
+	                   Label("Edit");
+	                   Label("Delete");
+	               }
+	               body : 
+	               for(Address address in addressList) {
+	               		Label(address.street);
+	               		Label(address.city);
+	               		Label(address.country);
+	               		Label(address.employer);
+	                   	Button("View",false)-> viewAddress(address);
+	                   	Button("Edit",false) -> editAddress(address);
+	                   	Button("Delete",false) -> deleteAddress(address);
+	               }
+
+	           }
+	        	
+		}
+	} 
+	
+}

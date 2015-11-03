@@ -1,91 +1,71 @@
 package co.edu.javeriana.isml.scoping
 
-import co.edu.javeriana.isml.isml.Block
+import co.edu.javeriana.isml.isml.CompositeElement
+import co.edu.javeriana.isml.isml.Element
 import co.edu.javeriana.isml.isml.Function
 import co.edu.javeriana.isml.isml.Iteration
+import co.edu.javeriana.isml.isml.TypedElement
 import com.google.inject.Inject
 import java.util.ArrayList
+import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
-import co.edu.javeriana.isml.isml.NamedElement
-import co.edu.javeriana.isml.isml.InformationSystem
-import co.edu.javeriana.isml.isml.Variable
-import co.edu.javeriana.isml.isml.Parameter
 
 class ScopeExtension {
 
-	@Inject extension TypeExtension
-
-//	def Iterable<Parameter> getAllParametersInScope(EObject start) {
-//		var parameters = new ArrayList<Parameter>
-//		var current = start.findAncestor(Function) as Function
-//		while(current != null) {
-//			parameters.addAll(current.parameters)
-//			current = current.eContainer?.findAncestor(Function) as Function
-//		}
-//
-//		return parameters
-//	}
+	@Inject extension IsmlModelNavigation
 
 	def Iterable<EObject> getAllElementsInScope(EObject obj) {
 		var vars = new ArrayList<EObject>
 		var current = obj
-		while (current != null) {
-			addAllStatementsInScope(current, current.eContainer, vars)
+		while(current != null) {
+			addAllStatementsInScope(current, vars)
 			current = current.eContainer
 		}
 		return vars
 	}
-	
-	
-	def addAllStatementsInScope(EObject current, EObject parent, ArrayList<EObject> vars) {
-		switch (parent) {
-			Block: vars.addAll(current.findAllPreviousOfType(Object))
-			Iteration: vars.add(parent.variable)
-			Function: vars.addAll(parent.parameters)
+
+	def addAllStatementsInScope(EObject obj, ArrayList<EObject> vars) {
+		val EObject container = obj.eContainer
+		if(container instanceof CompositeElement<?>) {
+			vars.addAll(obj.findAllPreviousInstancesOfType(TypedElement))
 		}
+
+		if(container instanceof Iteration) {
+			vars.add(container.variable)
+		}
+		if(container instanceof Function) {
+			vars.addAll(container.parameters)
+		}
+
 	}
 
-	
-	
-	
-	
-//	def <T extends EObject> getAllStatementsInIterations(EObject obj, Class<T> type, ArrayList<T> vars) {
-//		var current = obj.eContainer?.findAncestorWithParentOfType(Iteration)
-//		while(current != null) {
-//			val iteration = current as Iteration
-//			vars.add(iteration.variable as T)
-//			current = current.eContainer?.findAncestorWithParentOfType(Block)
-//		}
-//	}
-//	
-//	def <T extends EObject> getAllStatementsInBlocks(EObject obj, Class<T> type, ArrayList<T> vars) {
-//		var current = obj.eContainer?.findAncestorWithParentOfType(Block)
-//		while(current != null) {
-//			vars.addAll(current.findAllPreviousOfType(type))
-//			current = current.eContainer?.findAncestorWithParentOfType(Block)
-//		}
-//	}
-
-
-
 	/**
-	 * Finds all of the instances of given classes that appear previously in the same block of a given object.
-	 * This can be utilized to find variable declarations that must be before a variable reference
+	 * Finds all the instances of a given type that appear previously in the same block of a given object.
+	 * This can be utilized to find variable declarations that should be located before a variable reference
 	 */
-	def Iterable<EObject> findAllPreviousOfType(EObject obj, Class<?> type) {
-		val previousList = new ArrayList<EObject>
-		val block = obj.findAncestor(Block) as Block
-		if(block != null) {
-			for (child : block.statements) {
-				if(child == obj) {
-					return previousList
+	def Iterable<EObject> findAllPreviousInstancesOfType(EObject obj, Class<?>... types) {
+		val previousInstances = new ArrayList<EObject>
+		var container = obj.eContainer
+		val containingFeature = obj.eContainingFeature
+		if(container != null) {
+			val body = container.eGet(containingFeature)
+			if(body instanceof EList<?>) {
+				for (ch : body) {
+					val child = ch as EObject
+					if(child == obj) {
+						return previousInstances
+					}
+					for (type : types) {
+						if(type.isAssignableFrom(child.class)) {
+							previousInstances.add(child)
+						}
+					}
 				}
-				if(type.isAssignableFrom(child.class)) {
-					previousList.add(child)
-				}
+
 			}
 		}
 
-		return previousList
+		return previousInstances
 	}
+
 }

@@ -1,0 +1,25 @@
+package test;
+
+page AddressSubList(Any container, Collection<Address> collection) controlledBy AddressManager  {
+	Form {
+	       Panel("Collection<Address>") {
+	           DataTable("Collection<Address>", null) {
+	               header : {                    
+	                   Label("Street");
+	                   Label("City");
+	                   Label("Country");
+	                   Label("Employer");
+	               }
+	               body : 
+	               for(Address address in collection) {
+	               		Label(address.street);
+	               		Label(address.city);
+	               		Label(address.country);
+	               		Label(address.employer);
+	               }
+	           }
+			Button("Back", false) -> DefaultPageDispatcher.view(container);
+		}
+	} 
+	
+}

@@ -1,0 +1,6 @@
+package test2;
+
+import test.*;
+entity Bicycle extends Vehicle {
+	
+}

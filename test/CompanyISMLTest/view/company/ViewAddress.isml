@@ -1,0 +1,12 @@
+package test
+
+page ViewAddress(Address address) controlledBy AddressManager {
+	Panel("Address") {
+		Label("Street") Label(address.street)
+		Label("City") Label(address.city)
+		Label("Country") Label(address.country)
+		Button("Employer", false) -> PersonManager.viewPerson(address.employer)
+
+		Button("Ok", false) -> listAll()
+	}
+}

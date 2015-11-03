@@ -1,0 +1,15 @@
+package test;
+
+page ViewCompany(Company company) controlledBy CompanyManager {
+	Panel("Company") {
+		Label("Name");
+		Label(company.name);
+		Label("Nit");
+		Label(company.nit);
+		Label("Creation Date");
+		Label(company.creationDate);
+		Button("Employees", false) -> PersonManager.subListPerson(company, company.employees);
+
+		Button("Ok", false) -> listAll();
+	}
+}

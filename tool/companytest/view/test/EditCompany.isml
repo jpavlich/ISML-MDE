@@ -1,9 +1,0 @@
-package test
-
-page EditCompany(Company company) controlledBy CompanyManager  {
-	Form {
-		
-		Button("Save", true) -> saveCompany(company)
-		Button("Cancel", false) -> listAll()
-	}
-}

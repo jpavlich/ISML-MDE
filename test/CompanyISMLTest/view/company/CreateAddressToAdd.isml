@@ -1,0 +1,12 @@
+package test
+
+page CreateAddressToAdd(Any container, Collection<Address> collection, Address address) controlledBy AddressManager  {
+	Form {
+		Text("Street", address.street, 25, 1)
+		Text("City", address.city, 25, 1)
+		Text("Country", address.country, 25, 1)
+		
+		Button("Save", true) -> addAddress(container, collection, address)
+		Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+	}
+}

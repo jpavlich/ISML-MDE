@@ -1,0 +1,11 @@
+package test;
+
+
+entity Person {
+	String name;
+	String lastName;
+	String ssn;
+	Date dob;
+	Company employer;
+	
+}

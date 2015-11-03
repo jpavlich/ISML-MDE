@@ -16,12 +16,12 @@ class ServiceTest extends CommonTests {
 	@Inject extension ParseHelper<InformationSystem>
 	@Inject extension ValidationTestHelper
 	@Inject extension TestHelper
-	
+
 	@Test
 	def void uniqueInIfElse() {
 
 		val result = '''
-			package test
+			package test;
 			
 			service Test {
 				Void method1() {
@@ -29,11 +29,11 @@ class ServiceTest extends CommonTests {
 				}
 				
 				Void method2() {
-					String s
+					String s;
 					if (true) {
-						String s	
+						String s;
 					} else {
-						String s
+						String s;
 					}
 					
 				}
@@ -47,12 +47,12 @@ class ServiceTest extends CommonTests {
 	def void correctVariableDeclaration1() {
 
 		'''
-			package test
+			package test;
 			
 			service Test {
 				Void method2() {
-						String x
-						x = "a"
+						String x;
+						x = "a";
 				}
 			}
 			
@@ -63,16 +63,16 @@ class ServiceTest extends CommonTests {
 	def void correctVariableDeclaration2() {
 
 		val result = '''
-			package test
+			package test;
 			
 			service Test {
 				Void method2() {
-					String x
+					String x;
 					if (true) {
-						String y
-						y = "aaa"
+						String y;
+						y = "aaa";
 					} else {
-						x = "bbb"
+						x = "bbb";
 					}
 				}
 			}
@@ -85,17 +85,17 @@ class ServiceTest extends CommonTests {
 	def void correctVariableDeclaration3() {
 
 		val result = '''
-			package test
+			package test;
 			
-
+			
 			service Test {
 				Void method2() {
 					if (true) {
-						String x
-						x = "aa"
+						String x;
+						x = "aa";
 					} else {
-						String x
-						x = "bb"
+						String x;
+						x = "bb";
 					}
 				}
 			}
@@ -103,79 +103,108 @@ class ServiceTest extends CommonTests {
 		'''.parse(rs)
 		result.assertNoErrors
 	}
+
 	@Test
 	def void incorrectVariableDeclaration1() {
 
-		'''
-			package test
-
-			service Test {
-				Void method2() {
-						x = 1
-						String x
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+		val obj = '''
+					package test;
+					
+					service Test {
+						Void method2() {
+								x = 1;
+								String x;
+						}
+					}
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void incorrectVariableDeclaration2() {
 
-		'''
-			package test
-			
-
-			service Test {
-				Void method2() {
-					if (true) {
-						String x
-					} else {
-						x = 1
+		val obj = '''
+					package test;
+					
+					
+					service Test {
+						Void method2() {
+							if (true) {
+								String x;
+							} else {
+								x = 1;
+							}
+						}
 					}
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
 
 	@Test
 	def void incorrectVariableDeclaration3() {
 
-		'''
-			package test
-
-			
-			service Test {
-				Void method2() {
-					if (true) {
-					} else {
-						x = 1
+		val obj = '''
+					package test;
+					
+					
+					service Test {
+						Void method2() {
+							if (true) {
+							} else {
+								x = 1;
+							}
+							String x;
+						}
 					}
-					String x
-				}
-			}
-			
-		'''.parse(rs).assertErrors
+					
+				'''.parse(rs)
+		obj.assertErrors
+		obj.assertNoSyntaxErrors
 	}
-	
 
 	@Test
 	def void parameterReference() {
 
 		'''
-			package test
-
+			package test;
+			
 			
 			service Test {
 				Void method(String a, String b) {
-					method2(a)
-					method2(b)
+					method2(a);
+					method2(b);
 				}
 				
 				Void method2(String c) {
 					
 				}
+			}
+			
+		'''.parse(rs).assertNoErrors
+	}
+
+	@Test
+	def void parameterReference2() {
+
+		'''
+			package test;
+			
+			
+			service Test {
+				
+				
+				Void method2(String c) {
+					
+				}
+				Void method(String a, String b) {
+					method2(a);
+					method2(b);
+				}
+				
 			}
 			
 		'''.parse(rs).assertNoErrors

@@ -1,0 +1,12 @@
+package test
+
+page CreateCompanyToAdd(Any container, Collection<Company> collection, Company company) controlledBy CompanyManager  {
+	Form {
+		Text("Name", company.name, 25, 1)
+		Text("Nit", company.nit, 25, 1)
+		Calendar("Creation Date", company.creationDate, null, "dd/MM/yyyy", true, "inline")
+		
+		Button("Save", true) -> addCompany(container, collection, company)
+		Button("Cancel", false) -> DefaultPageDispatcher.edit(container)
+	}
+}

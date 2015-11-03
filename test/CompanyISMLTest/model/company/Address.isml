@@ -1,0 +1,8 @@
+package test ;
+
+entity Address {
+	String street ;
+	String city ;
+	String country ;
+	Person employer ;
+}

@@ -8,19 +8,10 @@ import co.edu.javeriana.isml.isml.Assignment
 import co.edu.javeriana.isml.isml.Attribute
 import co.edu.javeriana.isml.isml.Controller
 import co.edu.javeriana.isml.isml.Entity
-import co.edu.javeriana.isml.isml.GenericTypeSpecification
 import co.edu.javeriana.isml.isml.Interface
-import co.edu.javeriana.isml.isml.IsmlPackage
-import co.edu.javeriana.isml.isml.Method
 import co.edu.javeriana.isml.isml.MethodCall
-import co.edu.javeriana.isml.isml.Page
 import co.edu.javeriana.isml.isml.Parameter
-import co.edu.javeriana.isml.isml.Primitive
 import co.edu.javeriana.isml.isml.Reference
-import co.edu.javeriana.isml.isml.Service
-import co.edu.javeriana.isml.isml.Show
-import co.edu.javeriana.isml.isml.Struct
-import co.edu.javeriana.isml.isml.StructInstance
 import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.Variable
 import co.edu.javeriana.isml.isml.VariableReference
@@ -36,18 +27,18 @@ import org.eclipse.xtext.resource.IEObjectDescription
 import org.eclipse.xtext.scoping.IScope
 import org.eclipse.xtext.scoping.Scopes
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider
-import org.eclipse.xtext.scoping.impl.FilteringScope
 import org.eclipse.xtext.util.PolymorphicDispatcher
+import co.edu.javeriana.isml.isml.Service
 
 /**
  * This class contains custom scoping description.
  * 
  * see : http://www.eclipse.org/Xtext/documentation.html#scoping
  * on how and when to use it 
- *
+ * 
  */
 class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 	@Inject extension TypeChecker
 	@Inject extension IQualifiedNameProvider
 	@Inject extension ScopeExtension
@@ -99,22 +90,31 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 	def IScope scope_MethodCall_referencedElement(MethodCall call, EReference ref) {
 		val parent = call.eContainer
 		val scopes = new ArrayList<EObject>
-		scopes.addAll(call.containerController.allMethods)
+//		scopes.addAll(call.containerController.allMethods)
 		switch (parent) {
 			Reference: {
 				val parentType = parent.referencedElement.type
 				val parentClassifier = parentType.typeSpecification
 				if(parentClassifier instanceof Interface) {
-					scopes.addAll(parentClassifier.allMethods.filter[method|method.isCongruentWith(call)])
+					scopes.addAll(parentClassifier.allMethods.filter [ method |
+						method.isCongruentWith(call)
+					])
 				}
 				return Scopes.scopeFor(scopes)
 			}
 			default: {
+				val containerService = call.findAncestor(Service)
+				if(containerService != null) {
+					scopes.addAll(containerService.allMethods.filter [ method |
+						method.isCongruentWith(call)
+					])
+				}
 				for (service : call.unnamedServices) {
 					if(service.name == null) {
 						scopes.addAll(service.allMethods.filter[method|method.isCongruentWith(call)])
 					}
 				}
+
 				return Scopes.scopeFor(scopes)
 			}
 		}
@@ -124,8 +124,11 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 		var scope = IScope::NULLSCOPE
 		try {
 			val controllers = caller.eResource.resourceSet.getAllInstances(Controller)
-			val actions = controllers.map[getActions].flatten.filterCongruent(caller)
-			scope = Scopes::scopeFor(actions, [_|QualifiedName.create(_.containerController.name).append(_.name)], scope)
+			val candidateActions = controllers.map[getActions].flatten
+			val actions = (candidateActions).filterCongruent(caller)
+			scope = Scopes::scopeFor(actions, [ _ |
+				QualifiedName.create(_.containerController.name).append(_.name)
+			], scope)
 			val controller = caller.containerController
 			if(controller != null) {
 				scope = Scopes::scopeFor(controller.actions.filterCongruent(caller), scope)
@@ -159,50 +162,9 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 		}
 		return IScope::NULLSCOPE
 	}
-	
+
 	def is(IEObjectDescription desc, Class<? extends EObject> c) {
 		c.isInstance(desc.getEObjectOrProxy)
 	}
-
-//	def IScope scope_Type_typeSpecification(Type t, EReference ref) {
-//		val scope = delegateGetScope(t, ref)
-//		val container = t.eContainer
-//		switch (container) {
-//			Struct: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive)])
-//			}
-//			Show: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Page)])
-//			}
-//			Attribute: {
-//				if(container.eContainer instanceof Controller) {
-//					return new FilteringScope(scope, [_|_.is(Service)])
-//				} else {
-//					return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive)])
-//				}
-//			}
-//			Method: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive) || _.is(GenericTypeSpecification)])
-//			}
-//			Parameter: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive) || _.is(GenericTypeSpecification)])
-//			}
-//			Primitive: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive) || _.is(GenericTypeSpecification)])
-//			}
-//			Interface: {
-//				return new FilteringScope(scope, [_|_.is(Interface)])
-//			}
-//			Variable: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive) || _.is(GenericTypeSpecification)])
-//			}
-//			StructInstance: {
-//				return new FilteringScope(scope, [_|_.is(Struct) || _ .is(Primitive)])
-//			}
-//			default:
-//				return scope
-//		}
-//
-//	}
 
 }

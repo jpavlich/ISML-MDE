@@ -24,16 +24,16 @@ class ResourceTest extends CommonTests {
 	def void resourceReference() {
 
 		val result = '''
-			package pac
+			package pac;
 			
 			resources {
-				$course
-				$course.name
+				$course; 
+				$course.name;
 			}
 			
 			resourceBundle Resource_es_CO {
-				$course = "Curso"
-				$course.name = "Nombre"
+				$course = "Curso";
+				$course.name = "Nombre";
 			}
 		'''.parse(rs)
 		result.assertNoErrors

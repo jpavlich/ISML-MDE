@@ -7,11 +7,11 @@ import org.eclipse.xtext.util.Modules2;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import co.edu.javeriana.generator.GeneratorDispatcherModule;
-import co.edu.javeriana.isml.IsmlRuntimeModule;
-
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import co.edu.javeriana.generator.GeneratorDispatcherModule;
+import co.edu.javeriana.isml.IsmlRuntimeModule;
 
 public class Activator extends AbstractUIPlugin implements BundleActivator {
 

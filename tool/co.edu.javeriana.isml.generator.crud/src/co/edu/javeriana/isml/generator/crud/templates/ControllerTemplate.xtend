@@ -10,16 +10,16 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 	@Inject extension CommonTemplates
 
 	override protected template(Entity e) '''
-		package «e.eContainer?.fullyQualifiedName»
+		package «e.eContainer?.fullyQualifiedName»;
 		
 		controller «e.controllerName» {
-			has Persistence<«e.name»> persistence
+			has Persistence<«e.name»> persistence;
 			
 			/**
 			* Lists all instances of «e.name».
 			*/
 			default listAll() {
-				show «e.listPage»(persistence.findAll())
+				show «e.listPage»(persistence.findAll());
 			}
 		
 			/**
@@ -27,7 +27,7 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.collectionVariable» The list of instances of «e.name» to show.
 			*/
 			«e.listAction»(«e.collectionType» «e.collectionVariable») {
-			show «e.listPage»(«e.collectionVariable»)
+				show «e.listPage»(«e.collectionVariable»);
 			}
 			
 			/**
@@ -35,7 +35,7 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.collectionVariable» The list of instances of «e.name» to show.
 			*/
 			«e.subListAction»(Any container, Collection<«e.name»> collection) {
-				show «e.subListPage»(container, collection)
+				show «e.subListPage»(container, collection);
 			}
 		
 			/** Creates a new instance of «e.name» and opens a form to 
@@ -44,7 +44,7 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param collection The collection to which the new instance will be added
 			*/
 			«e.createToAddAction»(Any container, Collection<«e.name»> collection) {
-				show «e.createToAddPage»(container, collection, new «e.name»)
+				show «e.createToAddPage»(container, collection, new «e.name»);
 			}
 		
 			/** Opens a page to select an instance to add it to collection.
@@ -52,8 +52,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param collection The collection to which the selected instance will be added
 			*/
 			«e.selectToAddAction»(Any container, Collection<«e.name»> collection) {
-			Collection<«e.name»> selectableElements = persistence.findAllExcept(collection)
-			show «e.selectToAddPage»(selectableElements, container, collection)
+				Collection<«e.name»> selectableElements = persistence.findAllExcept(collection);
+				show «e.selectToAddPage»(selectableElements, container, collection);
 			}
 		
 			/** Adds an instance of «e.name» to a collection
@@ -62,8 +62,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.variable» The instance that will be added to collection
 			*/
 			«e.addAction»(Any container, Collection<«e.name»> collection, «e.name» instance) {
-			persistence.addToCollection(container, collection, instance)
-			-> DefaultPageDispatcher.edit(container)
+				persistence.addToCollection(container, collection, instance);
+				-> DefaultPageDispatcher.edit(container);
 			}
 			
 			
@@ -74,8 +74,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.variable» The instance that will be removed from collection
 			*/
 			«e.removeAction»(Any container, Collection<«e.name»> collection, «e.name» instance) {
-				persistence.removeFromCollection(container, collection, instance)
-				-> DefaultPageDispatcher.edit(container)
+				persistence.removeFromCollection(container, collection, instance);
+				-> DefaultPageDispatcher.edit(container);
 			}
 			
 			/** Opens a page to select an instance to assign it to an entity's attribute.
@@ -83,8 +83,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param attribute The attribute name to which the selected instance will be assigned
 			*/
 			«e.selectToAssignAction»(Any container, String attribute) {
-				Collection<«e.name»> elements = persistence.findAll()
-				show «e.selectToAssignPage»(elements, container, attribute)
+				Collection<«e.name»> elements = persistence.findAll();
+				show «e.selectToAssignPage»(elements, container, attribute);
 			}
 			
 			/** Assigns an object to an entity's attribute.
@@ -93,8 +93,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param instance The object that will be assigned to attribute
 			*/
 			«e.assignAction»(Any container, String attribute, «e.name» instance) {
-				persistence.assignToAttribute(container, attribute, instance)
-				-> DefaultPageDispatcher.edit(container)
+				persistence.assignToAttribute(container, attribute, instance);
+				-> DefaultPageDispatcher.edit(container);
 			}
 			
 			/**
@@ -102,7 +102,7 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.idVariable» the ID of the «e.name».
 			*/
 			«e.viewAction»(«e.idType» «e.idVariable») {
-				show «e.viewPage»(persistence.find(«e.idVariable»))
+				show «e.viewPage»(persistence.find(«e.idVariable»));
 			}
 		
 			/**
@@ -110,7 +110,7 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.variable» the «e.name» to open.
 			*/		
 			«e.viewAction»(«e.name» «e.variable») {
-			show «e.viewPage»(«e.variable»)
+				show «e.viewPage»(«e.variable»);
 			}
 		
 		
@@ -119,14 +119,14 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.variable» the «e.name» to open.
 			*/			
 			«e.editAction»(«e.name» «e.variable») {
-			show «e.editPage»(«e.variable»)
+				show «e.editPage»(«e.variable»);
 			}
 		
 			/**
 			* Creates a a new instance of «e.name».
 			*/			
 			«e.createAction»() {
-				show «e.editPage»(new «e.name»)
+				show «e.editPage»(new «e.name»);
 			}
 		
 		
@@ -136,11 +136,11 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			*/			
 			«e.saveAction»(«e.name» «e.variable») {
 			if(persistence.isPersistent(«e.variable»)){
-				persistence.edit(«e.variable»)
+				persistence.edit(«e.variable»);
 			} else {
-				persistence.create(«e.variable»)
+				persistence.create(«e.variable»);
 			}
-			-> listAll()
+			-> listAll();
 			}
 		
 		
@@ -149,8 +149,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.variable» the «e.name» to delete.
 			*/		
 			«e.deleteAction»(«e.name» «e.variable») {
-			persistence.remove(«e.variable»)
-			-> listAll()
+				persistence.remove(«e.variable»);
+				-> listAll();
 			}
 		
 			/**
@@ -158,8 +158,8 @@ class ControllerTemplate extends SimpleTemplate<Entity> {
 			* @param «e.idVariable» the ID of the «e.name» to delete.
 			*/		
 			«e.deleteAction»(«e.idType» «e.idVariable») {
-			persistence.remove(«e.idVariable»)
-			-> listAll()
+				persistence.remove(«e.idVariable»);
+				-> listAll();
 			}
 		}
 	'''

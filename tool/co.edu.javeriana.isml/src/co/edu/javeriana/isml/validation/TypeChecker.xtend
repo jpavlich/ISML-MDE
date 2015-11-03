@@ -7,7 +7,6 @@ import co.edu.javeriana.isml.isml.Entity
 import co.edu.javeriana.isml.isml.EnumItem
 import co.edu.javeriana.isml.isml.FloatValue
 import co.edu.javeriana.isml.isml.Function
-import co.edu.javeriana.isml.isml.GenericTypeSpecification
 import co.edu.javeriana.isml.isml.Instance
 import co.edu.javeriana.isml.isml.IntValue
 import co.edu.javeriana.isml.isml.Method
@@ -23,13 +22,13 @@ import co.edu.javeriana.isml.isml.Type
 import co.edu.javeriana.isml.isml.TypeSpecification
 import co.edu.javeriana.isml.isml.TypedElement
 import co.edu.javeriana.isml.isml.UnaryOperator
-import co.edu.javeriana.isml.isml.ViewBlock
-import co.edu.javeriana.isml.scoping.TypeExtension
+import co.edu.javeriana.isml.scoping.IsmlModelNavigation
 import com.google.inject.Inject
 import org.eclipse.xtext.EcoreUtil2
+import co.edu.javeriana.isml.isml.NamedViewBlock
 
 class TypeChecker {
-	@Inject extension TypeExtension
+	@Inject extension IsmlModelNavigation
 	@Inject extension Generics
 	@Inject extension TypeFactory
 
@@ -207,7 +206,7 @@ class TypeChecker {
 		exp.eResource.getPrimitiveType("Type", exp)
 	}
 
-	def dispatch Type getType(ViewBlock exp) {
+	def dispatch Type getType(NamedViewBlock exp) {
 		exp.eResource.getPrimitiveType("Block")
 	}
 
