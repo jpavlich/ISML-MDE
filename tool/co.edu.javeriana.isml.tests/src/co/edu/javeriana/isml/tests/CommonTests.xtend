@@ -14,12 +14,18 @@ class CommonTests {
 	@Before
 	def void initCommon() {
 		rs = new ResourceSetImpl
-		rs.createResource(URI.createURI("../../ISML-MDE/tool/co.edu.javeriana.isml.common/model/common/primitives/Primitives.isml")).load(emptyMap)
-		rs.createResource(URI.createURI("../../ISML-MDE/tool/co.edu.javeriana.isml.common/model/common/primitives/Constraints.isml")).load(emptyMap)
-		rs.createResource(URI.createURI("../../ISML-MDE/tool/co.edu.javeriana.isml.common/view/common/widgets/PrimitiveWidgets.isml")).load(emptyMap)
+		rs.createResource(URI.createURI(basePath + "ISML-MDE/tool/co.edu.javeriana.isml.common/model/common/primitives/Primitives.isml")).load(emptyMap)
+		rs.createResource(URI.createURI(basePath + "ISML-MDE/tool/co.edu.javeriana.isml.common/model/common/primitives/Constraints.isml")).load(emptyMap)
+		rs.createResource(URI.createURI(basePath + "ISML-MDE/tool/co.edu.javeriana.isml.common/view/common/widgets/PrimitiveWidgets.isml")).load(emptyMap)
 
-		rs.createResource(URI.createURI("../../ISML-MDE/tool/co.edu.javeriana.isml.common/services/common/services/Persistence.isml")).load(emptyMap)
+		rs.createResource(URI.createURI(basePath + "ISML-MDE/tool/co.edu.javeriana.isml.common/services/common/services/Persistence.isml")).load(emptyMap)
 
+	}
+	
+	
+	// FIXME This depends that the projects are stored in a git repo.
+	def getBasePath() {
+		return System.getProperty("user.home") + "/git/"
 	}
 	
 }
