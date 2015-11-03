@@ -547,7 +547,7 @@ class IsmlModelNavigation {
 	}
 
 	def ForView getForViewInBody(ViewInstance i) {
-		return i.body.filter(ForView).head
+		return i.findDescendent(ForView) as ForView
 	}
 
 	def Expression getParameter(Instance i, String paramName) {

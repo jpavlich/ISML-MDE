@@ -1,10 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: SimpleGeneratorTests
-Bundle-SymbolicName: co.edu.javeriana.isml.generator.simple.tests
+Bundle-Name: IsmlGeneratorTest
+Bundle-SymbolicName: co.edu.javeriana.isml.generator.test
 Bundle-Version: 1.0.0.qualifier
-Bundle-Activator: co.edu.javeriana.isml.generator.simple.tests.Activator
-Bundle-ActivationPolicy: lazy
 Require-Bundle: co.edu.javeriana.isml,
  co.edu.javeriana.isml.ui,
  co.edu.javeriana.isml.tests,
@@ -22,8 +20,7 @@ Require-Bundle: co.edu.javeriana.isml,
  org.eclipse.xtext.common.types.ui;bundle-version="2.4.0",
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
  co.edu.javeriana.isml.generator;bundle-version="1.0.0",
- co.edu.javeriana.isml.generator.simple,
- co.edu.javeriana.isml.generator.test;bundle-version="1.0.0"
+ co.edu.javeriana.isml.generator.simple
 Import-Package: 
  org.apache.log4j,
  org.hamcrest.core,
@@ -34,4 +31,4 @@ Import-Package:
  org.junit.runners;version="4.5.0",
  org.junit.runners.model;version="4.5.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-
+Export-Package: co.edu.javeriana.isml.generator.test

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xmi:id="_YbzosIJrEeWAmdJxIbSXmg" version="10.0.0.201505222000">
+  <semanticResources>controller/test/DietaManager.isml</semanticResources>
+  <semanticResources>platform:/resource/co.edu.javeriana.isml.common/controller/common/controllers/DefaultPageDispatcher.isml</semanticResources>
+  <semanticResources>platform:/resource/co.edu.javeriana.isml.common/model/common/primitives/Primitives.isml</semanticResources>
+  <semanticResources>model/test/Dieta.isml</semanticResources>
+  <semanticResources>model/test/Preferencias.isml</semanticResources>
+  <semanticResources>model/test/Rol.isml</semanticResources>
+  <semanticResources>model/test/RolUsuario.isml</semanticResources>
+  <semanticResources>model/test/Usuario.isml</semanticResources>
+  <semanticResources>view/test/CreateDietaToAdd.isml</semanticResources>
+  <semanticResources>view/test/DietaList.isml</semanticResources>
+  <semanticResources>view/test/DietaSubList.isml</semanticResources>
+  <semanticResources>view/test/EditDieta.isml</semanticResources>
+  <semanticResources>view/test/SelectDietaToAdd.isml</semanticResources>
+  <semanticResources>view/test/SelectDietaToAssign.isml</semanticResources>
+  <semanticResources>view/test/ViewDieta.isml</semanticResources>
+</viewpoint:DAnalysis>

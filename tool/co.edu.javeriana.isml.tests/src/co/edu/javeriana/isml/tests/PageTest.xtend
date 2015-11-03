@@ -428,6 +428,52 @@ class PageTest extends CommonTests {
 	}
 	
 		@Test
+	def void correctBlockParameters2() {
+		val obj = '''
+			package test;
+			
+			widget TestDataTable {
+						header: {
+							
+						}
+						body: {
+						}
+					}
+
+			widget TestText;
+			
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			entity Person{
+				String name;
+			}
+			
+			page Page(Collection<Person> persons) controlledBy Controller{
+				TestDataTable {
+					header: {
+						TestText;
+					}
+					body: 
+					for (Person p in persons) {
+						TestText;
+					}
+				}
+			}
+			
+		'''.parse(rs)
+		obj.assertNoErrors
+	}
+	
+	
+		@Test
 	def void incorrectNestedBlockParameters() {
 		val obj = '''
 			package test;
@@ -515,5 +561,7 @@ class PageTest extends CommonTests {
 			}
 		'''.parse(rs).assertNoErrors
 	}
+	
+	
 
 }

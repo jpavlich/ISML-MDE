@@ -56,8 +56,8 @@ class IsmlValidator extends AbstractIsmlValidator {
 
 	def void checkBlockParameters(CompositeElement<ViewStatement> instance, CompositeElement<ViewStatement> widget) {
 		try {
-			if (widget.hasBody != instance.hasBody) {
-				error("This widget must have a body", instance, IsmlPackage.Literals.TYPED_ELEMENT__TYPE)
+			if (widget.hasBody && !instance.hasBody && instance.body?.size==0) {
+				error("This widget must have a body", instance, IsmlPackage.Literals.COMPOSITE_ELEMENT__BODY)
 				return
 			}
 			val widgetBodySize = widget.body?.size
@@ -96,6 +96,7 @@ class IsmlValidator extends AbstractIsmlValidator {
 			}
 		} catch (Exception e) {
 			e.printStackTrace
+			throw e
 		}
 
 	}
