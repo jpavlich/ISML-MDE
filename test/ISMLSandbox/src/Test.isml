@@ -1,12 +1,37 @@
-package test;
+			package test;
+			
+			widget TestDataTable {
+						header: {
+							
+						}
+						body: {
+						}
+					}
 
-
-
-entity WaterEntity {
-	
-
-}
-
-entity Ship  extends Vehicle, WaterEntity {
-	Integer size;
-}
+			widget TestText;
+			
+			controller Controller {
+				action1() {
+					
+				}
+				
+				action2() {
+					
+				}
+			}
+			
+			entity Person2{
+				String name;
+			}
+			
+			page Page(Collection<Person2> persons) controlledBy Controller{
+				TestDataTable {
+					header: {
+						TestText;
+					}
+					body: 
+					for (Person2 p in persons) {
+						TestText;
+					}
+				}
+			}

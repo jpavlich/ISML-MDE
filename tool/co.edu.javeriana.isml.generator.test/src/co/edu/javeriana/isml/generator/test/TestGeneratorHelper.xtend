@@ -1,4 +1,4 @@
-package co.edu.javeriana.isml.generator.simple.tests
+package co.edu.javeriana.isml.generator.test
 
 import co.edu.javeriana.isml.generator.common.SimpleTemplate
 import org.eclipse.emf.ecore.EObject

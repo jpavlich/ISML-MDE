@@ -2,7 +2,7 @@ package co.edu.javeriana.isml.generator.simple.tests;
 
 import co.edu.javeriana.isml.IsmlInjectorProvider;
 import co.edu.javeriana.isml.generator.simple.templates.EntityTemplate;
-import co.edu.javeriana.isml.generator.simple.tests.TestGeneratorHelper;
+import co.edu.javeriana.isml.generator.test.TestGeneratorHelper;
 import co.edu.javeriana.isml.isml.Entity;
 import co.edu.javeriana.isml.isml.InformationSystem;
 import co.edu.javeriana.isml.isml.NamedElement;

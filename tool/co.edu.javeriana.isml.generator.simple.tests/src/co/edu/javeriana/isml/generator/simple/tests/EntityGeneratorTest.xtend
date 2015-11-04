@@ -14,6 +14,7 @@ import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import co.edu.javeriana.isml.isml.Entity
+import co.edu.javeriana.isml.generator.test.TestGeneratorHelper
 
 @InjectWith(IsmlInjectorProvider)
 @RunWith(XtextRunner)
