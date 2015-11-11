@@ -124,7 +124,7 @@ controller DietaManager {
 	*/			
 	saveDieta(Dieta dieta) {
 	if(persistence.isPersistent(dieta)){
-		persistence.edit(dieta);
+		persistence.save(dieta);
 	} else {
 		persistence.create(dieta);
 	}

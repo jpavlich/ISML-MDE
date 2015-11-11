@@ -1,7 +1,0 @@
-package test;
-
-
-entity Usuario {
-	String login must be NotNull, Size(1,128 );
-	
-}

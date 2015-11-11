@@ -47,7 +47,7 @@
 			},
 			{
 				name: "service.impl",
-				outputDirectory: "../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/ejb",
+				outputDirectory: "../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:false,			
 				overrideExistingResources:false,

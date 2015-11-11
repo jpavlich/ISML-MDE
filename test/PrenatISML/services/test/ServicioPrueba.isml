@@ -1,6 +1,0 @@
-package test;
-
-service ServicioPrueba{
-	
-	native Void operacion1();
-}
