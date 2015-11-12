@@ -8,7 +8,8 @@
 		[
 			{
 				name: "pages",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-web/src/main/webapp",
+				outputDirectory:"../prenat/prenat-war/web",
+				
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -21,7 +22,8 @@
 			},
 			{
 				name: "backing.beans",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-web/src/main/java",
+				outputDirectory:"../prenat/prenat-war/src/java/co/edu/javeriana",
+				
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -34,7 +36,7 @@
 			},
 			{
 				name: "service.interface",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/interfaces",
+				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/ejb/interfaces",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -47,7 +49,7 @@
 			},
 			{
 				name: "service.impl",
-				outputDirectory: "../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/",
+				outputDirectory: "../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/ejb",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:false,			
 				overrideExistingResources:false,
@@ -60,7 +62,8 @@
 			},
 			{
 				name: "service.qualifier",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/interfaces",
+				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/ejb/interfaces",
+				
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -117,7 +120,8 @@
 		[
 			{
 				name: "entities",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
+								
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -130,7 +134,7 @@
 			},
 			{
 				name: "dto",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -143,7 +147,7 @@
 			},
 			{
 				name: "enum",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -156,7 +160,7 @@
 			},
 			{
 				name: "resource.bundle",
-				outputDirectory:"../Prenat/CodigoFuente_javemovil/javemovil-ejb/src/main/java/co/edu/javeriana/javemovil/model",
+				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
