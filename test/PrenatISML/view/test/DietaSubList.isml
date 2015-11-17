@@ -1,5 +1,4 @@
 package test;
-
 page DietaSubList(Any container, Collection<Dieta> collection) controlledBy DietaManager  {
 	Form {
 	       Panel("Collection<Dieta>") {

@@ -19,7 +19,8 @@ page SelectDietaToAssign(Collection<Dieta> dietaList, Any container, String attr
 	               		Label(dieta.cena);
 	               		Label(dieta.merienda);
 	               		Label(dieta.patologia);
-	               		Button("Select",false)-> assignDieta(container, attribute, dieta);
+	               		Label(dieta.patologia);
+	               		//Button("Select",false);//-> assignDieta(container, attribute, dieta);
 	               }
 	           }
                Button("Cancel", false) -> DefaultPageDispatcher.edit(container);

@@ -19,7 +19,8 @@ page SelectDietaToAdd(Collection<Dieta> dietaList, Any container, Collection<Die
 	               		Label(dieta.cena);
 	               		Label(dieta.merienda);
 	               		Label(dieta.patologia);
-	               		Button("Select",false)-> addDieta(container, collection, dieta);
+	               		Label(dieta.patologia);
+	               		//Button("Select",false)-> addDieta(container, collection, dieta);
 	               }
 	           }
                Button("Cancel", false) -> DefaultPageDispatcher.edit(container);

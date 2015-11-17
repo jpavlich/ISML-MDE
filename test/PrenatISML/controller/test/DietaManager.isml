@@ -18,72 +18,14 @@ controller DietaManager {
 		show DietaList(dietaList);
 	}
 	
-	/**
-	* Lists instances of Dieta that are in a collection.
-	* @param dietaList The list of instances of Dieta to show.
-	*/
-	subListDieta(Any container, Collection<Dieta> collection) {
-		show DietaSubList(container, collection);
-	}
 
-	/** Creates a new instance of Dieta and opens a form to 
-	* edit that instance and add it to collection.
-	* @param container The entity that contains collection
-	* @param collection The collection to which the new instance will be added
-	*/
+
+	
 	createDietaToAdd(Any container, Collection<Dieta> collection) {
 		show CreateDietaToAdd(container, collection, new Dieta);
 	}
 
-	/** Opens a page to select an instance to add it to collection.
-	* @param container The entity that contains collection
-	* @param collection The collection to which the selected instance will be added
-	*/
-	selectDietaToAdd(Any container, Collection<Dieta> collection) {
-		Collection<Dieta> selectableElements = persistence.findAllExcept(collection);
-		show SelectDietaToAdd(selectableElements, container, collection);
-	}
-
-	/** Adds an instance of Dieta to a collection
-	* @param container The entity that contains collection
-	* @param collection The collection to which the new instance will be added
-	* @param dieta The instance that will be added to collection
-	*/
-	addDieta(Any container, Collection<Dieta> collection, Dieta instance) {
-		persistence.addToCollection(container, collection, instance);
-		-> DefaultPageDispatcher.edit(container);
-	}
 	
-	
-	
-	/** Removes an instance of Dieta from a collection
-	* @param container The entity that contains collection
-	* @param collection The collection to which the new instance will be added
-	* @param dieta The instance that will be removed from collection
-	*/
-	removeDieta(Any container, Collection<Dieta> collection, Dieta instance) {
-		persistence.removeFromCollection(container, collection, instance);
-		-> DefaultPageDispatcher.edit(container);
-	}
-	
-	/** Opens a page to select an instance to assign it to an entity's attribute.
-	* @param container The entity that has the attribute
-	* @param attribute The attribute name to which the selected instance will be assigned
-	*/
-	selectDietaToAssign(Any container, String attribute) {
-		Collection<Dieta> elements = persistence.findAll();
-		show SelectDietaToAssign(elements, container, attribute);
-	}
-	
-	/** Assigns an object to an entity's attribute.
-	* @param container The entity that has the attribute
-	* @param attribute The attribute name that will be assigned
-	* @param instance The object that will be assigned to attribute
-	*/
-	assignDieta(Any container, String attribute, Dieta instance) {
-		persistence.assignToAttribute(container, attribute, instance);
-		-> DefaultPageDispatcher.edit(container);
-	}
 	
 	/**
 	* Views an instance of Dieta.
