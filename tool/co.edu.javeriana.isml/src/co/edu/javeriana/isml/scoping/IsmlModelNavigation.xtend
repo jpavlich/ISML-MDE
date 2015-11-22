@@ -800,7 +800,7 @@ class IsmlModelNavigation {
 	}
 
 	def String getCollectionString(Type type) {
-		if (type.typeSpecification.name.equals("Array")) {
+		if (type.typeSpecification.name.equals("Collection")) {
 			return "List"
 		} else {
 			return type.typeSpecification.name
