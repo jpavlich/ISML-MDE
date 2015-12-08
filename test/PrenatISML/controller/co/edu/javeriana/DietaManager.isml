@@ -23,17 +23,11 @@ controller DietaManager {
 	
 	createDietaToAdd(Any container, Collection<Dieta> collection) {
 		show CreateDietaToAdd(container, collection, new Dieta);
+			
 	}
 
 	
 	
-	/**
-	* Views an instance of Dieta.
-	* @param id the ID of the Dieta.
-	*/
-	viewDieta(Integer id) {
-		show ViewDieta(persistence.find(id));
-	}
 
 	/**
 	* Views an instance of Dieta.
@@ -83,12 +77,5 @@ controller DietaManager {
 		-> listAll();
 	}
 
-	/**
-	* Deletes an instance of Dieta.
-	* @param id the ID of the Dieta to delete.
-	*/		
-	deleteDieta(Integer id) {
-		persistence.remove(id);
-		-> listAll();
-	}
+
 }

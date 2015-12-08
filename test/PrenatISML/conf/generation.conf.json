@@ -22,7 +22,7 @@
 			},
 			{
 				name: "backing.beans",
-				outputDirectory:"../prenat/prenat-war/src/java/co/edu/javeriana",
+				outputDirectory:"../prenat/prenat-war/src/java/",
 				
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
@@ -73,7 +73,7 @@
 				hideSyntheticLocalVariables:true,
 				keepLocalHistory:false,
 				useOutputPerSourceFolder:false
-			}			
+			}						
 		]
 	},
 
@@ -120,7 +120,7 @@
 		[
 			{
 				name: "entities",
-				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
+				outputDirectory:"../prenat/prenat-ejb/src/java/",
 								
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
@@ -170,6 +170,22 @@
 				hideSyntheticLocalVariables:true,
 				keepLocalHistory:false,
 				useOutputPerSourceFolder:false
+			},
+			{
+				name: "service.general",
+				outputDirectory:"../prenat/prenat-ejb/src/java/",
+				
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+				
+				
 			}			
 		]
 	}
