@@ -12,8 +12,8 @@ class TestGeneratorHelper {
 		val trimmedExpectedOutput = expectedOutput.trimUnwantedChars
 		if (!inputText.equals(trimmedExpectedOutput)) {
 			printCallingMethod()
-			println("Input: \n\"" + inputText + "\"")
-			println("\nOutput:\n\"" + trimmedExpectedOutput + "\"")
+			println("\nExpected output:\n\"" + trimmedExpectedOutput + "\"")
+			println("Generated code: \n\"" + inputText + "\"")
 			fail("Incorrect generated text. Expected: \n" + expectedOutput + "\n\nbut got:\n" + inputText)
 		}
 	}
