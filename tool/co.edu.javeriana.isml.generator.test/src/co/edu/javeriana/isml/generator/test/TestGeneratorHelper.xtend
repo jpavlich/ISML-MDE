@@ -25,7 +25,7 @@ class TestGeneratorHelper {
 	def trimUnwantedChars(CharSequence seq) {
 		return String.valueOf(seq)
 				.replaceAll("[,;|\\.]", "$0 ")
-				.replaceAll("\\s+", " ")
+				.replaceAll("\\s+", " ").trim
 				
 	}
 	
