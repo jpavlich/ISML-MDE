@@ -1,4 +1,4 @@
-package test;
+package co.edu.javeriana;
 
 controller DietaManager {
 	has Persistence<Dieta> persistence;
@@ -60,7 +60,7 @@ controller DietaManager {
 	*/			
 	saveDieta(Dieta dieta) {
 	if(persistence.isPersistent(dieta)){
-		persistence.save(dieta);
+		persistence.edit(dieta);
 	} else {
 		persistence.create(dieta);
 	}

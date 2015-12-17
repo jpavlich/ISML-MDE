@@ -1,4 +1,4 @@
-package test;
+package co.edu.javeriana;
 
 page ViewDieta(Dieta dieta) controlledBy DietaManager {
 	Panel("Dieta") {

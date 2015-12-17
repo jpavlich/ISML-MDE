@@ -1,6 +1,7 @@
 package co.edu.javeriana.isml.generator.simple.tests;
 
 import co.edu.javeriana.isml.IsmlInjectorProvider;
+import co.edu.javeriana.isml.generator.test.TestGeneratorHelper;
 import co.edu.javeriana.isml.isml.InformationSystem;
 import co.edu.javeriana.isml.scoping.IsmlModelNavigation;
 import co.edu.javeriana.isml.tests.CommonTests;
@@ -27,7 +28,7 @@ public class EntityGeneratorTest extends CommonTests {
   
   @Inject
   @Extension
-  private /* TestGeneratorHelper */Object _testGeneratorHelper;
+  private TestGeneratorHelper _testGeneratorHelper;
   
   @Inject
   @Extension
