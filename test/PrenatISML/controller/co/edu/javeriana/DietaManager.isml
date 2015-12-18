@@ -3,6 +3,10 @@ package co.edu.javeriana;
 controller DietaManager {
 	has Persistence<Dieta> persistence;
 	
+	default initTest(){
+		-> listAll();
+		
+	}
 	/**
 	* Lists all instances of Dieta.
 	*/
