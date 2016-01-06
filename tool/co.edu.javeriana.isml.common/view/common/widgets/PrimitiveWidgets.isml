@@ -25,7 +25,9 @@ widget Spinner(String label, Float value, Float stepFactor, Float min, Float max
 widget PickList(String title, Any value) ;
 widget Calendar(String label, Date value, Array < Date > markedDates, String dateFormat, Boolean navigator, String
 mode) ;
-widget Map(String center, String zoom, String type) ;
+widget GMap(String center, String zoom, String type);
+widget Menu(Any text) ;
+
 
 // Composite primitives
 widget Panel(String title) {

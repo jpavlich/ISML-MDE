@@ -160,7 +160,7 @@
 			},
 			{
 				name: "resource.bundle",
-				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
+				outputDirectory:"../prenat/prenat-war/src/java/",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,

@@ -3,6 +3,7 @@ package co.edu.javeriana;
 page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	Form {
 	       Panel("Collection<Dieta>") {
+	       	
 	           DataTable("Collection<Dieta>", null) {
 	               header : {                    
 	                   Label("Desayuno");
@@ -27,6 +28,10 @@ page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	               }
 
 	           }
+	        	
+	        	GMap("4.627447, -74.063842","15","HYBRID");
+	        
+	        	
 	        	
 		}
 	} 
