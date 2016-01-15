@@ -1,0 +1,7 @@
+package co.edu.javeriana.prenat.resource;
+
+resources {
+	$desayuno;
+	$cancel;
+}
+

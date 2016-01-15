@@ -1,0 +1,6 @@
+package co.edu.javeriana.prenat.resource;
+
+resourceBundle Resources_es_CO {
+	$desayuno = "Desayuno";
+	$cancel = "Cancelar";
+}

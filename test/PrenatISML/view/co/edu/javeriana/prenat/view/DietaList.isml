@@ -1,4 +1,5 @@
 package co.edu.javeriana;
+import co.edu.javeriana.prenat.resource.*;
 
 page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	Form {
@@ -6,7 +7,7 @@ page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	       	
 	           DataTable("Collection<Dieta>", null) {
 	               header : {                    
-	                   Label("Desayuno");
+	                   Label($desayuno);
 	                   Label("Almuerzo");
 	                   Label("Cena");
 	                   Label("Merienda");
