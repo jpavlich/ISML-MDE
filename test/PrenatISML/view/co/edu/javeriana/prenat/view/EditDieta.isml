@@ -1,4 +1,4 @@
-package test;
+package co.edu.javeriana;
 
 page EditDieta(Dieta dieta) controlledBy DietaManager  {
 	Form {

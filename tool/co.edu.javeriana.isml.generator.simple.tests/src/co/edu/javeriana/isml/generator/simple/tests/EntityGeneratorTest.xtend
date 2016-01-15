@@ -27,7 +27,7 @@ class EntityGeneratorTest extends CommonTests {
 	
 	@Test
 	def entityGeneration() {
-		val obj = '''
+		val informationSystem = '''
 			package test;
 			entity Person extends Animal, Sentient {
 				String name must be Size(1,10);
@@ -42,9 +42,11 @@ class EntityGeneratorTest extends CommonTests {
 				
 			}
 		'''.parse(rs)
-		obj.assertNoErrors
-		val entity = obj.body.head.cast(Package).body.head.cast(Entity)
-		template.assertGenerates(entity, 
+		informationSystem.assertNoErrors
+		val pkg = informationSystem.body.head as Package
+		val entity = pkg.body.head as Entity
+		
+		assertGenerates(template, entity, 
 		'''
 			Entity {
 				name = Person
@@ -58,7 +60,7 @@ class EntityGeneratorTest extends CommonTests {
 					Attribute {
 						name = age
 						type = Integer
-						constraints = []
+						constraints = [];
 					}
 				}
 			}

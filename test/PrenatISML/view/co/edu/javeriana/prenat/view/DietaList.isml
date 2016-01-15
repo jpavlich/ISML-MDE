@@ -1,29 +1,39 @@
-package test;
+package co.edu.javeriana;
 
-page SelectDietaToAssign(Collection<Dieta> dietaList, Any container, String attribute) controlledBy DietaManager  {
+page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	Form {
 	       Panel("Collection<Dieta>") {
+	       	
 	           DataTable("Collection<Dieta>", null) {
-	               header: {                    
+	               header : {                    
 	                   Label("Desayuno");
 	                   Label("Almuerzo");
 	                   Label("Cena");
 	                   Label("Merienda");
 	                   Label("Patologia");
-	                   Label("Select Dieta to Assign");
+	                   Label("View");
+	                   Label("Edit");
+	                   Label("Delete");
 	               }
-	               body:
+	               body : 
 	               for(Dieta dieta in dietaList) {
 	               		Label(dieta.desayuno);
 	               		Label(dieta.almuerzo);
 	               		Label(dieta.cena);
 	               		Label(dieta.merienda);
 	               		Label(dieta.patologia);
-	               		Label(dieta.patologia);
-	               		//Button("Select",false);//-> assignDieta(container, attribute, dieta);
+	                   	Button("View",false)-> viewDieta(dieta);
+	                   	Button("Edit",false) -> editDieta(dieta);
+	                   	Button("Delete",false) -> deleteDieta(dieta);
 	               }
+
 	           }
-               Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
+	        	
+	        	GMap("4.627447, -74.063842","15","HYBRID");
+	        
+	        	
+	        	
 		}
-	}
+	} 
+	
 }
