@@ -7,8 +7,8 @@ ISML stands for "Information Systems Modeling Language". Its long-term vision is
 ISML also provides several code generators to transform ISML models into implementations on different platforms (e.g., Java EE, Android, PHP).
 
 ## Table of Contents
-
+<!-- 
 - [Overview](doc/overview.md)
 - [Installation](doc/installation.md)
-- [Usage](doc/usage.md)
-- [ISMLSyntax](doc/syntax.md)
+- [Usage](doc/usage.md) -->
+- [ISML Syntax](doc/syntax.md)
