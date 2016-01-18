@@ -4,10 +4,12 @@ ISML Syntax
 - [Basic Syntax](#basic-syntax)
 - [Primitive Data Types](#primitive-data-types)
 - [Collections](#collections)
-- [Entities](#entities)
-- [Pages](#pages)
-- [Controllers](#controllers)
-- [Services](#services)
+- [Complex Data Types](#comples-data-types)
+    + [Entities](#entities)
+    + [Pages](#pages)
+        * [Widgets](#widgets)
+    + [Controllers](#controllers)
+    + [Services](#services)
 - [Other Constructs](#other-constructs)
 
 
