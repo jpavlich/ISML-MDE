@@ -44,8 +44,41 @@ class TestGeneratorHelper {
 			printCallingMethod()
 			println("\nExpected output:\n\"" + trimmedExpectedOutput + "\"")
 			println("Generated code: \n\"" + trimmedGeneratedText + "\"")
+			val diffPos = findDiffPos(trimmedExpectedOutput, trimmedGeneratedText)
+			val expectedPortion = trimmedExpectedOutput.getSurroundingString(diffPos)
+			val generatedPortion = trimmedGeneratedText.getSurroundingString(diffPos)
+			
+			println("\nThe difference is at position " + diffPos)
+			println(expectedPortion)
+			println(generatedPortion)
+			
 			fail("Incorrect generated text. Expected: \n" + expectedOutput + "\n\nbut got:\n" + trimmedGeneratedText)
 		}
+	}
+	
+	/**
+	 * @returns the position where two strings are different, -1 if both are equal
+	 */
+	def findDiffPos(String string, String string2) {
+		val length = Math.min(string.length, string2.length)
+		var i=0
+		while (i<length) {
+			if (string.charAt(i) != string2.charAt(i)) {
+				return i
+			}
+			i++
+		}
+		if (string.length != string2.length) {
+			return i
+		}
+		return -1;
+		
+	}
+	
+	def getSurroundingString(String str, int pos) {
+		val start = Math.max(pos-40,0)
+		val end = Math.min(pos+40,str.length)
+		return str.substring(start,end)
 	}
 
 	def printCallingMethod() {
