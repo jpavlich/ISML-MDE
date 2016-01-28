@@ -23,7 +23,7 @@ page SelectDietaToAssign(Collection<Dieta> dietaList, Any container, String attr
 	               		//Button("Select",false);//-> assignDieta(container, attribute, dieta);
 	               }
 	           }
-               Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
+               Button("Cancel") -> DefaultPageDispatcher.edit(container);
 		}
 	}
 }

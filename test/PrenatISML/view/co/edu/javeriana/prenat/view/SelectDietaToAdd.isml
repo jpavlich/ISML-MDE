@@ -23,7 +23,7 @@ page SelectDietaToAdd(Collection<Dieta> dietaList, Any container, Collection<Die
 	               		//Button("Select",false)-> addDieta(container, collection, dieta);
 	               }
 	           }
-               Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
+               Button("Cancel") -> DefaultPageDispatcher.edit(container);
 		}
 	}
 }

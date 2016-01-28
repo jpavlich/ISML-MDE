@@ -8,7 +8,7 @@ page EditDieta(Dieta dieta) controlledBy DietaManager  {
 		Text("Merienda", dieta.merienda, 25, 1);
 		Text("Patologia", dieta.patologia, 10, 1);
 		
-		Button("Save", true) -> saveDieta(dieta);
-		Button("Cancel", false) -> listAll();
+		Button("Save") -> saveDieta(dieta);
+		Button("Cancel") -> listAll();
 	}
 }

@@ -19,7 +19,7 @@ page DietaSubList(Any container, Collection<Dieta> collection) controlledBy Diet
 	               		Label(dieta.patologia);
 	               }
 	           }
-			Button("Back", false) -> DefaultPageDispatcher.view(container);
+			Button("Back") -> DefaultPageDispatcher.view(container);
 		}
 	} 
 	

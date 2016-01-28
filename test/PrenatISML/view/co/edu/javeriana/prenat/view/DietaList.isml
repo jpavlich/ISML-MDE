@@ -23,9 +23,9 @@ page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	               		Label(dieta.cena);
 	               		Label(dieta.merienda);
 	               		Label(dieta.patologia);
-	                   	Button("View",false)-> viewDieta(dieta);
-	                   	Button("Edit",false) -> editDieta(dieta);
-	                   	Button("Delete",false) -> deleteDieta(dieta);
+	                   	Button("View")-> viewDieta(dieta);
+	                   	Button("Edit") -> editDieta(dieta);
+	                   	Button("Delete") -> deleteDieta(dieta);
 	               }
 
 	           }

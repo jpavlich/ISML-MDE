@@ -8,7 +8,7 @@ page CreateDietaToAdd(Any container, Collection<Dieta> collection, Dieta dieta) 
 		Text("Merienda", dieta.merienda, 25, 1);
 		Text("Patologia", dieta.patologia, 10, 1);
 		
-		Button("Save", true) -> saveDieta(dieta);
+		Button("Save") -> saveDieta(dieta);
 	//	Button("Cancel", false) -> DefaultPageDispatcher.edit(container);
 	}
 }
