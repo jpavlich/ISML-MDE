@@ -2,7 +2,7 @@ package common.widgets ;
 import common.primitives.* ;
 
 // Simple primitives
-widget Button(String title, Boolean validateForm) ;
+widget Button(String title) ;
 widget Label(Any text) ;
 widget Image(String imageURL) ;
 widget Link(String label, String url) ;
