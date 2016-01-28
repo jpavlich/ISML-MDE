@@ -44,7 +44,7 @@ service Persistence < T > {
 	 * Saves an already persistent object in the database.
 	 * @param obj The object to save
 	 */
-	native Void edit(T obj);
+	native Void save(T obj);
 
 	// TODO Document
 	native Array < T > findRange(Integer rangeSize, Integer from);
