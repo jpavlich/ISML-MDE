@@ -2,6 +2,7 @@ package co.edu.javeriana;
 
 controller DietaManager {
 	has Persistence<Dieta> persistence;
+	has DietaPersonal dietapersonal;
 	
 	
 	/**

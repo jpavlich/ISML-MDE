@@ -1,0 +1,7 @@
+package co.edu.javeriana;
+
+service DietaPersonal
+{
+	
+	native Void test(Integer a, Dieta dieta);
+}
