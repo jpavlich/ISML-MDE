@@ -1,4 +1,6 @@
 package co.edu.javeriana;
+import co.edu.javeriana.entities.* ;
+
 
 service DietaPersonal
 {

@@ -1,4 +1,5 @@
 package co.edu.javeriana;
+import co.edu.javeriana.entities.* ;
 
 page SelectDietaToAdd(Collection<Dieta> dietaList, Any container, Collection<Dieta> collection) controlledBy DietaManager  {
 	Form {

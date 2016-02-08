@@ -1,5 +1,6 @@
 package co.edu.javeriana;
 import co.edu.javeriana.prenat.resource.*;
+import co.edu.javeriana.entities.* ;
 
 page DietaList(Collection<Dieta> dietaList) controlledBy DietaManager  {
 	Form {

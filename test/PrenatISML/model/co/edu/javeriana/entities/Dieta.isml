@@ -1,4 +1,4 @@
-package co.edu.javeriana;
+package co.edu.javeriana.entities;
 
 entity Dieta {
 

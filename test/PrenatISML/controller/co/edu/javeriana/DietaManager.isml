@@ -1,4 +1,5 @@
-package co.edu.javeriana;
+package co.edu.javeriana ;
+import co.edu.javeriana.entities.* ;
 
 controller DietaManager {
 	has Persistence<Dieta> persistence;

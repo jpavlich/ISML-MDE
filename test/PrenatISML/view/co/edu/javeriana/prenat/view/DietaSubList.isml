@@ -1,4 +1,6 @@
 package co.edu.javeriana;
+import co.edu.javeriana.entities.* ;
+
 page DietaSubList(Any container, Collection<Dieta> collection) controlledBy DietaManager  {
 	Form {
 	       Panel("Collection<Dieta>") {
