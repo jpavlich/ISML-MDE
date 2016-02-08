@@ -36,7 +36,7 @@
 			},
 			{
 				name: "service.interface",
-				outputDirectory:"../prenat/prenat-ejb/src/java/",
+				outputDirectory:"../prenat/prenat-ejb/src/java/interfaces",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
@@ -49,7 +49,7 @@
 			},
 			{
 				name: "service.impl",
-				outputDirectory: "../prenat/prenat-ejb/src/java/",
+				outputDirectory: "../prenat/prenat-ejb/src/java/imp",
 				createOutputDirectory:true,
 				cleanUpDerivedResources:false,			
 				overrideExistingResources:false,
@@ -117,33 +117,7 @@
 				hideSyntheticLocalVariables:true,
 				keepLocalHistory:false,
 				useOutputPerSourceFolder:false
-			},
-			{
-				name: "dto",
-				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
-				createOutputDirectory:true,
-				cleanUpDerivedResources:true,
-				overrideExistingResources:true,
-				setDerivedProperty:true,
-				canClearOutputDirectory:false,
-				installDslAsPrimarySource:false,
-				hideSyntheticLocalVariables:true,
-				keepLocalHistory:false,
-				useOutputPerSourceFolder:false
-			},
-			{
-				name: "enum",
-				outputDirectory:"../prenat/prenat-ejb/src/java/co/edu/javeriana/prenat/model",
-				createOutputDirectory:true,
-				cleanUpDerivedResources:true,
-				overrideExistingResources:true,
-				setDerivedProperty:true,
-				canClearOutputDirectory:false,
-				installDslAsPrimarySource:false,
-				hideSyntheticLocalVariables:true,
-				keepLocalHistory:false,
-				useOutputPerSourceFolder:false
-			},
+			},		
 			{
 				name: "resource.bundle",
 				outputDirectory:"../prenat/prenat-war/src/java/",
@@ -159,7 +133,7 @@
 			},
 			{
 				name: "service.general",
-				outputDirectory:"../prenat/prenat-ejb/src/java/",
+				outputDirectory:"../prenat/prenat-ejb/src/java/services",
 				
 				createOutputDirectory:true,
 				cleanUpDerivedResources:true,
