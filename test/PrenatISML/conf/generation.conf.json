@@ -41,7 +41,7 @@
 				cleanUpDerivedResources:true,
 				overrideExistingResources:true,
 				setDerivedProperty:true,
-				canClearOutputDirectory:true,
+				canClearOutputDirectory:false,
 				installDslAsPrimarySource:false,
 				hideSyntheticLocalVariables:true,
 				keepLocalHistory:false,
