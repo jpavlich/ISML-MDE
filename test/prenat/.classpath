@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="prenat-ejb/build/generated-sources/ap-source-output"/>
+	<classpathentry kind="src" path="prenat-ejb/src/java"/>
+	<classpathentry kind="src" path="prenat-war/src/java"/>
+	<classpathentry kind="lib" path="build/lib/primefaces-5.0.jar"/>
+	<classpathentry kind="lib" path="build/prenat-ejb.jar"/>
+	<classpathentry kind="lib" path="prenat-ejb/dist/prenat-ejb.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="prenat-ejb/build/classes"/>
+</classpath>
