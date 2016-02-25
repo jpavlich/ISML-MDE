@@ -3,5 +3,6 @@ package co.edu.javeriana.entities;
 
 entity Preferencias {
 	String preferencia;
+	String otro;
 	
 }
