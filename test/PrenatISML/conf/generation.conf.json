@@ -146,6 +146,22 @@
 				useOutputPerSourceFolder:false
 				
 				
+			},
+			{
+				name: "persistencexml",
+				outputDirectory:"../prenat/prenat-ejb/src/main/resources/META-INF/",
+				
+				createOutputDirectory:true,
+				cleanUpDerivedResources:true,
+				overrideExistingResources:true,
+				setDerivedProperty:true,
+				canClearOutputDirectory:false,
+				installDslAsPrimarySource:false,
+				hideSyntheticLocalVariables:true,
+				keepLocalHistory:false,
+				useOutputPerSourceFolder:false
+				
+				
 			}			
 		]
 	}
