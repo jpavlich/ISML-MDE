@@ -1,7 +1,0 @@
-package bank;
-
-entity Client {
-	
-	Integer cedula;
-	String name;
-}

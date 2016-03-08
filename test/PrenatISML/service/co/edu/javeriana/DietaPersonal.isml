@@ -5,5 +5,11 @@ import co.edu.javeriana.entities.* ;
 service DietaPersonal
 {
 	
-	native Void test(Integer a, Dieta dieta);
+	 Void selectDieta(Dieta dieta, String almuerzo){
+		if(dieta.almuerzo){
+			
+			
+		}
+		
+	}
 }
