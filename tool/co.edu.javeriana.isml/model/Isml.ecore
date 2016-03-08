@@ -101,7 +101,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="tail" containment="true"
         resolveProxies="false">
       <eGenericType eClassifier="#//Reference">
-        <eTypeArguments/>
+        <eTypeArguments>
+          <eUpperBound eClassifier="#//NamedElement"/>
+        </eTypeArguments>
       </eGenericType>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedElement">
