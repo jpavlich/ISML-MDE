@@ -10,7 +10,7 @@ controller DietaManager {
 	* Lists all instances of Dieta.
 	*/
 	default listAll() {
-		show DietaList(persistence.findAll());
+		show DietaList(persistence.findAll(), null);
 	}
 	
 	default initTest(){
@@ -23,7 +23,7 @@ controller DietaManager {
 	* @param dietaList The list of instances of Dieta to show.
 	*/
 	listDieta(Collection<Dieta> dietaList) {
-		show DietaList(dietaList);
+		show DietaList(dietaList, null);
 	}
 	
 
