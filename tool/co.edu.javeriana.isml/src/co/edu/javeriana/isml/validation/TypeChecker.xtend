@@ -74,6 +74,9 @@ class TypeChecker {
 		type.typeSpecification.isSubtypeSpecificationOf(type.eResource.getPrimitiveTypeSpecification("Collection"))
 	}
 
+	def boolean isMapModel(Type type) {
+		type.typeSpecification.isSubtypeSpecificationOf(type.eResource.getPrimitiveTypeSpecification("MapModel"))
+	}
 	// TODO Check cardinality
 	def boolean isAssignableFrom(Type t1, Type t2) {
 		if(t1 == null || t2 == null) {
