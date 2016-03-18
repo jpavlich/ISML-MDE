@@ -2,7 +2,7 @@ package co.edu.javeriana;
 import co.edu.javeriana.entities.* ;
 
 
-service DietaPersonal
+service DietaPersonal 
 {
 	
 	 Void selectDieta(Dieta dieta, String almuerzo){

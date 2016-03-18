@@ -4,14 +4,16 @@ import co.edu.javeriana.entities.* ;
 controller DietaManager {
 	has Persistence<Dieta> persistence;
 	has DietaPersonal dietapersonal;
+	has Query<Lugares> query;
 	
 	
 	/**
 	* Lists all instances of Dieta.
 	*/
 	default listAll() {
-		show DietaList(persistence.findAll(), null);
+		show DietaList(persistence.findAll());
 	}
+	
 	
 	default initTest(){
 		-> listAll();
@@ -23,7 +25,7 @@ controller DietaManager {
 	* @param dietaList The list of instances of Dieta to show.
 	*/
 	listDieta(Collection<Dieta> dietaList) {
-		show DietaList(dietaList, null);
+		show DietaList(dietaList);
 	}
 	
 
@@ -75,6 +77,11 @@ controller DietaManager {
 	-> listAll();
 	}
 
+	restaurantes(String tipo, Integer maxTamano) {
+		//.^and("maxTamano < ...")
+		Collection<Lugares> result = query.execute(query.select(Lugares).where(tipo));
+		show RestaurantMapView(result);
+	}
 
 	/**
 	* Deletes an instance of Dieta.

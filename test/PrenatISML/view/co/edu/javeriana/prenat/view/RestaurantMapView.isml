@@ -1,0 +1,16 @@
+package co.edu.javeriana;
+import co.edu.javeriana.prenat.resource.*;
+import co.edu.javeriana.entities.* ;
+
+page RestaurantMapView( Collection<Lugares> model) controlledBy DietaManager  {
+
+	Form {
+	        	
+	        	GMap("4.627447, -74.063842","15","HYBRID", model );
+	        
+	        	
+	        	
+		
+	} 
+	
+}

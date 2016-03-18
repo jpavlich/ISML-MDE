@@ -2,7 +2,7 @@ package co.edu.javeriana;
 import co.edu.javeriana.prenat.resource.*;
 import co.edu.javeriana.entities.* ;
 
-page DietaList(Collection<Dieta> dietaList, MapModel model) controlledBy DietaManager  {
+page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 
 	Form {
 	       Panel("Collection<Dieta>") {
@@ -32,7 +32,7 @@ page DietaList(Collection<Dieta> dietaList, MapModel model) controlledBy DietaMa
 
 	           }
 	        	
-	        	GMap("4.627447, -74.063842","15","HYBRID", model );
+	       
 	        
 	        	
 	        	
