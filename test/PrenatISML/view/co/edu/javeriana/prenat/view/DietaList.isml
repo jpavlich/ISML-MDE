@@ -28,13 +28,13 @@ page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 	                   	Button("View")-> viewDieta(dieta);
 	                   	Button("Edit") -> editDieta(dieta);
 	                   	Button("Delete") -> deleteDieta(dieta);
+	                  
+	        
 	               }
 
 	           }
 	        	
-	       
-	        
-	        	
+	
 	        	
 		}
 	} 

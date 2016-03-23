@@ -77,4 +77,8 @@ service Persistence < T > {
 	 * @param obj The object to assign to the attribute
 	 */
 	native Void assignToAttribute(Any container, String attribute, T obj);
+	
+	native T selectUniqueResult(Any ent, Any field, String value, Any path);
+	
+	native Collection<T> selectListResult(Any enti, Any field, String value, Any path);
 }

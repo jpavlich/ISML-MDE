@@ -3,9 +3,8 @@ import co.edu.javeriana.entities.* ;
 
 controller DietaManager {
 	has Persistence<Dieta> persistence;
-	has DietaPersonal dietapersonal;
-	has Query<Lugares> query;
-	
+	has Persistence<Lugares> persistenceLug;
+	has DietaPersonal dietapersonal;	
 	
 	/**
 	* Lists all instances of Dieta.
@@ -77,10 +76,15 @@ controller DietaManager {
 	-> listAll();
 	}
 
-	restaurantes(String tipo, Integer maxTamano) {
+	showMap(Collection<Lugares> model) {
+		show RestaurantMapView(model);
+	}
+	restaurantes(Collection<Lugares> model ,String tipo, Integer maxTamano, Lugares lugar) {
 		//.^and("maxTamano < ...")
-		Collection<Lugares> result = query.execute(query.select(Lugares).where(tipo));
-		show RestaurantMapView(result);
+		model = persistenceLug.selectListResult(lugar, lugar.tipo, "Hospital", lugar); 
+	//	query.execute(query.select(Lugares).where(tipo));
+		//Collection<Lugares> result = query.execute(query.select(Lugares).where(tipo));
+		show RestaurantMapView(model);
 	}
 
 	/**
