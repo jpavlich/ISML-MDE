@@ -29,13 +29,13 @@ page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 	                   	Button("Edit") -> editDieta(dieta);
 	                   	Button("Delete") -> deleteDieta(dieta);
 	                  
-	        
+	          			
 	               }
-
+				
 	           }
-	        	
+	        	 
 	
-	        	
+	        	Button("Show Map") -> showMap(new Collection<Lugares>, new Lugares);
 		}
 	} 
 	

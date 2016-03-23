@@ -76,16 +76,11 @@ controller DietaManager {
 	-> listAll();
 	}
 
-	showMap(Collection<Lugares> model) {
+	showMap(Collection<Lugares> model, Lugares lugar) {
+		model = persistenceLug.selectListResult(lugar, lugar.tipo, "lug", lugar); 
 		show RestaurantMapView(model);
 	}
-	restaurantes(Collection<Lugares> model ,String tipo, Integer maxTamano, Lugares lugar) {
-		//.^and("maxTamano < ...")
-		model = persistenceLug.selectListResult(lugar, lugar.tipo, "Hospital", lugar); 
-	//	query.execute(query.select(Lugares).where(tipo));
-		//Collection<Lugares> result = query.execute(query.select(Lugares).where(tipo));
-		show RestaurantMapView(model);
-	}
+	
 
 	/**
 	* Deletes an instance of Dieta.
