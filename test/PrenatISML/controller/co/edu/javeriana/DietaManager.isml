@@ -77,7 +77,7 @@ controller DietaManager {
 	}
 
 	showMap(Lugares lugar,Collection<Lugares> model) {
-		model = persistenceLug.selectListResult(lugar, lugar.tipo, "lug", lugar); 
+		model = persistenceLug.selectListResult("tipo", "lug"); 
 		show RestaurantMapView(model);
 	}
 	

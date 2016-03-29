@@ -80,5 +80,5 @@ service Persistence < T > {
 	
 	native T selectUniqueResult(Any ent, Any field, String value, Any path);
 	
-	native Collection<T> selectListResult(Any enti, Any field, String value, Any path);
+	native Collection<T> selectListResult( String field, String value);
 }
