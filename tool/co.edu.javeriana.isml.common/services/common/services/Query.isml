@@ -1,0 +1,28 @@
+package common.services;
+
+/**
+ * This service provides the basic methods to access a persistent object storage.
+ * In this context, entities are referred as 'objects'.
+ */
+service Query < T > {
+/** 
+	 * Deletes an object from the database.
+	 * @param obj The object to delete
+	 */
+	native Query<T> select(Type<T> obj);
+	/** 
+	 * Deletes an object from the database.
+	 * @param id The id of the object to delete
+	 */
+	native Query<T> where(String id);
+	
+	native Collection<T> execute(Any query);
+	
+	//native Void ^and();
+	/** 
+	 * Creates a new object in the database.
+	 * @param obj The object to create
+	 */
+	
+	
+}

@@ -35,7 +35,7 @@ page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 	           }
 	        	 
 	
-	        	Button("Show Map") -> showMap(new Collection<Lugares>, new Lugares);
+	        	Button("Show Map") -> showMap(new Lugares, new Collection<Lugares>);
 		}
 	} 
 	
