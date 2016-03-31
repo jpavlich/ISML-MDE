@@ -2,14 +2,16 @@ package co.edu.javeriana;
 import co.edu.javeriana.prenat.resource.*;
 import co.edu.javeriana.entities.* ;
 
-page RestaurantMapView( Collection<Lugares> model) controlledBy DietaManager  {
+page RestaurantMapView( Collection<Lugares> model, MapModel simpleModel) controlledBy DietaManager  {
+
 
 	Form {
+	
 	        	 Panel("Panel") {
-	        	GMap("4.627447, -74.063842","15","HYBRID", model );
+	        	GMap("4.627447, -74.063842","15","HYBRID", simpleModel );
 	        
 	        
-	           Button("return")-> viewDieta(new Dieta);
+	          // Button("return")-> viewDieta(new Dieta);
 	        	
 	        	}
 		

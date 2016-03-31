@@ -17,6 +17,7 @@ controller DietaManager {
 	default initTest(){
 		-> listAll();
 		
+		
 	}
 
 	/**
@@ -76,9 +77,9 @@ controller DietaManager {
 	-> listAll();
 	}
 
-	showMap(Lugares lugar,Collection<Lugares> model) {
+	 showMap(Collection<Lugares> model) {
 		model = persistenceLug.selectListResult("tipo", "lug"); 
-		show RestaurantMapView(model);
+		show RestaurantMapView(model, new MapModel);
 	}
 	
 
