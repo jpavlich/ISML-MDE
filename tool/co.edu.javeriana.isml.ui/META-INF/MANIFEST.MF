@@ -24,5 +24,6 @@ Export-Package: co.edu.javeriana.isml.ui,
  co.edu.javeriana.isml.ui.contentassist,
  co.edu.javeriana.isml.ui.contentassist.antlr,
  co.edu.javeriana.isml.ui.internal,
- co.edu.javeriana.isml.ui.quickfix
+ co.edu.javeriana.isml.ui.quickfix,
+ co.edu.javeriana.isml.ui.contentassist.antlr.internal
 Bundle-Activator: co.edu.javeriana.isml.ui.internal.IsmlActivator

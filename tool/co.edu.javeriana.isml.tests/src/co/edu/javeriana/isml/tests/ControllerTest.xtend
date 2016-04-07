@@ -364,7 +364,7 @@ class ControllerTest extends CommonTests {
 			}
 			
 		'''.parse(rs)
-		rs.resources.forEach[_|_.contents.get(0).assertNoErrors]
+		rs.resources.forEach[r|r.contents.get(0).assertNoErrors]
 
 		val action = is.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
 		val action3 = is2.components.head.cast(Package).components.head.cast(Controller).body.head.cast(Action)
