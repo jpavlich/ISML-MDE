@@ -193,13 +193,13 @@ Show:
 	{Show} 'show' expression=ViewInstanceNoAction ';';
 
 Expression:
-	BoolTerm ({BinaryOperator.left=current} symbol='or' right=BoolTerm)*;
+	BoolTerm ({BinaryOperator.left=current} symbol='||' right=BoolTerm)*;
 
 BoolTerm returns Expression:
-	Negation ({BinaryOperator.left=current} symbol='and' right=Negation)*;
+	Negation ({BinaryOperator.left=current} symbol='&&' right=Negation)*;
 
 Negation returns Expression:
-	Comparison | {UnaryOperator} symbol='not' expression=Negation;
+	Comparison | {UnaryOperator} symbol='!' expression=Negation;
 
 Comparison returns Expression:
 	ArithmeticExpression ({BinaryOperator.left=current} (symbol='<=' | symbol='>=' | symbol='>' | symbol='<' | symbol='!='
