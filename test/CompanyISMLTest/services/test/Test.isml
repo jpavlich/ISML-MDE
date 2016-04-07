@@ -1,0 +1,17 @@
+package test;
+
+service Query {
+	native Query select(Array<String> attrs);
+	native Query where();
+	native Query orderBy();
+	native Query union();
+	native Query intersection();
+	native Any get();
+}
+
+service Persistence {
+	native Query constructQuery();
+	
+}
+
+

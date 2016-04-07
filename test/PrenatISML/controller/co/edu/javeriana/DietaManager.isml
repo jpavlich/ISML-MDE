@@ -4,7 +4,8 @@ import co.edu.javeriana.entities.* ;
 controller DietaManager {
 	has Persistence<Dieta> persistence;
 	has Persistence<Lugares> persistenceLug;
-	has DietaPersonal dietapersonal;	
+	has DietaPersonal dietapersonal;
+	has Query <Lugares>	query;
 	
 	/**
 	* Lists all instances of Dieta.
@@ -77,8 +78,11 @@ controller DietaManager {
 	-> listAll();
 	}
 
-	 showMap(Collection<Lugares> model) {
-		model = persistenceLug.selectListResult("tipo", "lug"); 
+	 showMap() {
+		Collection<Lugares> model = persistenceLug.selectListResult("tipo", "lug");
+		
+		query.select().from("lugares").where("tipo","lug");
+		
 		show RestaurantMapView(model, new MapModel);
 	}
 	

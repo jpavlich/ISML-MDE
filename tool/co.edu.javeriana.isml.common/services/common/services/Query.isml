@@ -9,13 +9,17 @@ service Query < T > {
 	 * Deletes an object from the database.
 	 * @param obj The object to delete
 	 */
-	native Query<T> select(Type<T> obj);
+	native Query<T> select(String query);
+	
+	native Query<T> select();
+	
+	native Query<T> from(String ent);
 	/** 
 	 * Deletes an object from the database.
 	 * @param id The id of the object to delete
 	 */
-	native Query<T> where(String id);
-	
+	native Query<T> where(String field,String value);
+		
 	native Collection<T> execute(Any query);
 	
 	//native Void ^and();

@@ -277,7 +277,7 @@ terminal UPPER_CASE_ID returns ecore::EString:
 	'A'..'Z' ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
 terminal LOWER_CASE_ID returns ecore::EString:
-	'^'? ('a'..'z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
+	'^'?('a'..'z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 
 terminal LINE returns ecore::EString:
 	'--' '-'*;
