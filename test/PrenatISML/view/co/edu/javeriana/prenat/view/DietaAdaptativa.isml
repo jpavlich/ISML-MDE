@@ -2,7 +2,7 @@ package co.edu.javeriana;
 import co.edu.javeriana.prenat.resource.*;
 import co.edu.javeriana.entities.* ;
 
-page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
+page DietaAdaptativa( Collection<Dieta> dietaAdaptativaList) controlledBy DietaManager  {
 
 	Form {
 	       Panel("Collection<Dieta>") {
@@ -19,15 +19,15 @@ page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 	                   Label("Delete");
 	               }
 	               body : 
-	               for(Dieta dieta in dietaList) {
-	               		Label(dieta.desayuno);
-	               		Label(dieta.almuerzo);
-	               		Label(dieta.cena);
-	               		Label(dieta.merienda);
-	               		Label(dieta.patologia);
-	                   	Button("View")-> viewDieta(dieta);
-	                   	Button("Edit") -> editDieta(dieta);
-	                   	Button("Delete") -> deleteDieta(dieta);
+	               for(Dieta dietaAdaptativa in dietaAdaptativaList) {
+	               		Label(dietaAdaptativa.desayuno);
+	               		Label(dietaAdaptativa.almuerzo);
+	               		Label(dietaAdaptativa.cena);
+	               		Label(dietaAdaptativa.merienda);
+	               		Label(dietaAdaptativa.patologia);
+	                   	Button("View")-> viewDieta(dietaAdaptativa);
+	                   	Button("Edit") -> editDieta(dietaAdaptativa);
+	                   	Button("Delete") -> deleteDieta(dietaAdaptativa);
 	                  
 	          			
 	               }
@@ -35,7 +35,7 @@ page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 	           }
 	        	 
 	
-	        //	Button("Show Map") -> showMap(new Collection<Lugares>);
+	        	Button("Show Map") -> showMap();
 		}
 	} 
 	

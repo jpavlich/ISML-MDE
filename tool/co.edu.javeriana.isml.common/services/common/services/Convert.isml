@@ -1,0 +1,17 @@
+package common.services;
+
+/**
+ * This service provides the basic methods to access a persistent object storage.
+ * In this context, entities are referred as 'objects'.
+ */
+service Convert{
+	
+		native Void convertToText(Any file);
+		
+		native Void convertToAudio(Any file);
+		
+		native Void convertToVideo(Any file);
+		
+		native Void translate(Any file);
+	
+}

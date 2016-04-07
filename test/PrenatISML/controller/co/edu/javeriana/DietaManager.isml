@@ -3,8 +3,8 @@ import co.edu.javeriana.entities.* ;
 
 controller DietaManager {
 	has Persistence<Dieta> persistence;
-	has DietaPersonal dietapersonal;
-	
+	has Persistence<Lugares> persistenceLug;
+	has DietaPersonal dietapersonal;	
 	
 	/**
 	* Lists all instances of Dieta.
@@ -13,8 +13,10 @@ controller DietaManager {
 		show DietaList(persistence.findAll());
 	}
 	
+	
 	default initTest(){
 		-> listAll();
+		
 		
 	}
 
@@ -75,6 +77,11 @@ controller DietaManager {
 	-> listAll();
 	}
 
+	 showMap(Collection<Lugares> model) {
+		model = persistenceLug.selectListResult("tipo", "lug"); 
+		show RestaurantMapView(model, new MapModel);
+	}
+	
 
 	/**
 	* Deletes an instance of Dieta.

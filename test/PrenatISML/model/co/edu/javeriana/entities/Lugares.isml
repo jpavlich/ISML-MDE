@@ -1,0 +1,10 @@
+package co.edu.javeriana.entities;
+
+
+entity Lugares {
+	String coordenada1;
+	String coordenada2;
+	String descripcion;
+	String tipo;
+	
+}
