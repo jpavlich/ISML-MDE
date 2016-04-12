@@ -17,6 +17,7 @@ primitive Array<T> extends Collection<T>;
 primitive Set<T> extends Collection<T>;
 primitive Queue<T> extends Collection<T>;
 primitive Stack<T> extends Collection<T>;
+primitive List<T> extends Collection<T>;
 primitive MapModel;
 
 abstract primitive Map<K, V>;

@@ -82,7 +82,7 @@ controller DietaManager {
 	 	
 	 	Query q = query.select().from("Lugares").where("tipo = 'lug'").and("id=1");
 	 	 
-		Collection<Lugares> model = persistenceLug.execute(q);
+		List<Lugares> model = persistenceLug.execute(q);
 		
 		
 		

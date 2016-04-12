@@ -2,7 +2,7 @@ package co.edu.javeriana;
 import co.edu.javeriana.prenat.resource.*;
 import co.edu.javeriana.entities.* ;
 
-page RestaurantMapView( Collection<Lugares> model, MapModel simpleModel) controlledBy DietaManager  {
+page RestaurantMapView( List<Lugares> model, MapModel simpleModel) controlledBy DietaManager  {
 
 
 	Form {
