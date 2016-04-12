@@ -5,7 +5,7 @@ controller DietaManager {
 	has Persistence<Dieta> persistence;
 	has Persistence<Lugares> persistenceLug;
 	has DietaPersonal dietapersonal;
-	has Query <Lugares>	query;
+	has Query query;
 	
 	/**
 	* Lists all instances of Dieta.
@@ -79,9 +79,12 @@ controller DietaManager {
 	}
 
 	 showMap() {
-		Collection<Lugares> model = persistenceLug.selectListResult("tipo", "lug");
+	 	
+	 	Query q = query.select().from("Lugares").where("tipo = 'lug'").and("id=1");
+	 	 
+		Collection<Lugares> model = persistenceLug.execute(q);
 		
-		query.select().from("lugares").where("tipo","lug");
+		
 		
 		show RestaurantMapView(model, new MapModel);
 	}

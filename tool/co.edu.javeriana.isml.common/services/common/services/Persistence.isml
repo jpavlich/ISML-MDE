@@ -82,5 +82,7 @@ service Persistence < T > {
 	
 	native Collection<T> selectListResult( String field, String value);
 	
-	native Collection<T> execute( String expresion);
+	native Collection<T> execute(Query expresion);
+	
+
 }
