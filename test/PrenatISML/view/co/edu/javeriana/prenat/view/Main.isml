@@ -1,0 +1,16 @@
+package co.edu.javeriana;
+import co.edu.javeriana.prenat.resource.*;
+import co.edu.javeriana.entities.* ;
+
+page Main() controlledBy DietaManager  {
+
+	Form {
+	       Panel("Collection<Dieta>") {
+	
+	        	Button("Mostar Hospitales") -> showHospitales();
+	        	Button("Mostar Tiendas") -> showTiendas();
+	        	Button("Dieta Adaptativa") -> showDietaAdaptativa();
+		}
+	} 
+	
+}

@@ -11,8 +11,8 @@ page RestaurantMapView( List<Lugares> model, MapModel simpleModel) controlledBy 
 	        	GMap("4.627447, -74.063842","15","HYBRID", simpleModel );
 	        
 	        
-	          // Button("return")-> viewDieta(new Dieta);
-	        	
+	           
+	        
 	        	}
 		
 	} 

@@ -78,9 +78,9 @@ controller DietaManager {
 	-> listAll();
 	}
 
-	 showMap() {
+	 showHospitales() {
 	 	
-	 	Query q = query.select().from("Lugares").where("tipo = 'lug'").and("id=1");
+	 	Query q = query.select().from("Lugares").where("tipo = 'lug'");
 	 	 
 		List<Lugares> model = persistenceLug.execute(q);
 		
@@ -88,7 +88,28 @@ controller DietaManager {
 		
 		show RestaurantMapView(model, new MapModel);
 	}
-	
+
+   showTiendas() {
+	 	
+	 	Query q = query.select().from("Lugares").where("tipo = 'lug'");
+	 	 
+		List<Lugares> model = persistenceLug.execute(q);
+		
+		
+		
+		show RestaurantMapView(model, new MapModel);
+	}
+
+	 showDietaAdaptativa() {
+	 	
+	 	Query q = query.select().from("Dieta").where("patologia = 3");
+	 	 
+		List<Dieta> dietaAdaptativaList = persistence.execute(q);
+		
+		
+		show DietaAdaptativa(dietaAdaptativaList);
+	}
+		
 
 	/**
 	* Deletes an instance of Dieta.

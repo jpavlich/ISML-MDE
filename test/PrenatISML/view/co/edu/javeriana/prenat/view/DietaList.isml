@@ -35,7 +35,8 @@ page DietaList( Collection<Dieta> dietaList) controlledBy DietaManager  {
 	           }
 	        	 
 	
-	        	Button("Show Map") -> showMap();
+	        	//Button("Mostar mapa") -> showMap();
+	        	//Button("Dieta Adaptativa") -> showDietaAdaptativa();
 		}
 	} 
 	

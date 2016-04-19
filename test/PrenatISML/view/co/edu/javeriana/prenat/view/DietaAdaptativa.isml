@@ -35,7 +35,6 @@ page DietaAdaptativa( Collection<Dieta> dietaAdaptativaList) controlledBy DietaM
 	           }
 	        	 
 	
-	        	Button("Show Map") -> showMap();
 		}
 	} 
 	
