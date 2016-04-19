@@ -1,0 +1,11 @@
+package co.edu.javeriana ;
+import co.edu.javeriana.entities.* ;
+
+controller AdaptarContenidoController {
+	
+	 has Convert convert ;
+
+
+	default listAll() {
+	}
+}

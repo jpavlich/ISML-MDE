@@ -1,0 +1,12 @@
+package co.edu.javeriana ;
+import co.edu.javeriana.prenat.resource.* ;
+import co.edu.javeriana.entities.* ;
+
+page AdaptarContenido() controlledBy AdaptarContenidoController {
+	Form {
+		Text("Inserte su texto", "", 25, 1) ;
+		Text("Inserte su video", "", 25, 1) ;
+		Text("Texto a traducir", "", 25, 1) ;
+		
+	}
+}
