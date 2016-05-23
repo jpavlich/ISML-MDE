@@ -26,12 +26,16 @@ widget PickList(String title, Any value) ;
 widget Calendar(String label, Date value, Array < Date > markedDates, String dateFormat, Boolean navigator, String
 mode) ;
 widget GMap(String center, String zoom, String type, Any selectionObject);
+widget Media(String value, String width, String height);
 widget Menu(Any text) ;
 
 
 // Composite primitives
 widget Panel(String title) {
 }
+widget PanelGrid(String colums) {
+}
+
 widget PanelButton(String title) {
 }
 widget DataTable(String title, Any selectionObject) {

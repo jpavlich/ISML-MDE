@@ -3,17 +3,21 @@ import co.edu.javeriana.entities.* ;
 
 page ViewDieta(Dieta dieta) controlledBy DietaManager {
 	Panel("Dieta") {
+		PanelGrid("2"){
+		Label("Consulta de dieta");
+		Label("");
 		Label("Desayuno");
-		Label(dieta.desayuno);
+		OutputText("Desayuno",dieta.desayuno);
 		Label("Almuerzo");
-		Label(dieta.almuerzo);
+		OutputText("Almuerzo",dieta.almuerzo);
 		Label("Cena");
-		Label(dieta.cena);
+		OutputText("Cena",dieta.cena);
 		Label("Merienda");
-		Label(dieta.merienda);
+		OutputText("Merienda",dieta.merienda);
 		Label("Patologia");
-		Label(dieta.patologia);
-
+		OutputText("Patologia",dieta.patologia);
+	}
+		Label("");
 		Button("Ok") -> listAll();
 	}
 }

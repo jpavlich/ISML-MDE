@@ -5,70 +5,37 @@ controller DietaManager {
 	has Persistence<Dieta> persistence;
 	has Persistence<Lugares> persistenceLug;
 	has DietaPersonal dietapersonal;
+	has Convert convert;
 	has Query query;
 	
-	/**
-	* Lists all instances of Dieta.
-	*/
 	default listAll() {
 		show DietaList(persistence.findAll());
 	}
 	
-	
 	default initTest(){
-		-> listAll();
-		
-		
+		-> listAll();		
 	}
 
-	/**
-	* Lists instances of Dieta.
-	* @param dietaList The list of instances of Dieta to show.
-	*/
 	listDieta(Collection<Dieta> dietaList) {
 		show DietaList(dietaList);
 	}
-	
-
-
-	
+		
 	createDietaToAdd(Any container, Collection<Dieta> collection) {
 		show CreateDietaToAdd(container, collection, new Dieta);
 			
 	}
-
 	
-	
-
-	/**
-	* Views an instance of Dieta.
-	* @param dieta the Dieta to open.
-	*/		
 	viewDieta(Dieta dieta) {
 		show ViewDieta(dieta);
 	}
-
-
-	/**
-	* Edits an existing instance of Dieta.
-	* @param dieta the Dieta to open.
-	*/			
+		
 	editDieta(Dieta dieta) {
 		show EditDieta(dieta);
 	}
-
-	/**
-	* Creates a a new instance of Dieta.
-	*/			
+		
 	createDieta() {
 		show EditDieta(new Dieta);
-	}
-
-
-	/**
-	* Saves an instance of Dieta.
-	* @param dieta the Dieta to save.
-	*/			
+	}		
 	saveDieta(Dieta dieta) {
 	if(persistence.isPersistent(dieta)){
 		persistence.save(dieta);
@@ -78,35 +45,22 @@ controller DietaManager {
 	-> listAll();
 	}
 
-	 showHospitales() {
-	 	
-	 	Query q = query.select().from("Lugares").where("tipo = 'lug'");
-	 	 
-		List<Lugares> model = persistenceLug.execute(q);
-		
-		
-		
+	 showHospitales() { 	
+	 	Query q = query.select().from("Lugares").where("tipo = 'hospital'");	 	 
+		List<Lugares> model = persistenceLug.execute(q);	
 		show RestaurantMapView(model, new MapModel);
 	}
 
    showTiendas() {
 	 	
-	 	Query q = query.select().from("Lugares").where("tipo = 'lug'");
-	 	 
-		List<Lugares> model = persistenceLug.execute(q);
-		
-		
-		
+	 	Query q = query.select().from("Lugares").where("tipo = 'Tienda'");	 	 
+		List<Lugares> model = persistenceLug.execute(q);		
 		show RestaurantMapView(model, new MapModel);
 	}
 
-	 showDietaAdaptativa() {
-	 	
-	 	Query q = query.select().from("Dieta").where("patologia = 3");
-	 	 
-		List<Dieta> dietaAdaptativaList = persistence.execute(q);
-		
-		
+	 showDietaAdaptativa() { 	
+	 	Query q = query.select().from("Dieta").where("patologia = 3"); 	 
+		List<Dieta> dietaAdaptativaList = persistence.execute(q);		
 		show DietaAdaptativa(dietaAdaptativaList);
 	}
 		
@@ -120,5 +74,27 @@ controller DietaManager {
 		-> listAll();
 	}
 
+	showAdaptarContenido(){
+		convert.convertToVideo(Dieta);	
+		show AdaptarContenido;
+	}
+	
+	 showHospitalesUsuario() { 	
+	 	Query q = query.select().from("Lugares").where("tipo = 'hospitalUsu'");	 	 
+		List<Lugares> model = persistenceLug.execute(q);	
+		show RestaurantMapViewUsu(model, new MapModel);
+	}
 
+   showTiendasUsuario() {
+	 	
+	 	Query q = query.select().from("Lugares").where("tipo = 'TiendaUsu'");	 	 
+		List<Lugares> model = persistenceLug.execute(q);		
+		show RestaurantMapViewUsu(model, new MapModel);
+	}
+
+	 showDietaAdaptativaUsuario() { 	
+	 	Query q = query.select().from("Dieta").where("patologia = 2"); 	 
+		List<Dieta> dietaAdaptativaList = persistence.execute(q);		
+		show DietaAdaptativa(dietaAdaptativaList);
+	}
 }
