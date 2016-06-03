@@ -4,9 +4,7 @@ import co.edu.javeriana.entities.* ;
 
 page AdaptarContenido() controlledBy AdaptarContenidoController {
 	Form {
-		Text("Inserte su texto", "", 25, 1) ;
-		Text("Inserte su video", "", 25, 1) ;
-		Text("Texto a traducir", "", 25, 1) ;
+		Media("http://www.youtube.com/v/KZnUr8lcqjo","420","315");
 		
 	}
 }

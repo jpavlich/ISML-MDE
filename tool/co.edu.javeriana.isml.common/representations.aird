@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xmi:id="_mhGh8H9WEeWxfO7UbSKS2Q" version="10.0.0.201505222000">
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xmi:id="_mhGh8H9WEeWxfO7UbSKS2Q" version="10.1.0.201509162000">
   <semanticResources>controller/common/controllers/DefaultPageDispatcher.isml</semanticResources>
   <semanticResources>model/common/primitives/Primitives.isml</semanticResources>
   <semanticResources>model/common/primitives/Constraints.isml</semanticResources>
   <semanticResources>services/common/services/Persistence.isml</semanticResources>
   <semanticResources>view/common/widgets/PrimitiveWidgets.isml</semanticResources>
+  <semanticResources>services/common/services/Query.isml</semanticResources>
 </viewpoint:DAnalysis>

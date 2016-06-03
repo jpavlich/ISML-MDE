@@ -10,6 +10,7 @@ page Main() controlledBy DietaManager  {
 	        	Button("Mostar Hospitales") -> showHospitales();
 	        	Button("Mostar Tiendas") -> showTiendas();
 	        	Button("Dieta Adaptativa") -> showDietaAdaptativa();
+	        	Button("Adaptar") -> showAdaptarContenido();
 		}
 	} 
 	

@@ -3,12 +3,16 @@ import co.edu.javeriana.entities.* ;
 
 page EditDieta(Dieta dieta) controlledBy DietaManager  {
 	Form {
+		PanelGrid("2"){
+		Label("Edición de dieta");
+		Label("");
 		Text("Desayuno", dieta.desayuno, 25, 1);
 		Text("Almuerzo", dieta.almuerzo, 25, 1);
 		Text("Cena", dieta.cena, 25, 1);
 		Text("Merienda", dieta.merienda, 25, 1);
 		Text("Patologia", dieta.patologia, 10, 1);
-		
+		}
+		Label("");
 		Button("Save") -> saveDieta(dieta);
 		Button("Cancel") -> listAll();
 	}

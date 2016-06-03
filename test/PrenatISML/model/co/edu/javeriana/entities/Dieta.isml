@@ -7,5 +7,9 @@ entity Dieta {
     String cena;
     String merienda;
     Integer patologia;
-	
+	String breakfast;
+    String lunch;
+    String dinner;
+    String snack;
+    String media;
 }
