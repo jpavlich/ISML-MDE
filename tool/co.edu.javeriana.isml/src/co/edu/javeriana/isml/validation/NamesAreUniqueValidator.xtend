@@ -68,7 +68,7 @@ class NamesAreUniqueValidator extends AbstractDeclarativeValidator {
 	def getDuplicatableNamedElements(InformationSystem is) {
 		// Packages are not tracked, since they can be duplicated, i.e., two isml files may have the same declared pacakge
 		// same with generic types
-		is.eAllContents.toIterable.filter(NamedElement).filter[_|_.name != null && !_.isPackage && !_.isGenericType]
+		is.eAllContents.toIterable.filter(NamedElement).filter[x|x.name != null && !x.isPackage && !x.isGenericType]
 	}
 
 	override def List<EPackage> getEPackages() {

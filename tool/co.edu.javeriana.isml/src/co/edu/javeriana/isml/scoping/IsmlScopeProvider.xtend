@@ -126,8 +126,8 @@ class IsmlScopeProvider extends AbstractDeclarativeScopeProvider {
 			val controllers = caller.eResource.resourceSet.getAllInstances(Controller)
 			val candidateActions = controllers.map[getActions].flatten
 			val actions = (candidateActions).filterCongruent(caller)
-			scope = Scopes::scopeFor(actions, [ _ |
-				QualifiedName.create(_.containerController.name).append(_.name)
+			scope = Scopes::scopeFor(actions, [ x |
+				QualifiedName.create(x.containerController.name).append(x.name)
 			], scope)
 			val controller = caller.containerController
 			if(controller != null) {

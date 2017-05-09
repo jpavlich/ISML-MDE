@@ -82,7 +82,7 @@ class GenericsTest extends CommonTests {
 		}
 		'''.parse(rs)
 		
-		rs.resources.forEach[_ | _.contents.get(0).assertNoErrors]
+		rs.resources.forEach[x | x.contents.get(0).assertNoErrors]
 	}
 	
 	@Test def void genericsInstantiation() {
@@ -114,7 +114,7 @@ class GenericsTest extends CommonTests {
 		'''.parse(rs)
 		
 		
-		rs.resources.forEach[_ | _.contents.get(0).assertNoErrors]
+		rs.resources.forEach[x | x.contents.get(0).assertNoErrors]
 	}
 	
 	@Test def void wrongNumOfTypeParameters() {

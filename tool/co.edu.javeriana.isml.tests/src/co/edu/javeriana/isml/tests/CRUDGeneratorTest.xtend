@@ -37,6 +37,6 @@ class CRUDGeneratorTest extends CommonTests {
 				Integer num;
 			}
 		'''.parse(rs)
-		rs.resources.forEach[_ | _.contents.head.assertNoErrors]
+		rs.resources.forEach[x | x.contents.head.assertNoErrors]
 	}
 }

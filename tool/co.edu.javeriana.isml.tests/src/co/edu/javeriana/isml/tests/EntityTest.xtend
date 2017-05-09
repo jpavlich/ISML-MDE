@@ -45,11 +45,11 @@ class EntityTest extends CommonTests {
 		is.assertNoErrors
 		val pkg = is.components.head.cast(Package)
 		assertEquals("test", pkg.name);
-		assertArrayEquals(#["Parent", "Parent2", "MyEntity"], pkg.components.map[_|_.name])
+		assertArrayEquals(#["Parent", "Parent2", "MyEntity"], pkg.components.map[x|x.name])
 		val entity = pkg.components.get(2).cast(Entity)
-		assertArrayEquals(#["name", "num"], entity.body.filter(Attribute).map[_|_.name])
-		assertArrayEquals(#["String", "Integer"], entity.body.filter(Attribute).map[_|_.type.typeSpecification.name])
-		assertArrayEquals(#["Parent", "Parent2"], entity.superTypes.map[_|_.typeSpecification.name])
+		assertArrayEquals(#["name", "num"], entity.body.filter(Attribute).map[x|x.name])
+		assertArrayEquals(#["String", "Integer"], entity.body.filter(Attribute).map[x|x.type.typeSpecification.name])
+		assertArrayEquals(#["Parent", "Parent2"], entity.superTypes.map[x|x.typeSpecification.name])
 	}
 
 }

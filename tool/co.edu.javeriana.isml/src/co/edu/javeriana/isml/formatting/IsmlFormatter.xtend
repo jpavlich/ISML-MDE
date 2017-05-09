@@ -67,11 +67,11 @@ class IsmlFormatter extends AbstractDeclarativeFormatter {
 
 
 
-		grammar.findKeywords('else').forEach[_|c.setSpace(" ").before(_)]
-		grammar.findKeywords('before').forEach[_|c.setLinewrap(1, 2, 3).before(_)]
-		grammar.findKeywords('after').forEach[_|c.setLinewrap(1, 2, 3).before(_)]
-		grammar.findKeywords('resources').forEach[_|c.setLinewrap(1, 2, 3).before(_)]
-		grammar.findKeywords('=').forEach[_|c.setSpace(" ").around(_)]
+		grammar.findKeywords('else').forEach[x|c.setSpace(" ").before(x)]
+		grammar.findKeywords('before').forEach[x|c.setLinewrap(1, 2, 3).before(x)]
+		grammar.findKeywords('after').forEach[x|c.setLinewrap(1, 2, 3).before(x)]
+		grammar.findKeywords('resources').forEach[x|c.setLinewrap(1, 2, 3).before(x)]
+		grammar.findKeywords('=').forEach[x|c.setSpace(" ").around(x)]
 
 		for (comma : grammar.findKeywords(",")) {
 			c.setNoSpace().before(comma);

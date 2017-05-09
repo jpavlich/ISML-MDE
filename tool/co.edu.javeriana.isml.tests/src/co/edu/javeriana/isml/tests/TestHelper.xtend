@@ -20,7 +20,7 @@ class TestHelper {
 	
 	def void assertNoSyntaxErrors(EObject obj) {
 		val errors = obj.validate
-		val syntaxErrors = errors.filter[_ | _.isSyntaxError]
+		val syntaxErrors = errors.filter[x | x.isSyntaxError]
 		if (syntaxErrors.size > 0) {
 			fail("Found syntax errors: " + syntaxErrors)			
 		}

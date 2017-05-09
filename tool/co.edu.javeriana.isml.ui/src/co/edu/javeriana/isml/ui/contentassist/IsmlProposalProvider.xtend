@@ -16,7 +16,7 @@ import org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor
 class IsmlProposalProvider extends AbstractIsmlProposalProvider {
 	
 	override completeResourceAssignment_Left(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ _ | _.EObjectOrProxy instanceof Resource] )
+		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ x | x.EObjectOrProxy instanceof Resource] )
 	} 
 	
 	

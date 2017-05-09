@@ -234,14 +234,14 @@ class IsmlModelNavigation {
 	}
 
 	def Iterable<TypeSpecification> getSuperTypeSpecifications(TypeSpecification typeSpec) {
-		typeSpec.superTypes.map[_|_.typeSpecification]
+		typeSpec.superTypes.map[x|x.typeSpecification]
 	}
 
 	// Get all features
 	def dispatch Set<TypedElement> getAllFeatures(Controller c) {
 		val features = new LinkedHashSet<TypedElement>
 		features.addAll(c.allTypeSpecificationFeatures)
-		c.unnamedServices.forEach[_|features.addAll(_.allFeatures)]
+		c.unnamedServices.forEach[x|features.addAll(x.allFeatures)]
 
 		return features
 	}
@@ -357,8 +357,8 @@ class IsmlModelNavigation {
 	}
 
 	def Iterable<IEObjectDescription> filterByClass(Iterable<IEObjectDescription> descriptions, Class<?> c) {
-		return descriptions.filter [ _ |
-			c.isInstance(_.getEObjectOrProxy)
+		return descriptions.filter [ x |
+			c.isInstance(x.getEObjectOrProxy)
 		]
 	}
 
@@ -371,7 +371,7 @@ class IsmlModelNavigation {
 	}
 
 	def Iterable<Feature> getServices(CompositeTypeSpecification<?> c) {
-		return c.features.filter[_|_.type?.typeSpecification instanceof Service]
+		return c.features.filter[x|x.type?.typeSpecification instanceof Service]
 	}
 
 	def Iterable<Feature> getServices(Reference r) {
@@ -393,19 +393,19 @@ class IsmlModelNavigation {
 	}
 
 	private def <T extends TypedElement> Iterable<T> filterUnnamed(Iterable<T> s) {
-		return s.filter[_|_.name == null]
+		return s.filter[x|x.name == null]
 	}
 
 	private def <T extends TypedElement> Iterable<T> filterNamed(Iterable<T> s) {
-		return s.filter[_|_.name != null]
+		return s.filter[x|x.name != null]
 	}
 
 	def Iterable<Service> getUnnamedServices(Reference r) {
-		return r.services.filterUnnamed.map[_|_.type.typeSpecification].filter(Service)
+		return r.services.filterUnnamed.map[x|x.type.typeSpecification].filter(Service)
 	}
 
 	def Iterable<Service> getUnnamedServices(Controller c) {
-		return c.services.filterUnnamed.map[_|_.type.typeSpecification].filter(Service)
+		return c.services.filterUnnamed.map[x|x.type.typeSpecification].filter(Service)
 	}
 
 	/** Finds ancestor of certain types. 
@@ -488,7 +488,7 @@ class IsmlModelNavigation {
 
 	def Collection<Method> getAllMethods(Controller c) {
 		val methods = new LinkedHashSet<Method>
-		c.unnamedServices.forEach(_|methods.addAll(_.allMethods))
+		c.unnamedServices.forEach(x|methods.addAll(x.allMethods))
 		return methods
 	}
 
@@ -543,7 +543,7 @@ class IsmlModelNavigation {
 	}
 
 	def <T extends NamedElement> findByName(EList<T> elements, String name) {
-		elements.findFirst[_|_.name.equals(name)]
+		elements.findFirst[x|x.name.equals(name)]
 	}
 
 	def ForView getForViewInBody(ViewInstance i) {
@@ -771,7 +771,7 @@ class IsmlModelNavigation {
 
 		// Obtiene la lista de todas las acciones referenciasdas por ViewInstances contenidas dentro del ViewBlock
 		val showActions = new ArrayList<Action>
-		val actions = page.eAllContents.filter(ViewInstance).filter[_|_.actionCall != null].map[_|_.actionCall.action].
+		val actions = page.eAllContents.filter(ViewInstance).filter[x|x.actionCall != null].map[x|x.actionCall.action].
 			toIterable
 
 		for (action : actions) {
